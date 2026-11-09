@@ -449,6 +449,7 @@
       .tb-Kp{background:#b97a1d}
       .tb-Rs{background:#c2483a}
       .tb-Sx{background:#a02030}
+      .tb-none{background:#596158}
       .pbar-name{font-weight:800; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
       .pbar-elo{flex:none; color:var(--muted); font-weight:700; font-size:13.5px; font-variant-numeric:tabular-nums}
       .pbar-caps{font-size:15.5px; line-height:1.3; min-height:20px; margin-top:1px; word-break:break-all}
@@ -990,12 +991,12 @@
               <div class="grid2" style="gap:12px" id="chessCpuOpts">
                 <div class="field"><label for="chessDiff">Bot / Coach Lawan</label>
                   <select class="input" id="chessDiff">
-                    <option value="0">Bimo · Bc · ELO 550–699</option>
-                    <option value="1">Salsa · Cs · ELO 800–999</option>
-                    <option value="2" selected>Damar · Db · ELO 1000–1200</option>
-                    <option value="3">Kirana · Kp · ELO 1350–1550</option>
-                    <option value="4">Raka · Rs · ELO 1600–1800</option>
-                    <option value="5">Zora · Sx · ELO 1900–2100</option>
+                    <option value="0">Bimo · Bc · ELO 1200–1449</option>
+                    <option value="1">Salsa · Cs · ELO 1450–1699</option>
+                    <option value="2" selected>Damar · Db · ELO 1700–1949</option>
+                    <option value="3">Kirana · Kp · ELO 1950–2199</option>
+                    <option value="4">Raka · Rs · ELO 2200–2399</option>
+                    <option value="5">Zora · Sx · ELO 2400–2500</option>
                   </select>
                 </div>
                 <div class="field"><label for="chessSide">Kamu Main Sebagai</label>
@@ -1004,8 +1005,8 @@
                     <option value="b">Hitam</option>
                   </select>
                 </div>
-                <div class="field" style="grid-column:1/-1"><label for="chessBotElo">ELO Bot yang Dipilih: <b id="chessBotEloVal">1100</b> · <span id="chessBotEloTitle">Db Dalang Bidak</span></label>
-                  <input type="range" class="chess-range" id="chessBotElo" min="100" max="2500" step="10" value="1100">
+                <div class="field" style="grid-column:1/-1"><label for="chessBotElo">ELO Bot yang Dipilih: <b id="chessBotEloVal">1800</b> · <span id="chessBotEloTitle">Db Dalang Bidak</span></label>
+                  <input type="range" class="chess-range" id="chessBotElo" min="100" max="2500" step="10" value="1800">
                   <div style="font-size:12px; color:var(--muted); margin-top:2px">Geser untuk mengatur kekuatan bot: 100 paling mudah, 2500 paling kuat. ELO bot saat main bisa bergeser acak ±25 dari angka ini.</div>
                 </div>
               </div>
@@ -1058,13 +1059,14 @@
                     <option value="b">Hitam</option>
                   </select>
                 </div>
+                <button class="btn btn-gold" id="chessPlayOnline" type="button" style="width:100%; margin:2px 0 12px; font-size:15.5px; padding:12px 14px">Main Online — Cari Lawan Acak</button>
                 <div class="rowflex between" style="margin:4px 0 10px">
                   <b style="font-size:14.5px">Lobi Online</b>
                   <span class="score-pill"><span style="color:var(--green2)">&#9679;</span>&nbsp;<b id="chessOnlineCount">0</b>&nbsp;pemain online</span>
                   <button class="btn btn-ghost btn-sm" id="chessLobbyRefresh" type="button">Segarkan Lobi</button>
                 </div>
                 <div id="chessLobby"></div>
-                <div class="online-note">Tekan <b>Partai Baru</b> untuk masuk antrean — layar pencarian lawan akan tampil sampai pemain lain ditemukan — atau tekan <b>Tantang</b> pada pemain di lobi. Catatan jujur: halaman ini statis tanpa server, jadi mode Online adalah <b>simulasi</b> — "pemain dunia" di lobi dimainkan oleh komputer dengan nama, negara, bendera, dan ELO mereka, belum pertandingan langsung antar orang beneran.</div>
+                <div class="online-note">Tekan <b>Main Online</b> untuk masuk antrean. Matchmaking <b>mengutamakan pemain asli</b> yang sedang online lebih dulu; kalau setelah menunggu tidak ada pemain asli yang ditemukan, barulah <b>bot pengganti</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu "Tidak ada pemain asli, melawan bot"). Kamu tidak memilih lawan: nama, negara, bendera, title, dan ELO lawan (acak 100–2500) ditentukan saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. Daftar lobi di atas hanya pajangan pemain yang sedang online. Catatan jujur: halaman ini statis tanpa server, jadi pemain asli dari perangkat lain belum bisa benar-benar terhubung (itu butuh server) — antrean pemain asli akan selalu kosong dan bot pengganti yang masuk; mode Online ini <b>simulasi</b> alur matchmaking-nya.</div>
               </div>
               <div class="scorebar">
                 <span class="score-pill" id="chessTurnPill">Giliran: <b>Putih</b></span>
@@ -1126,12 +1128,13 @@
               </div>
               <div class="chess-titles">
                 <div class="ct-title">Title Seru-Seruan (dari ELO kamu &amp; coach)</div>
-                <div><b>Bc</b> Bidak Cekatan — ELO 0–699</div>
-                <div><b>Cs</b> Catur Sigap — ELO 700–999</div>
-                <div><b>Db</b> Dalang Bidak — ELO 1000–1299</div>
-                <div><b>Kp</b> Komandan Papan — ELO 1300–1599</div>
-                <div><b>Rs</b> Raja Strategi — ELO 1600–1899</div>
-                <div><b>Sx</b> Sultan Skakmat — ELO 1900 ke atas</div>
+                <div><b>—</b> Belum ada title — ELO di bawah 1200</div>
+                <div><b>Bc</b> Bidak Cekatan — ELO 1200–1449</div>
+                <div><b>Cs</b> Catur Sigap — ELO 1450–1699</div>
+                <div><b>Db</b> Dalang Bidak — ELO 1700–1949</div>
+                <div><b>Kp</b> Komandan Papan — ELO 1950–2199</div>
+                <div><b>Rs</b> Raja Strategi — ELO 2200–2399</div>
+                <div><b>Sx</b> Sultan Skakmat — ELO 2400 ke atas</div>
                 <div style="color:var(--muted); margin-top:4px">Title ini cuma buat gaya-gayaan di game ini — bukan gelar catur resmi. Memilih coach mengisi slider ELO di rentang coach itu, tapi kamu bebas menggeser slider ELO bot sendiri dari 100 sampai 2500.</div>
               </div>
             </div>
@@ -1590,7 +1593,7 @@
       $("rec-chess").textContent = S.bests.chess || 0;
       var eloNow = (S.chess && S.chess.elo) || 800;
       if($("best-elo")) $("best-elo").textContent = eloNow;
-      if($("rec-elo")) $("rec-elo").textContent = eloNow + (typeof chTitleFor === "function" ? " (" + chTitleFor(eloNow).code + ")" : "");
+      if($("rec-elo")) $("rec-elo").textContent = eloNow + (typeof chTitleFor === "function" ? (chTitleFor(eloNow).none ? " (belum ada title)" : " (" + chTitleFor(eloNow).code + ")") : "");
       if($("rec-chess-wl")) $("rec-chess-wl").textContent = (S.chess.w || 0) + " / " + (S.chess.d || 0) + " / " + (S.chess.l || 0);
       if($("rec-chess-online")) $("rec-chess-online").textContent = (S.chess.ow || 0) + " / " + (S.chess.od || 0) + " / " + (S.chess.ol || 0);
       $("snakeBest").textContent = S.bests.snake;
@@ -2293,25 +2296,28 @@
        Title di bawah ini gelar buatan khusus game ini (bukan gelar
        catur resmi), didapat dari ELO. ELO pemain & bot: 100–2500. */
     var CH_TITLES = [
-      { code:"Bc", name:"Bidak Cekatan", min:0 },
-      { code:"Cs", name:"Catur Sigap", min:700 },
-      { code:"Db", name:"Dalang Bidak", min:1000 },
-      { code:"Kp", name:"Komandan Papan", min:1300 },
-      { code:"Rs", name:"Raja Strategi", min:1600 },
-      { code:"Sx", name:"Sultan Skakmat", min:1900 }
+      { code:"Bc", name:"Bidak Cekatan", min:1200 },
+      { code:"Cs", name:"Catur Sigap", min:1450 },
+      { code:"Db", name:"Dalang Bidak", min:1700 },
+      { code:"Kp", name:"Komandan Papan", min:1950 },
+      { code:"Rs", name:"Raja Strategi", min:2200 },
+      { code:"Sx", name:"Sultan Skakmat", min:2400 }
     ];
+    /* Di bawah ELO 1200 belum ada title — title terendah (Bc) baru
+       didapat saat ELO mencapai 1200. */
+    var CH_NO_TITLE = { code:"—", name:"Belum Ada Title", min:1200, none:true };
     function chTitleFor(elo){
-      var t = CH_TITLES[0];
+      var t = null;
       for(var i=0;i<CH_TITLES.length;i++) if(elo >= CH_TITLES[i].min) t = CH_TITLES[i];
-      return t;
+      return t || CH_NO_TITLE;
     }
     var CH_COACHES = [
-      { name:"Bimo", lo:550, hi:699 },
-      { name:"Salsa", lo:800, hi:999 },
-      { name:"Damar", lo:1000, hi:1200 },
-      { name:"Kirana", lo:1350, hi:1550 },
-      { name:"Raka", lo:1600, hi:1800 },
-      { name:"Zora", lo:1900, hi:2100 }
+      { name:"Bimo", lo:1200, hi:1449 },
+      { name:"Salsa", lo:1450, hi:1699 },
+      { name:"Damar", lo:1700, hi:1949 },
+      { name:"Kirana", lo:1950, hi:2199 },
+      { name:"Raka", lo:2200, hi:2399 },
+      { name:"Zora", lo:2400, hi:2500 }
     ];
     var CH_GUEST_ELO = 800;
     function chEloClamp(v){ return Math.max(100, Math.min(2500, Math.round(v))); }
@@ -2446,7 +2452,9 @@
       }
       return '<div class="pbar-av ' + c + '"><span class="chess-pc ' + c + '">' + (c === "w" ? CH_GLYPH.P : CH_GLYPH.p) + "</span></div>" +
         '<div class="pbar-mid"><div class="pbar-nameline">' +
-        '<span class="pbar-badge tb-' + t.code + '" title="' + t.code + " " + t.name + " — didapat di ELO " + t.min + ' ke atas">' + t.code + "</span>" +
+        (t.none
+          ? '<span class="pbar-badge tb-none" title="Belum ada title — title pertama Bc Bidak Cekatan didapat di ELO 1200">—</span>'
+          : '<span class="pbar-badge tb-' + t.code + '" title="' + t.code + " " + t.name + " — didapat di ELO " + t.min + ' ke atas">' + t.code + "</span>") +
         '<span class="pbar-name">' + escHtml(chNameOf(c) || (c === "w" ? "Putih" : "Hitam")) + "</span>" + flagHtml +
         '<span class="pbar-elo">(' + elo + ")</span></div>" +
         '<div class="pbar-caps">' + capsHtml + "</div></div>" +
@@ -2529,7 +2537,7 @@
         }
         save();
         var t = chTitleFor(newElo);
-        CH.eloLine = "ELO kamu: " + oldElo + " → " + newElo + " (" + (newElo - oldElo >= 0 ? "+" : "") + (newElo - oldElo) + ") · Title kamu: " + t.code + " " + t.name;
+        CH.eloLine = "ELO kamu: " + oldElo + " → " + newElo + " (" + (newElo - oldElo >= 0 ? "+" : "") + (newElo - oldElo) + ") · Title kamu: " + (t.none ? "belum ada — capai ELO 1200 untuk title pertama (Bc Bidak Cekatan)" : t.code + " " + t.name);
       } else {
         var wScore = winner === null ? 0.5 : winner === "w" ? 1 : 0;
         var eW = (S.chess && S.chess.elo) || 800, eB = CH_GUEST_ELO;
@@ -2562,7 +2570,7 @@
         var bt = chTitleFor(CH.botElo || 0);
         if(CH.mode === "online"){
           var oFlag = CH.human === "w" ? CH.flagB : CH.flagW, oCty = CH.human === "w" ? CH.ctyB : CH.ctyW;
-          html += "<div>Mode Online (simulasi) — lawan: " + oFlag + " <b>" + escHtml(CH.botName) + "</b> dari " + escHtml(oCty) + "</div>";
+          html += "<div>Mode Online (simulasi) — lawan: " + oFlag + " <b>" + escHtml(CH.botName) + "</b> dari " + escHtml(oCty) + (CH.oppFallback ? " · <b>bot pengganti</b> (tidak ada pemain asli yang online saat matchmaking)" : "") + "</div>";
         }
         html += "<div>Akurasi kamu: <b>" + (accYou == null ? "—" : accYou + "%") + "</b> · Akurasi " + CH.botName + " (" + bt.code + " · ELO " + CH.botElo + "): <b>" + (accBot == null ? "—" : accBot + "%") + "</b></div>";
         html += "<div>Langkah kamu: " + chessTagLine(CH.human) + "</div>";
@@ -2708,11 +2716,11 @@
       chessOptsToggle();
       /* Mode Online: masuk antrean dulu — layar pencarian lawan tampil
          sampai "pemain lain" ditemukan, baru partai dimulai. */
-      if(CH.mode === "online" && !CH_QUEUE_OPP){ chessQueueStart(null); return; }
+      if(CH.mode === "online" && !CH_QUEUE_OPP){ chessQueueStart(); return; }
       CH.coachIdx = parseInt($("chessDiff").value, 10);
       if(isNaN(CH.coachIdx) || !CH_COACHES[CH.coachIdx]) CH.coachIdx = 2;
       CH.botName = CH_COACHES[CH.coachIdx].name;
-      var sliderElo = parseInt($("chessBotElo").value, 10) || 1100;
+      var sliderElo = parseInt($("chessBotElo").value, 10) || 1800;
       CH.botElo = chEloClamp(sliderElo + Math.floor(Math.random() * 51) - 25);
       CH.diff = CH.botElo >= 1400 ? 3 : CH.botElo >= 800 ? 2 : 1;
       CH.human = $("chessSide").value;
@@ -2725,6 +2733,7 @@
         CH.flagW = ""; CH.flagB = ""; CH.ctyW = ""; CH.ctyB = "";
       } else if(CH.mode === "online"){
         var opp = CH_QUEUE_OPP; CH_QUEUE_OPP = null;
+        CH.oppFallback = !!opp.fallback;
         var sideSel = $("chessSideOnline") ? $("chessSideOnline").value : "random";
         CH.human = sideSel === "random" ? (Math.random() < 0.5 ? "w" : "b") : sideSel;
         CH.botName = opp.name;
@@ -2757,6 +2766,7 @@
       CH.counted = false; CH.awarded = false; CH.lastFrom = -1; CH.lastTo = -1;
       CH.tags = []; CH.losses = []; CH.lossSum = {w:0,b:0}; CH.lossCnt = {w:0,b:0}; CH.tagCnt = {w:{},b:{}};
       CH.eloDone = false; CH.eloLine = ""; CH.accW = null; CH.accB = null; CH.lastChat = -9;
+      if(CH.mode !== "online") CH.oppFallback = false;
       $("chessSummary").classList.add("hidden");
       $("chessReview").classList.add("hidden");
       $("chessBotChat").classList.add("hidden");
@@ -2959,9 +2969,9 @@
       var pool = CH_COUNTRIES.filter(function(c){ return !region || region === "all" || c.region === region; });
       if(!pool.length) pool = CH_COUNTRIES;
       var c = pool[Math.floor(Math.random() * pool.length)];
-      var myElo = (S.chess && S.chess.elo) || 800;
-      var elo = chEloClamp(myElo + Math.floor(Math.random() * 641) - 320);
-      elo = Math.max(100, Math.min(2500, Math.round(elo / 10) * 10));
+      /* Lawan sepenuhnya acak: nama, negara, dan ELO-nya (100–2500)
+         diacak setiap matchmaking — kekuatannya tidak bisa ditebak. */
+      var elo = 100 + Math.floor(Math.random() * 241) * 10;
       return { name: c.names[Math.floor(Math.random() * c.names.length)], flag: c.flag, country: c.country, region: c.region, elo: elo };
     }
     function chessOptsToggle(){
@@ -2972,7 +2982,12 @@
       $("chessQuickChat").classList.toggle("hidden", m !== "online");
       if(m === "online") chessLobbyRender();
     }
-    function chessQueueStart(presetOpp){
+    /* Matchmaking acak berprioritas: pemain asli yang sedang online
+       dicari lebih dulu; kalau setelah menunggu tidak ada pemain asli
+       yang ditemukan, barulah bot yang mengisi sebagai lawan pengganti.
+       Pemain tidak memilih lawan — lawan acak (nama, negara, bendera,
+       title, dan ELO acak). */
+    function chessQueueStart(){
       var q = $("chessQueue"), st = $("chessQueueStatus");
       if(!q) return;
       chessQueueCancel(true);
@@ -2980,27 +2995,26 @@
       q.classList.remove("hidden");
       var regionSel = $("chessRegion") ? $("chessRegion").value : "all";
       var regionName = regionSel === "all" ? "semua dunia" : regionSel;
-      var steps = presetOpp
-        ? ["Mengirim tantangan ke " + presetOpp.flag + " " + presetOpp.name + "…",
-           "Menunggu " + presetOpp.name + " menerima tantanganmu…",
-           presetOpp.name + " sedang melihat profil ELO kamu…"]
-        : ["Menghubungkan ke lobi online…",
-           "Mencari pemain di region " + regionName + "…",
-           "Menunggu pemain lain menerima pertandingan…",
+      var steps = ["Menghubungkan ke lobi online…",
+           "Mencari pemain asli yang sedang online di region " + regionName + "…",
+           "Masih mencari pemain asli — menunggu ada yang masuk antrean…",
+           "Tidak ada pemain asli yang ditemukan — mencarikan lawan bot pengganti…",
            "Menyamakan jam catur kedua pemain…"];
       var si = 0;
       st.textContent = steps[0];
       CH_QUEUE_STEP = setInterval(function(){
         si = Math.min(si + 1, steps.length - 1);
         st.textContent = steps[si];
-      }, 1300);
-      var total = presetOpp ? 2200 + Math.random() * 1600 : 3600 + Math.random() * 2800;
+      }, 1400);
+      var total = 5600 + Math.random() * 2400;
       CH_QUEUE_TIMER = setTimeout(function(){
         clearInterval(CH_QUEUE_STEP); CH_QUEUE_STEP = null; CH_QUEUE_TIMER = null;
         if(!$("chessMode") || $("chessMode").value !== "online"){ q.classList.add("hidden"); return; }
-        CH_QUEUE_OPP = presetOpp || chRandomOpp(regionSel);
+        /* Antrean pemain asli kosong → bot mengisi sebagai pengganti. */
+        CH_QUEUE_OPP = chRandomOpp(regionSel);
+        CH_QUEUE_OPP.fallback = true;
         q.classList.add("hidden");
-        toast("Lawan ditemukan: " + CH_QUEUE_OPP.flag + " " + CH_QUEUE_OPP.name + " dari " + CH_QUEUE_OPP.country + " (ELO " + CH_QUEUE_OPP.elo + ")");
+        toast("Tidak ada pemain asli yang online — kamu melawan bot pengganti: " + CH_QUEUE_OPP.flag + " " + CH_QUEUE_OPP.name + " dari " + CH_QUEUE_OPP.country + " (ELO " + CH_QUEUE_OPP.elo + ")");
         chessNewGame();
       }, total);
     }
@@ -3023,25 +3037,14 @@
         var t = chTitleFor(o.elo);
         html += '<div class="lobby-row"><span class="lobby-flag">' + o.flag + '</span><div class="lobby-mid">' +
           '<div class="lobby-name">' + escHtml(o.name) + ' <span class="pbar-elo">(' + o.elo + ')</span></div>' +
-          '<div class="lobby-sub">' + escHtml(o.country) + ' · ' + t.code + ' ' + t.name + '</div></div>' +
+          '<div class="lobby-sub">' + escHtml(o.country) + ' · ' + (t.none ? t.name : t.code + ' ' + t.name) + '</div></div>' +
           (o.status === "busy"
             ? '<span class="lobby-status ls-busy">Sedang Main</span>'
-            : '<span class="lobby-status ' + (o.status === "ready" ? "ls-ready\">Di Lobi" : "ls-wait\">Menunggu Lawan") + '</span><button class="btn btn-gold btn-sm" type="button" data-challenge="' + i + '">Tantang</button>') +
+            : '<span class="lobby-status ' + (o.status === "ready" ? "ls-ready\">Di Lobi" : "ls-wait\">Menunggu Lawan") + '</span>') +
           '</div>';
       }
       box.innerHTML = html;
       var cnt = $("chessOnlineCount"); if(cnt) cnt.textContent = 84 + Math.floor(Math.random() * 180);
-      box.querySelectorAll("[data-challenge]").forEach(function(b){
-        b.addEventListener("click", function(){
-          var o = CH_LOBBY[parseInt(b.getAttribute("data-challenge"), 10)];
-          if(!o) return;
-          if(!CH) CH = chNewState();
-          $("chessMode").value = "online";
-          chessOptsToggle();
-          chessQueueStart(o);
-          $("chessBoard").scrollIntoView({ behavior:"smooth", block:"center" });
-        });
-      });
     }
     /* Lawan (bot coach / pemain online) berbicara lewat kotak chat yang sama. */
     function chLawanSay(text){
@@ -3683,15 +3686,22 @@
       $("chessDraw").addEventListener("click", function(){ chessOfferDraw(); });
       $("chessQueueCancel").addEventListener("click", function(){ chessQueueCancel(false); });
       $("chessLobbyRefresh").addEventListener("click", function(){ chessLobbyRender(); toast("Lobi disegarkan — daftar pemain online terbaru sudah tampil."); });
+      $("chessPlayOnline").addEventListener("click", function(){
+        if(!CH) CH = chNewState();
+        var ms = $("chessMode");
+        if(ms.value !== "online"){ ms.value = "online"; ms.dispatchEvent(new Event("change")); }
+        chessNewGame();
+        $("chessBoard").scrollIntoView({ behavior:"smooth", block:"center" });
+      });
       $("chessRegion").addEventListener("change", function(){ chessLobbyRender(); });
       $$("#chessQuickChat [data-qc]").forEach(function(b){
         b.addEventListener("click", function(){ chessQuickChat(b.getAttribute("data-qc")); });
       });
       function chessBotEloPreview(){
-        var v = parseInt($("chessBotElo").value, 10) || 1100;
+        var v = parseInt($("chessBotElo").value, 10) || 1800;
         $("chessBotEloVal").textContent = v;
         var t = chTitleFor(v);
-        $("chessBotEloTitle").textContent = t.code + " " + t.name;
+        $("chessBotEloTitle").textContent = t.none ? "Belum Ada Title (di bawah 1200)" : t.code + " " + t.name;
       }
       $("chessBotElo").addEventListener("input", chessBotEloPreview);
       $("chessDiff").addEventListener("change", function(){
