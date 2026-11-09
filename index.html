@@ -594,6 +594,18 @@
       .chess-sq.pmsel{box-shadow:inset 0 0 0 3px #4f9de4, inset 0 0 0 999px rgba(79,157,228,.22)}
       .chess-sq.pmhint::after{content:""; position:absolute; width:29%; height:29%; border-radius:50%; background:rgba(18,48,105,.42); pointer-events:none}
       .chess-sq.pmhintcap::after{content:""; position:absolute; inset:2.5%; border-radius:50%; border:4px solid rgba(18,48,105,.48); pointer-events:none}
+      /* rekam video partai */
+      .btn-rec{display:inline-flex; align-items:center; justify-content:center}
+      .rec-dot{width:11px; height:11px; border-radius:50%; background:#e04b3a; display:inline-block; margin-right:8px; flex:none; box-shadow:0 0 0 3px rgba(224,75,58,.22)}
+      .btn-rec.recording{border-color:#e04b3a; color:#ffb3a7; box-shadow:0 0 0 1px #e04b3a, 0 8px 18px rgba(0,0,0,.2)}
+      .btn-rec.recording .rec-dot{animation:recPulse 1.1s ease-in-out infinite}
+      @keyframes recPulse{0%,100%{opacity:1}50%{opacity:.2}}
+      @media (prefers-reduced-motion: reduce){ .btn-rec.recording .rec-dot{animation:none} }
+      .chess-recbox{max-width:460px; margin:10px auto 0; background:var(--bg2); border:1px solid var(--line); border-radius:14px; padding:12px 14px}
+      .chess-recbox video{width:100%; border-radius:10px; background:#000; display:block}
+      .recbox-title{font-weight:800; font-size:14.5px; margin-bottom:8px}
+      .recbox-meta{font-size:12.5px; color:var(--muted); margin:8px 0; line-height:1.5}
+      .recbox-note{font-size:12px; color:var(--muted); margin-top:8px; line-height:1.55}
 
       /* tools */
       .calc-display{
@@ -1033,7 +1045,7 @@
             <!-- CHESS -->
             <div class="card game-panel hidden" id="panel-chess">
               <div class="rowflex between"><h3>Catur</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
-              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang naik-turun tiap partai, <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), tombol <b>Nyerah</b> dan <b>Tawar Remis</b>, lawan bot dengan ratingnya sendiri, mode <b>2 pemain offline di satu HP</b>, dan mode <b>Online asli</b>: tersambung ke server catur — tekan Main Online dan kamu langsung masuk antrean matchmaking acak (tanpa memilih lawan, tanpa tombol tantang), <b>pemain asli diprioritaskan</b> dan bot pengganti dari server mengisi bila antrean pemain asli kosong, lengkap dengan <b>bendera negara</b> lawan di bar pemain dan chat cepat; bila server tidak terjangkau dari browser, mode cadangan (simulasi) berjalan otomatis dan statusnya ditampilkan apa adanya. <b>Jam catur dipilih dulu</b> dan berlaku di semua mode; khusus mode Online jam wajib dipakai. Di atas dan bawah papan ada <b>bar pemain ala aplikasi catur</b>: lencana title + nama + ELO, baris bidak yang ditangkap, dan jam di sisi kanan. Di mode 2 pemain, nama Putih &amp; Hitam bisa ditulis sendiri dan ada <b>pilihan rotasi papan</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan. Ada juga <b>premove</b>: selagi giliran lawan, ketuk bidakmu lalu petak tujuan untuk menyimpan langkah (tampil biru di papan) — otomatis jalan begitu giliranmu tiba, bisa dibatalkan dengan mengetuk petak premove-nya, dan bisa dimatikan di Pengaturan.</p>
+              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang <b>hanya berubah di mode Online melawan pemain asli</b> — melawan bot (coach lokal maupun bot pengganti) ELO kamu tidak berubah, menang atau kalah — plus <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), tombol <b>Nyerah</b> dan <b>Tawar Remis</b>, lawan bot dengan ratingnya sendiri, mode <b>2 pemain offline di satu HP</b>, dan mode <b>Online asli</b>: tersambung ke server catur — tekan Main Online dan kamu langsung masuk antrean matchmaking acak (tanpa memilih lawan, tanpa tombol tantang), <b>pemain asli diprioritaskan</b> dan bot pengganti dari server mengisi bila antrean pemain asli kosong, lengkap dengan <b>bendera negara</b> lawan di bar pemain dan chat cepat; bila server tidak terjangkau dari browser, mode cadangan (simulasi) berjalan otomatis dan statusnya ditampilkan apa adanya. <b>Jam catur dipilih dulu</b> dan berlaku di semua mode; khusus mode Online jam wajib dipakai. Di atas dan bawah papan ada <b>bar pemain ala aplikasi catur</b>: lencana title + nama + ELO, baris bidak yang ditangkap, dan jam di sisi kanan. Di mode 2 pemain, nama Putih &amp; Hitam bisa ditulis sendiri dan ada <b>pilihan rotasi papan</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan. Ada juga <b>premove</b>: selagi giliran lawan, ketuk bidakmu lalu petak tujuan untuk menyimpan langkah (tampil biru di papan) — otomatis jalan begitu giliranmu tiba, bisa dibatalkan dengan mengetuk petak premove-nya, dan bisa dimatikan di Pengaturan. Ada juga <b>Rekam Video Partai</b>: rekam jalannya partai jadi video langsung dari papan — lengkap dengan bar pemain, jam, dan langkah terakhir — lalu unduh videonya untuk disimpan atau dibagikan.</p>
               <div class="field" style="margin-bottom:4px"><label>Mode Main — Ketuk untuk Memilih</label></div>
               <div class="seg" id="chessModeSeg" role="group" aria-label="Mode main catur">
                 <button type="button" data-mode="cpu" class="active">Lawan Bot<small>Coach + ELO bot</small></button>
@@ -1078,7 +1090,7 @@
                 </div>
                 <div class="field" style="grid-column:1/-1"><label for="chessBotElo">ELO Bot yang Dipilih: <b id="chessBotEloVal">1800</b> · <span id="chessBotEloTitle">Db Dalang Bidak</span></label>
                   <input type="range" class="chess-range" id="chessBotElo" min="100" max="2500" step="10" value="1800">
-                  <div style="font-size:12px; color:var(--muted); margin-top:2px">Geser untuk mengatur kekuatan bot: 100 paling mudah, 2500 paling kuat. ELO tiap bot HIDUP seperti pemain — menang naik, kalah turun — dan tersimpan untuk bot itu; angka di sini adalah rating bot terpilih saat ini (saat main bisa bergeser acak ±10). Lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang dan seru.</div>
+                  <div style="font-size:12px; color:var(--muted); margin-top:2px">Geser untuk mengatur kekuatan bot: 100 paling mudah, 2500 paling kuat. ELO tiap bot HIDUP seperti pemain — menang naik, kalah turun — dan tersimpan untuk bot itu; angka di sini adalah rating bot terpilih saat ini (saat main bisa bergeser acak ±10). Lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang dan seru. Melawan bot tidak mengubah ELO kamu — ELO kamu hanya berubah di mode Online melawan pemain asli.</div>
                 </div>
               </div>
               <div class="grid2 hidden" style="gap:12px" id="chess2pOpts">
@@ -1137,7 +1149,7 @@
                   <button class="btn btn-ghost btn-sm" id="chessLobbyRefresh" type="button">Segarkan Lobi</button>
                 </div>
                 <div id="chessLobby"></div>
-                <div class="online-note">Tekan <b>Main Online</b> untuk langsung masuk antrean matchmaking server — <b>tanpa memilih lawan dan tanpa tombol tantang</b>: server mencarikan lawan acak dan <b>pemain asli diprioritaskan</b>, jadi kalau temanmu menekan Main Online di waktu yang berdekatan, besar kemungkinan kalian dipertemukan. Kalau antrean pemain asli sedang kosong, <b>bot pengganti dari server</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu bot pengganti disiapkan). Nama, negara, bendera, title, dan ELO lawan ditentukan server saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. ELO hasil partai online dihitung server. Untuk lawan bot lokal dan lawan mode cadangan, ELO lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang. Pilihan region hanya berlaku pada mode cadangan. Catatan: server berjalan lewat alamat ws:// tanpa SSL — sebagian browser bisa menolak koneksi itu dari halaman https; bila server tidak terjangkau, mode ini otomatis memakai <b>mode cadangan (simulasi)</b> dengan bot lokal dan statusnya ditampilkan apa adanya.</div>
+                <div class="online-note">Tekan <b>Main Online</b> untuk langsung masuk antrean matchmaking server — <b>tanpa memilih lawan dan tanpa tombol tantang</b>: server mencarikan lawan acak dan <b>pemain asli diprioritaskan</b>, jadi kalau temanmu menekan Main Online di waktu yang berdekatan, besar kemungkinan kalian dipertemukan. Kalau antrean pemain asli sedang kosong, <b>bot pengganti dari server</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu bot pengganti disiapkan). Nama, negara, bendera, title, dan ELO lawan ditentukan server saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. ELO hasil partai online dihitung server. Untuk lawan bot lokal dan lawan mode cadangan, ELO lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang. Pilihan region hanya berlaku pada mode cadangan. Melawan bot pengganti (dari server maupun simulasi), ELO kamu tidak berubah — ELO hanya dipertaruhkan saat melawan pemain asli. Catatan: server berjalan lewat alamat ws:// tanpa SSL — sebagian browser bisa menolak koneksi itu dari halaman https; bila server tidak terjangkau, mode ini otomatis memakai <b>mode cadangan (simulasi)</b> dengan bot lokal dan statusnya ditampilkan apa adanya.</div>
               </div>
               <div class="scorebar">
                 <span class="score-pill" id="chessTurnPill">Giliran: <b>Putih</b></span>
@@ -1173,6 +1185,19 @@
               <div class="rowflex chess-actions" style="margin-top:9px">
                 <button class="btn btn-danger" id="chessResign" type="button">Nyerah</button>
                 <button class="btn btn-ghost" id="chessDraw" type="button">Tawar Remis</button>
+              </div>
+              <div class="rowflex chess-actions" style="margin-top:9px">
+                <button class="btn btn-ghost btn-rec" id="chessRecBtn" type="button"><span class="rec-dot"></span><span id="chessRecLabel">Rekam Video Partai</span></button>
+              </div>
+              <div class="chess-recbox hidden" id="chessRecBox">
+                <div class="recbox-title">Video Partai Kamu</div>
+                <video id="chessRecVideo" controls playsinline></video>
+                <div class="recbox-meta" id="chessRecMeta"></div>
+                <div class="rowflex" style="gap:8px">
+                  <a class="btn btn-gold btn-sm" id="chessRecDownload" href="#" download="partai-catur.webm">Unduh Video</a>
+                  <button class="btn btn-ghost btn-sm" id="chessRecClose" type="button">Tutup</button>
+                </div>
+                <div class="recbox-note">Video ini direkam langsung dari papan di perangkatmu saat kamu bermain — lengkap dengan bar pemain, jam catur, dan langkah terakhir. Putar dulu untuk memeriksa hasilnya, lalu unduh untuk menyimpan atau membagikannya.</div>
               </div>
               <div class="qchat-row hidden" id="chessQuickChat" style="margin-top:10px">
                 <button type="button" data-qc="Halo! Salam kenal — semoga partainya seru.">Halo!</button>
@@ -2730,7 +2755,14 @@
         if(msr === 1) S.chess.ow = (S.chess.ow || 0) + 1;
         else if(msr === 0) S.chess.ol = (S.chess.ol || 0) + 1;
         else S.chess.od = (S.chess.od || 0) + 1;
-        if(CH.netCut){
+        if(CH.oppFallback){
+          /* Lawan = BOT PENGGANTI dari server: sesuai aturan pemilik,
+             ELO TIDAK berubah melawan bot — angka ELO yang dikirim
+             server untuk partai ini sengaja tidak dipakai. ELO hanya
+             berubah di mode Online melawan PEMAIN ASLI. */
+          CH.eloLine = "ELO kamu tidak berubah (tetap " + ((S.chess && S.chess.elo) || 800) + ") — lawan partai ini bot pengganti dari server; ELO hanya berubah di mode Online melawan pemain asli.";
+          NET.pendingOverElo = null;
+        } else if(CH.netCut){
           CH.eloLine = "Koneksi ke server terputus di tengah partai — ELO tidak dihitung dari partai ini.";
         } else if(NET.pendingOverElo != null){
           var oer = (S.chess && S.chess.elo) || 800;
@@ -2745,10 +2777,15 @@
         return;
       }
       if(CH.mode === "cpu" || CH.mode === "online"){
+        /* Lawan di cabang ini selalu BOT (coach lokal di mode Lawan
+           Bot, atau bot simulasi di mode Online cadangan). Aturan
+           pemilik: melawan bot, ELO PEMAIN tidak berubah sama
+           sekali — menang, kalah, atau remis; ELO pemain hanya
+           berubah di mode Online melawan PEMAIN ASLI (dihitung
+           server, cabang di atas). Rekor menang/kalah/remis tetap
+           dicatat, dan ELO bot sendiri tetap hidup (blok di bawah). */
         var myScore = winner === null ? 0.5 : winner === CH.human ? 1 : 0;
         var oldElo = (S.chess && S.chess.elo) || 800;
-        var newElo = chEloClamp(oldElo + chEloDelta(oldElo, CH.botElo || 1000, myScore));
-        S.chess.elo = newElo;
         if(CH.mode === "online"){
           if(myScore === 1) S.chess.ow = (S.chess.ow || 0) + 1;
           else if(myScore === 0) S.chess.ol = (S.chess.ol || 0) + 1;
@@ -2758,9 +2795,11 @@
           else if(myScore === 0) S.chess.l = (S.chess.l || 0) + 1;
           else S.chess.d = (S.chess.d || 0) + 1;
         }
-        /* ELO bot ikut hidup seperti pemain: menang naik, kalah
-           turun — dihitung dari rating dasar bot di awal partai dan
-           disimpan per nama bot (coach / lawan simulasi). */
+        /* ELO bot tetap HIDUP (fitur terpisah yang diminta pemilik
+           sebelumnya): menang naik, kalah turun — dihitung dari
+           rating dasar bot di awal partai dan disimpan per nama bot
+           (coach / lawan simulasi). Yang dibekukan aturan baru
+           hanyalah ELO PEMAIN saat melawan bot. */
         var botScore = 1 - myScore;
         var bBase = CH.botEloBase || CH.botElo || 1000;
         var bNew = chEloClamp(bBase + chEloDelta(bBase, oldElo, botScore));
@@ -2772,8 +2811,7 @@
           var bt1 = $("chessBotEloTitle"); if(bt1){ var tt1 = chTitleFor(bNew); bt1.textContent = tt1.none ? "Belum Ada Title (di bawah 1200)" : tt1.code + " " + tt1.name; }
         }
         save();
-        var t = chPickedTitle() || chTitleFor(newElo);
-        CH.eloLine = "ELO kamu: " + oldElo + " → " + newElo + " (" + (newElo - oldElo >= 0 ? "+" : "") + (newElo - oldElo) + ") · Title kamu: " + (t.none ? "belum ada — capai ELO 1200 untuk title pertama (Bc Bidak Cekatan)" : t.code + " " + t.name);
+        CH.eloLine = "ELO kamu tidak berubah (tetap " + oldElo + ") — melawan bot, ELO kamu tidak dihitung; ELO hanya berubah di mode Online melawan pemain asli.";
         if(CH.botEloLine) CH.eloLine += " · " + CH.botEloLine;
       } else {
         var wScore = winner === null ? 0.5 : winner === "w" ? 1 : 0;
@@ -2799,7 +2837,7 @@
       if(CH.eloLine){
         html += "<div>" + CH.eloLine + "</div>";
       } else {
-        html += '<div style="color:var(--muted)">ELO tidak berubah — partai terlalu pendek (minimal 4 langkah).</div>';
+        html += '<div style="color:var(--muted)">' + ((CH.mode === "cpu" || (CH.mode === "online" && (!CH.netReal || CH.oppFallback))) ? "ELO tidak berubah — melawan bot, ELO tidak dihitung; ELO hanya berubah di mode Online melawan pemain asli." : "ELO tidak berubah — partai terlalu pendek (minimal 4 langkah).") + "</div>";
       }
       if(CH.mode === "cpu" || CH.mode === "online"){
         var accYou = CH.human === "w" ? CH.accW : CH.accB;
@@ -2821,6 +2859,218 @@
       box.innerHTML = html;
       box.classList.remove("hidden");
     }
+    /* ===== Rekam Video Partai =====
+       Tombol "Rekam Video Partai": papan digambar ulang ke canvas
+       tersembunyi (bar pemain atas/bawah seperti di layar: lencana
+       title, nama + ELO, bidak tertangkap, jam; papan dengan sorotan
+       langkah terakhir, premove, dan skak; strip status berisi
+       giliran / langkah terakhir / hasil + timer REC), lalu direkam
+       pakai MediaRecorder dari captureStream canvas — semua di
+       perangkat pengguna, tanpa server. Berhenti -> video WebM/MP4
+       (sesuai dukungan browser) tampil untuk diputar + diunduh. */
+    var CHREC = { on:false, rec:null, chunks:[], stream:null, canvas:null, ctx:null,
+      timer:null, labelTimer:null, startedAt:0, url:null, mime:"" };
+    function chessRecSupported(){
+      try { return !!(window.MediaRecorder && document.createElement("canvas").captureStream); }
+      catch(e){ return false; }
+    }
+    function chessRecElapsed(){ return Math.max(0, Math.floor((Date.now() - CHREC.startedAt) / 1000)); }
+    function chessRecClock(s){ return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+    function chessRecRR(g, x, y, w, h, r){
+      g.beginPath();
+      g.moveTo(x + r, y);
+      g.arcTo(x + w, y, x + w, y + h, r);
+      g.arcTo(x + w, y + h, x, y + h, r);
+      g.arcTo(x, y + h, x, y, r);
+      g.arcTo(x, y, x + w, y, r);
+      g.closePath();
+    }
+    function chessRecFit(g, text, maxW){
+      text = String(text || "");
+      if(g.measureText(text).width <= maxW) return text;
+      while(text.length > 1 && g.measureText(text + "…").width > maxW) text = text.slice(0, -1);
+      return text + "…";
+    }
+    function chessRecBar(g, c, y, H){
+      var W = 840;
+      var elo = chEloOf(c), t = chTitleFor(elo);
+      if((CH.mode !== "2p" && c === CH.human) || (CH.mode === "2p" && c === "w")){ var pt = chPickedTitle(); if(pt) t = pt; }
+      var badge = t.owner ? "OWNER" : (t.none ? "" : t.code);
+      var flag = CH.mode === "online" ? ((c === "w" ? CH.flagW : CH.flagB) || "") : "";
+      var name = (flag ? flag + " " : "") + (chNameOf(c) || (c === "w" ? "Putih" : "Hitam")) + " (" + elo + ")";
+      if(!CH.over && CH.turn === c){ g.fillStyle = "#e3aa3c"; g.fillRect(0, y, 6, H); }
+      chessRecRR(g, 20, y + (H - 62) / 2, 62, 62, 12);
+      g.fillStyle = c === "w" ? "#f5efe0" : "#26292f"; g.fill();
+      g.font = "40px 'Segoe UI Symbol','Noto Sans Symbols 2','DejaVu Sans',sans-serif";
+      g.textAlign = "center"; g.textBaseline = "middle";
+      g.fillStyle = c === "w" ? "#15171b" : "#f5efe0";
+      g.fillText(c === "w" ? CH_GLYPH.P : CH_GLYPH.p, 51, y + H / 2 + 2);
+      var tx = 98;
+      if(badge){
+        g.font = "700 19px system-ui,sans-serif";
+        var bw = g.measureText(badge).width + 18;
+        chessRecRR(g, tx, y + 14, bw, 28, 8);
+        g.fillStyle = t.owner ? "#e3aa3c" : "#31402f"; g.fill();
+        g.fillStyle = t.owner ? "#231a04" : "#dce8d8";
+        g.textAlign = "left"; g.textBaseline = "middle";
+        g.fillText(badge, tx + 9, y + 29);
+        tx += bw + 10;
+      }
+      g.font = "700 27px system-ui,sans-serif"; g.fillStyle = "#eef3ec"; g.textAlign = "left"; g.textBaseline = "middle";
+      g.fillText(chessRecFit(g, name, W - tx - 184), tx, y + 29);
+      var caps = (c === "w" ? CH.capW : CH.capB) || [];
+      if(caps.length){
+        g.font = "23px 'Segoe UI Symbol','Noto Sans Symbols 2','DejaVu Sans',sans-serif";
+        var cx = 98;
+        caps.slice(0, 14).forEach(function(p){
+          g.fillStyle = chCol(p) === "w" ? "#fffdf6" : "#0e0f12";
+          g.textAlign = "center";
+          g.fillText(CH_GLYPH[p], cx + 11, y + H - 26);
+          cx += 21;
+        });
+        g.textAlign = "left";
+      } else {
+        g.font = "19px system-ui,sans-serif"; g.fillStyle = "rgba(238,243,236,.45)";
+        g.fillText("belum menangkap", 98, y + H - 26);
+      }
+      var cw = 138, chh = 54, cxp = W - cw - 18, cyp = y + (H - chh) / 2;
+      chessRecRR(g, cxp, cyp, cw, chh, 10);
+      var active = !!CH.clockSec && !CH.over && CH.turn === c;
+      g.fillStyle = active ? "#e3aa3c" : "#242e24"; g.fill();
+      g.font = "700 29px system-ui,sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
+      g.fillStyle = active ? "#231a04" : (CH.clockSec && CH.clocks[c] <= 30 ? "#ff9a8a" : "#e8eee8");
+      g.fillText(CH.clockSec ? chessClockFmt(CH.clocks[c]) : "—:—", cxp + cw / 2, cyp + chh / 2 + 1);
+      g.textAlign = "left";
+    }
+    function chessRecDraw(){
+      var g = CHREC.ctx, cv = CHREC.canvas; if(!g || !cv) return;
+      var W = cv.width, HH = 118, BH = 840, BB = 118, FH = cv.height - HH - BH - BB;
+      g.fillStyle = "#141a14"; g.fillRect(0, 0, W, cv.height);
+      if(!CH || !CH.bd || !CH.bd.length){
+        g.font = "700 30px system-ui,sans-serif"; g.fillStyle = "#eef3ec"; g.textAlign = "center"; g.textBaseline = "middle";
+        g.fillText("Menunggu partai…", W / 2, cv.height / 2);
+        g.textAlign = "left"; return;
+      }
+      var topC = CH.flipped ? "w" : "b", botC = CH.flipped ? "b" : "w";
+      g.fillStyle = "#1a231a"; g.fillRect(0, 0, W, HH); g.fillRect(0, HH + BH, W, BB);
+      chessRecBar(g, topC, 0, HH);
+      chessRecBar(g, botC, HH + BH, BB);
+      var checkSq = chInCheck(CH.bd, CH.turn) ? chKingSq(CH.bd, CH.turn) : -1;
+      var sq = BH / 8;
+      for(var dr=0; dr<8; dr++){
+        for(var df=0; df<8; df++){
+          var r = CH.flipped ? 7 - dr : dr, f = CH.flipped ? 7 - df : df;
+          var i = r * 8 + f, x = df * sq, y = HH + dr * sq;
+          g.fillStyle = (r + f) % 2 === 0 ? "#eedcae" : "#5f9455";
+          g.fillRect(x, y, sq, sq);
+          if(i === CH.lastFrom || i === CH.lastTo){ g.fillStyle = "rgba(227,170,60,.45)"; g.fillRect(x, y, sq, sq); }
+          if(CH.premove && (i === CH.premove.from || i === CH.premove.to)){ g.fillStyle = "rgba(79,157,228,.45)"; g.fillRect(x, y, sq, sq); }
+          if(i === checkSq){ g.fillStyle = "rgba(224,60,45,.5)"; g.fillRect(x, y, sq, sq); }
+          g.font = "700 17px system-ui,sans-serif"; g.textBaseline = "alphabetic";
+          g.fillStyle = (r + f) % 2 === 0 ? "#5f9455" : "#eedcae";
+          if(df === 0){ g.textAlign = "left"; g.fillText(String(8 - r), x + 5, y + 21); }
+          if(dr === 7){ g.textAlign = "right"; g.fillText("abcdefgh".charAt(f), x + sq - 5, y + sq - 6); }
+          var p = CH.bd[i];
+          if(p){
+            g.font = "76px 'Segoe UI Symbol','Noto Sans Symbols 2','DejaVu Sans',sans-serif";
+            g.textAlign = "center"; g.textBaseline = "middle";
+            if(chCol(p) === "w"){ g.shadowColor = "rgba(0,0,0,.65)"; g.shadowBlur = 5; g.shadowOffsetY = 3; g.fillStyle = "#fffdf6"; }
+            else { g.shadowColor = "rgba(255,255,255,.35)"; g.shadowBlur = 4; g.shadowOffsetY = 2; g.fillStyle = "#14161a"; }
+            g.fillText(CH_GLYPH[p], x + sq / 2, y + sq / 2 + 4);
+            g.shadowColor = "transparent"; g.shadowBlur = 0; g.shadowOffsetY = 0;
+          }
+        }
+      }
+      g.strokeStyle = "#2e2115"; g.lineWidth = 4; g.strokeRect(2, HH + 2, W - 4, BH - 4);
+      /* strip status + indikator REC */
+      var sy = HH + BH + BB;
+      g.fillStyle = "#10150f"; g.fillRect(0, sy, W, FH);
+      var st;
+      if(CH.over) st = CH.result || "Partai selesai.";
+      else {
+        st = "Giliran " + (CH.turn === "w" ? "Putih" : "Hitam");
+        if(CH.names.length){
+          var li = CH.names.length - 1;
+          st += " · Langkah terakhir: " + (Math.floor(li / 2) + 1) + ". " + (li % 2 === 1 ? "… " : "") + CH.names[li];
+        }
+        if(checkSq >= 0) st += " · Skak!";
+      }
+      g.font = "600 23px system-ui,sans-serif"; g.fillStyle = "#eef3ec"; g.textAlign = "left"; g.textBaseline = "middle";
+      g.fillText(chessRecFit(g, st, W - 210), 20, sy + FH / 2);
+      g.font = "700 22px system-ui,sans-serif"; g.fillStyle = "#ff9a8a"; g.textAlign = "right";
+      g.fillText("REC " + chessRecClock(chessRecElapsed()), W - 20, sy + FH / 2);
+      g.beginPath(); g.arc(W - 178, sy + FH / 2, 7, 0, Math.PI * 2);
+      g.fillStyle = (Math.floor(Date.now() / 600) % 2 === 0) ? "#e04b3a" : "rgba(224,75,58,.3)"; g.fill();
+      g.textAlign = "left";
+    }
+    function chessRecLabel(){
+      var lb = $("chessRecLabel");
+      if(lb && CHREC.on) lb.textContent = "Berhenti & Simpan · " + chessRecClock(chessRecElapsed());
+    }
+    function chessRecStart(){
+      if(CHREC.on) return;
+      if(!CH || !CH.bd || !CH.bd.length){ toast("Belum ada partai — tekan Partai Baru dulu, baru mulai merekam."); return; }
+      if(!chessRecSupported()){ toast("Browser ini belum mendukung perekaman video di halaman (MediaRecorder tidak tersedia). Coba buka di Chrome, Edge, atau Firefox terbaru untuk merekam partai."); return; }
+      if(!CHREC.canvas){
+        CHREC.canvas = document.createElement("canvas");
+        CHREC.canvas.width = 840; CHREC.canvas.height = 1142;
+        CHREC.ctx = CHREC.canvas.getContext("2d");
+      }
+      chessRecDraw();
+      var stream = null;
+      try { stream = CHREC.canvas.captureStream(30); } catch(e){ stream = null; }
+      if(!stream){ toast("Browser ini menolak perekaman canvas — video tidak bisa dibuat di sini."); return; }
+      var mimes = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm", "video/mp4"], mime = "";
+      for(var i=0;i<mimes.length;i++){ try { if(MediaRecorder.isTypeSupported(mimes[i])){ mime = mimes[i]; break; } } catch(e){} }
+      var rec = null;
+      try { rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: 5000000 } : { videoBitsPerSecond: 5000000 }); }
+      catch(e){ toast("Perekam video gagal dimulai di browser ini."); return; }
+      CHREC.mime = rec.mimeType || mime || "video/webm";
+      CHREC.chunks = [];
+      rec.ondataavailable = function(ev){ if(ev.data && ev.data.size) CHREC.chunks.push(ev.data); };
+      rec.onstop = chessRecFinish;
+      CHREC.rec = rec; CHREC.stream = stream;
+      rec.start(500);
+      CHREC.on = true; CHREC.startedAt = Date.now();
+      CHREC.timer = setInterval(chessRecDraw, 120);
+      CHREC.labelTimer = setInterval(chessRecLabel, 500);
+      chessRecLabel();
+      var btn = $("chessRecBtn"); if(btn) btn.classList.add("recording");
+      var box = $("chessRecBox"); if(box) box.classList.add("hidden");
+      toast("Perekaman dimulai — video mengikuti papan, bar pemain, dan jam secara langsung. Main seperti biasa!");
+    }
+    function chessRecStop(){
+      if(!CHREC.on) return;
+      CHREC.on = false;
+      if(CHREC.timer){ clearInterval(CHREC.timer); CHREC.timer = null; }
+      if(CHREC.labelTimer){ clearInterval(CHREC.labelTimer); CHREC.labelTimer = null; }
+      var btn = $("chessRecBtn"); if(btn) btn.classList.remove("recording");
+      var lb = $("chessRecLabel"); if(lb) lb.textContent = "Rekam Video Partai";
+      try { if(CHREC.rec && CHREC.rec.state !== "inactive") CHREC.rec.stop(); else chessRecFinish(); }
+      catch(e){ chessRecFinish(); }
+      if(CHREC.stream){ CHREC.stream.getTracks().forEach(function(t){ try { t.stop(); } catch(e){} }); CHREC.stream = null; }
+    }
+    function chessRecFinish(){
+      if(!CHREC.chunks.length) return;
+      var type = (CHREC.mime || "video/webm").split(";")[0];
+      var blob = new Blob(CHREC.chunks, { type: type });
+      CHREC.chunks = [];
+      if(CHREC.url){ try { URL.revokeObjectURL(CHREC.url); } catch(e){} }
+      CHREC.url = URL.createObjectURL(blob);
+      var ext = type.indexOf("mp4") >= 0 ? "mp4" : "webm";
+      var stamp = new Date();
+      function p2(n){ return String(n).padStart(2, "0"); }
+      var fname = "partai-catur-" + stamp.getFullYear() + p2(stamp.getMonth() + 1) + p2(stamp.getDate()) + "-" + p2(stamp.getHours()) + p2(stamp.getMinutes()) + p2(stamp.getSeconds()) + "." + ext;
+      var v = $("chessRecVideo"); if(v) v.src = CHREC.url;
+      var dl = $("chessRecDownload"); if(dl){ dl.href = CHREC.url; dl.setAttribute("download", fname); }
+      var dur = Math.max(1, Math.round((Date.now() - CHREC.startedAt) / 1000));
+      var meta = $("chessRecMeta");
+      if(meta) meta.textContent = "Durasi " + chessRecClock(dur) + " · Ukuran " + (blob.size / 1048576).toFixed(2).replace(".", ",") + " MB · Format " + ext.toUpperCase() + (CH && CH.names ? " · " + chNameOf("w") + " vs " + chNameOf("b") + " · " + CH.names.length + " langkah telah dimainkan" : "");
+      var box = $("chessRecBox"); if(box){ box.classList.remove("hidden"); box.scrollIntoView({ behavior:"smooth", block:"center" }); }
+      toast("Video partai selesai direkam — putar untuk memeriksa, lalu tekan Unduh Video untuk menyimpannya.");
+    }
+    function chessRecToggle(){ if(CHREC.on) chessRecStop(); else chessRecStart(); }
+
     /* ===== Basa-basi Bot (bot lawan yang berkomentar) ===== */
     var CH_BANTER = {
       start:["Halo! Aku {n}. Santai saja, aku mainnya kalem… kadang-kadang.", "Siap? Papan sudah rapi, bidak sudah semangat. Yang terhormat silakan jalan duluan… eh, tergantung warna ya.", "Halo halo! Semoga beruntung — kamu bakal butuh sedikit keberuntungan lawan aku.", "Main yang rapi ya. Langkah bagusmu aku catat semua, buat kubalas nanti."],
@@ -3319,7 +3569,7 @@
        apa adanya di layar. */
     var CH_SERVER_WS = "ws://alwaysashanode.hyungseok.web.id:2008";
     var NET = { ws:null, state:"off", searching:false, inGame:false, real:false,
-      gameId:null, online:0, inGames:0, pendingOverElo:null, failTimer:null };
+      gameId:null, online:0, inGames:0, pendingOverElo:null, failTimer:null, oppIsBot:false };
     var NET_FORCED_SIDE = null;
     var NET_FLAG_NAMES = { ID:"Indonesia", US:"Amerika Serikat", GB:"Inggris", DE:"Jerman", FR:"Prancis", ES:"Spanyol", IT:"Italia", NL:"Belanda", BR:"Brasil", AR:"Argentina", IN:"India", JP:"Jepang", KR:"Korea Selatan", CN:"Tiongkok", RU:"Rusia", TR:"Turki", EG:"Mesir", NG:"Nigeria", AU:"Australia", CA:"Kanada", MY:"Malaysia", SG:"Singapura", MX:"Meksiko", VN:"Vietnam", TH:"Thailand" };
     var NET_FLAG_CODES = { "🇮🇩":"ID", "🇺🇸":"US", "🇲🇾":"MY", "🇸🇬":"SG", "🇬🇧":"GB", "🇩🇪":"DE", "🇫🇷":"FR", "🇯🇵":"JP", "🇰🇷":"KR", "🇮🇳":"IN", "🇧🇷":"BR", "🇦🇺":"AU" };
@@ -3425,6 +3675,9 @@
       NET_FORCED_SIDE = msg.color === "black" ? "b" : "w";
       CH_QUEUE_OPP = { name: opp.name || "Lawan", elo: opp.elo || 800,
         flag: netFlag(opp.country), country: netCountryName(opp.country), fallback: !!opp.isBot };
+      /* Lawan bot pengganti dari server -> ELO partai ini tidak
+         boleh mengubah ELO pemain (aturan pemilik). */
+      NET.oppIsBot = !!opp.isBot;
       var clk = $("chessClock"); if(clk) clk.value = String((msg.clockMinutes || 10) * 60);
       var q = $("chessQueue"); if(q) q.classList.add("hidden");
       chessNewGame();
@@ -3446,7 +3699,9 @@
       NET.pendingOverElo = (typeof msg.elo === "number") ? msg.elo : null;
       if(!NET.inGame){
         /* Partai sudah selesai dari deteksi lokal (mis. skakmat) —
-           pesan ini hanya menyinkronkan ELO resmi dari server. */
+           pesan ini hanya menyinkronkan ELO resmi dari server.
+           Lawan bot pengganti: ELO tidak disinkronkan (tidak berubah). */
+        if(NET.oppIsBot) NET.pendingOverElo = null;
         if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); }
         return;
       }
@@ -3462,7 +3717,9 @@
       chessFinish(winner, text);
       chessRender();
       /* Partai sangat pendek: chessApplyElo tidak jalan, samakan
-         ELO lokal langsung dengan angka resmi server. */
+         ELO lokal langsung dengan angka resmi server — kecuali
+         lawan bot pengganti: ELO tidak berubah melawan bot. */
+      if(NET.oppIsBot) NET.pendingOverElo = null;
       if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); }
     }
     function netOnMsg(msg){
@@ -4312,6 +4569,13 @@
       $("chessMode").addEventListener("change", function(){ if(this.value !== "online"){ chessQueueCancel(true); netCancelSearch(true); } chessOptsToggle(); });
       $("chessResign").addEventListener("click", function(){ chessResign(); });
       $("chessDraw").addEventListener("click", function(){ chessOfferDraw(); });
+      $("chessRecBtn").addEventListener("click", function(){ chessRecToggle(); });
+      $("chessRecClose").addEventListener("click", function(){
+        $("chessRecBox").classList.add("hidden");
+        var v = $("chessRecVideo");
+        if(v){ try { v.pause(); } catch(e){} v.removeAttribute("src"); try { v.load(); } catch(e){} }
+        if(CHREC.url){ try { URL.revokeObjectURL(CHREC.url); } catch(e){} CHREC.url = null; }
+      });
       $("chessDrawAccept").addEventListener("click", function(){ netSend({ type:"draw_response", accept:true }); $("chessDrawOffer").classList.add("hidden"); toast("Kamu menerima tawaran remis."); });
       $("chessDrawDecline").addEventListener("click", function(){ netSend({ type:"draw_response", accept:false }); $("chessDrawOffer").classList.add("hidden"); toast("Kamu menolak tawaran remis — permainan lanjut."); });
       $("chessRematchAccept").addEventListener("click", function(){ $("chessRematchOffer").classList.add("hidden"); netSend({ type:"rematch" }); toast("Rematch diminta — menunggu lawan menerima…"); });
