@@ -146,27 +146,61 @@
 
       .layout{display:grid; grid-template-columns:1fr; gap:20px; margin-top:6px}
       @media(min-width:960px){
-        .layout{grid-template-columns:224px 1fr}
+        .layout{grid-template-columns:236px 1fr}
         #app{padding-bottom:40px}
       }
-      /* side / bottom nav */
+      /* ---------- MENU UTAMA: dock melayang di HP, sidebar di desktop ---------- */
       .sidenav{
-        position:fixed; left:0; right:0; bottom:0; z-index:50;
-        display:flex; justify-content:space-around; gap:2px;
-        background:color-mix(in srgb, var(--panel) 92%, transparent);
-        backdrop-filter:blur(14px); border-top:1px solid var(--line);
-        padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+        position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); z-index:50;
+        display:flex; justify-content:space-between; gap:2px;
+        background:color-mix(in srgb, var(--panel2) 88%, transparent);
+        backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+        border:1px solid var(--line2); border-radius:22px;
+        padding:7px; box-shadow:0 16px 38px rgba(0,0,0,.5);
+      }
+      .sidenav-head,.sidenav-foot{display:none}
+      .nav-btn,.nav-more{
+        position:relative; display:flex; flex-direction:column; align-items:center; gap:4px;
+        border:0; background:transparent; color:var(--muted);
+        font-size:10.5px; font-weight:700; letter-spacing:.01em;
+        padding:6px 2px 5px; border-radius:16px; flex:1 1 0; min-width:0;
+        transition:color .15s, background .15s;
+      }
+      .nav-btn .nic,.nav-more .nic{
+        width:46px; height:30px; border-radius:99px; display:grid; place-items:center;
+        transition:background .18s, color .18s, transform .18s;
+      }
+      .nav-btn .nic svg,.nav-more .nic svg{width:21px; height:21px}
+      .nav-btn:active .nic,.nav-more:active .nic{transform:scale(.9)}
+      .nav-btn.active{color:var(--text)}
+      .nav-btn.active .nic{background:linear-gradient(135deg,var(--gold2),var(--gold) 60%,var(--gold-deep)); color:#241a02; box-shadow:0 6px 14px rgba(227,170,60,.35)}
+      .nav-btn.active::after{content:""; position:absolute; bottom:1px; width:5px; height:5px; border-radius:50%; background:var(--gold)}
+      /* di dock HP hanya 4 menu utama + Lainnya; sisanya ada di lembar "Menu Lainnya" */
+      @media(max-width:959.98px){
+        .nav-btn[data-nav="alat"],.nav-btn[data-nav="profil"],.nav-btn[data-nav="pengaturan"],
+        #navOwner,#navLogout{display:none}
       }
       @media(min-width:960px){
         .sidenav{
           position:sticky; top:76px; bottom:auto; left:auto; right:auto; flex-direction:column;
-          justify-content:flex-start; gap:4px; background:var(--panel); border:1px solid var(--line);
-          border-radius:18px; padding:12px; height:fit-content; backdrop-filter:none;
+          justify-content:flex-start; gap:3px; background:linear-gradient(180deg,var(--panel2),var(--panel));
+          border:1px solid var(--line); border-radius:20px; padding:14px 12px; height:fit-content;
+          backdrop-filter:none; box-shadow:var(--shadow);
         }
-      }
-      .nav-btn{
-        display:flex; flex-direction:column; align-items:center; gap:3px; border:0; background:transparent;
-        color:var(--muted); font-size:10.5px; font-weight:600; padding:7px 2px; border-radius:12px; flex:1 1 0; min-width:0;
+        .nav-more{display:none}
+        .sidenav-head{display:block; padding:2px 10px 10px; font-size:11px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--faint); border-bottom:1px solid var(--line); margin-bottom:9px}
+        .sidenav-foot{display:flex; align-items:center; gap:10px; margin-top:11px; padding:12px 11px 4px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted); line-height:1.45}
+        .sidenav-foot .avatar-dot{width:32px; height:32px; font-size:13px}
+        .nav-btn,.nav-more{flex-direction:row; gap:11px; font-size:14px; font-weight:600; padding:9px 10px; width:100%; justify-content:flex-start; flex:none; border-radius:13px}
+        .nav-btn .nic{width:34px; height:34px; border-radius:10px; background:var(--bg2); border:1px solid var(--line); flex:none}
+        .nav-btn .nic svg{width:19px; height:19px}
+        .nav-btn:hover{background:var(--bg2); color:var(--text)}
+        .nav-btn.active{background:linear-gradient(90deg, rgba(227,170,60,.18), rgba(39,181,116,.07)); color:var(--text); font-weight:800; box-shadow:inset 3px 0 0 var(--gold)}
+        .nav-btn.active .nic{background:linear-gradient(135deg,var(--gold2),var(--gold-deep)); color:#241a02; border-color:transparent; box-shadow:none}
+        .nav-btn.active::after{display:none}
+        #navLogout{color:#f0928c; margin-top:6px; border-top:1px solid var(--line); border-radius:0 0 13px 13px; padding-top:13px}
+        #navLogout .nic{background:rgba(228,87,79,.1); border-color:rgba(228,87,79,.3); color:var(--red)}
+        #navLogout:hover{background:rgba(228,87,79,.08)}
       }
       @media(max-width:520px){
         .brand .bname{font-size:13.5px; letter-spacing:.04em}
@@ -175,14 +209,30 @@
         .avatar-dot{width:34px; height:34px; font-size:14px}
         .topbar{gap:8px}
       }
-      .nav-btn svg{width:21px; height:21px}
-      .nav-btn.active{color:var(--gold)}
-      .nav-btn.active svg{color:var(--gold)}
-      @media(min-width:960px){
-        .nav-btn{flex-direction:row; gap:11px; font-size:14px; padding:11px 13px; width:100%; justify-content:flex-start}
-        .nav-btn.active{background:linear-gradient(90deg, rgba(227,170,60,.16), rgba(39,181,116,.08)); color:var(--text)}
-        .nav-btn.active svg{color:var(--gold)}
+      /* lembar menu lainnya (khusus HP) */
+      .sheet-backdrop{position:fixed; inset:0; z-index:60; background:rgba(4,8,5,.62); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity .25s}
+      .sheet-backdrop.open{opacity:1; pointer-events:auto}
+      .more-sheet{
+        position:fixed; left:10px; right:10px; bottom:calc(10px + env(safe-area-inset-bottom)); z-index:61;
+        background:linear-gradient(180deg,var(--panel2),var(--panel)); border:1px solid var(--line2);
+        border-radius:24px; padding:10px 14px 14px; box-shadow:0 24px 50px rgba(0,0,0,.55);
+        transform:translateY(24px); opacity:0; pointer-events:none; transition:transform .28s ease, opacity .28s ease;
       }
+      .more-sheet.open{transform:none; opacity:1; pointer-events:auto}
+      @media(min-width:960px){.more-sheet,.sheet-backdrop{display:none}}
+      .sheet-grip{width:44px; height:5px; border-radius:99px; background:var(--line2); margin:2px auto 10px}
+      .sheet-title{font-size:12px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); margin:0 4px 8px}
+      .sheet-row{
+        display:flex; align-items:center; gap:13px; width:100%; text-align:left; border:0; background:transparent;
+        color:var(--text); padding:11px 6px; border-radius:14px; font-size:15px; font-weight:700;
+      }
+      .sheet-row:active{background:var(--bg2)}
+      .sheet-row .nic{width:42px; height:42px; flex:none; border-radius:13px; display:grid; place-items:center; border:1px solid var(--line2)}
+      .sheet-row .nic svg{width:21px; height:21px}
+      .sheet-row .sd{display:block; font-size:12px; font-weight:500; color:var(--muted); margin-top:1px}
+      .sheet-row .chev{margin-left:auto; color:var(--faint); flex:none}
+      .sheet-row.danger{color:#f0928c}
+      .sheet-row + .sheet-row{border-top:1px solid var(--line)}
 
       .view{display:none; animation:viewIn .35s ease both}
       .view.active{display:block}
@@ -240,16 +290,49 @@
       .stat .v{font-size:19px; font-weight:800; line-height:1.1}
       .stat .l{font-size:12px; color:var(--muted)}
 
-      .menu-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-      @media(min-width:720px){.menu-grid{grid-template-columns:repeat(3,1fr)}}
+      /* ---------- KARTU MENU (Beranda, Game, Belajar) ---------- */
+      .menu-grid{display:grid; grid-template-columns:1fr; gap:12px}
+      @media(min-width:560px){.menu-grid{grid-template-columns:repeat(2,1fr)}}
+      @media(min-width:1020px){.menu-grid{grid-template-columns:repeat(3,1fr)}}
       .menu-tile{
-        text-align:left; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:17px 16px;
-        color:var(--text); transition:border-color .15s, transform .15s; width:100%;
+        --acc:#e3aa3c; --accsoft:rgba(227,170,60,.14);
+        position:relative; overflow:hidden; text-align:left; width:100%;
+        display:flex; gap:14px; align-items:flex-start;
+        background:linear-gradient(160deg,var(--panel2),var(--panel) 72%);
+        border:1px solid var(--line); border-radius:18px; padding:17px 16px 15px;
+        color:var(--text); transition:border-color .16s, transform .16s, box-shadow .16s;
       }
-      .menu-tile:hover{border-color:var(--gold); transform:translateY(-2px)}
-      .menu-tile .ic{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; margin-bottom:11px; background:linear-gradient(135deg, rgba(227,170,60,.18), rgba(39,181,116,.14)); border:1px solid var(--line2)}
-      .menu-tile .t{font-weight:800; font-size:15.5px; margin-bottom:3px}
-      .menu-tile .d{font-size:12.5px; color:var(--muted); line-height:1.5}
+      .menu-tile::before{content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--acc),transparent 78%); opacity:.85}
+      .menu-tile:hover{border-color:var(--acc); transform:translateY(-2px); box-shadow:0 14px 28px rgba(0,0,0,.28)}
+      .menu-tile:active{transform:scale(.985)}
+      .menu-tile .ic{width:50px; height:50px; flex:none; border-radius:15px; display:grid; place-items:center; background:var(--accsoft); border:1px solid color-mix(in srgb, var(--acc) 45%, transparent); color:var(--acc); box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+      .menu-tile .ic svg{width:26px; height:26px}
+      .menu-tile .tx{flex:1; min-width:0}
+      .menu-tile .t{font-weight:800; font-size:16px; margin-bottom:3px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+      .menu-tile .d{font-size:12.5px; color:var(--muted); line-height:1.55}
+      .menu-tile .d b{color:var(--acc)}
+      .menu-tile .go{flex:none; align-self:center; width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--bg2); border:1px solid var(--line2); color:var(--muted); transition:.16s}
+      .menu-tile:hover .go{background:var(--acc); border-color:var(--acc); color:#1c1503}
+      .menu-tile .pill{font-size:10px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; padding:3px 8px; border-radius:99px; background:var(--accsoft); color:var(--acc); border:1px solid color-mix(in srgb, var(--acc) 40%, transparent)}
+      .acc-gold{--acc:#e3aa3c; --accsoft:rgba(227,170,60,.14)}
+      .acc-green{--acc:#3ed598; --accsoft:rgba(62,213,152,.13)}
+      .acc-sky{--acc:#4f9de4; --accsoft:rgba(79,157,228,.14)}
+      .acc-coral{--acc:#ef7d54; --accsoft:rgba(239,125,84,.14)}
+      .acc-teal{--acc:#2ec4b6; --accsoft:rgba(46,196,182,.13)}
+      .acc-rose{--acc:#e4688a; --accsoft:rgba(228,104,138,.13)}
+      html[data-theme="light"] .acc-gold{--acc:#9a6d1c}
+      html[data-theme="light"] .acc-green{--acc:#0f7a4c}
+      html[data-theme="light"] .acc-sky{--acc:#1f66ad}
+      html[data-theme="light"] .acc-coral{--acc:#c2511f}
+      html[data-theme="light"] .acc-teal{--acc:#0d7a6e}
+      html[data-theme="light"] .acc-rose{--acc:#b2335d}
+      /* judul seksi di atas grid menu */
+      .sec-head{display:flex; align-items:center; gap:12px; margin:22px 0 12px}
+      .sec-head:first-child{margin-top:2px}
+      .sec-head .sic{width:38px; height:38px; flex:none; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg, rgba(227,170,60,.2), rgba(39,181,116,.13)); border:1px solid var(--line2); color:var(--gold)}
+      .sec-head h2,.sec-head h3{margin:0; font-size:19px}
+      .sec-head p{margin:2px 0 0; font-size:13px; color:var(--muted); line-height:1.5}
+      .sec-head .grow{flex:1; min-width:0}
 
       /* prayer */
       .prayer-list{display:flex; flex-direction:column; gap:8px}
@@ -495,9 +578,45 @@
       .badge.exp{background:rgba(227,170,60,.14); color:var(--gold); border:1px solid rgba(227,170,60,.4)}
       .mono{font-family:ui-monospace, Consolas, monospace; word-break:break-all}
 
+      /* ---------- MENU & KONTROL DALAM HALAMAN ---------- */
+      .stat{border-radius:16px; background:linear-gradient(160deg,var(--panel2),var(--panel))}
+      .stat .ic{border-radius:12px}
+      .btn-back{
+        display:inline-flex; align-items:center; gap:7px; padding:8px 13px; border-radius:99px;
+        border:1px solid var(--line2); background:var(--bg2); color:var(--text);
+        font-size:13px; font-weight:700; transition:.15s;
+      }
+      .btn-back:hover{border-color:var(--gold); color:var(--gold)}
+      .btn-back:active{transform:scale(.96)}
+      .seg{
+        display:flex; gap:4px; background:var(--bg2); border:1px solid var(--line);
+        border-radius:14px; padding:4px; margin-bottom:14px;
+      }
+      .seg button{
+        flex:1; border:0; background:transparent; color:var(--muted); border-radius:10px;
+        padding:10px 6px; font-size:13px; font-weight:700; line-height:1.3; transition:.15s;
+      }
+      .seg button small{display:block; font-size:10.5px; font-weight:600; opacity:.85; margin-top:1px}
+      .seg button.active{background:linear-gradient(135deg,var(--gold2),var(--gold) 60%,var(--gold-deep)); color:#241a02; box-shadow:0 6px 14px rgba(227,170,60,.25)}
+      .seg.seg-green button.active{background:linear-gradient(135deg,var(--green2),var(--green) 60%,var(--green-deep)); color:#04170d; box-shadow:0 6px 14px rgba(39,181,116,.22)}
+      .opt-btn{border-radius:14px; padding:14px 15px; display:flex; align-items:center; gap:11px}
+      .opt-btn .olet{
+        width:27px; height:27px; flex:none; border-radius:9px; display:grid; place-items:center;
+        background:var(--panel); border:1px solid var(--line2); font-size:12.5px; font-weight:800; color:var(--gold);
+      }
+      .opt-btn.right .olet{background:var(--green); border-color:var(--green); color:#04170d}
+      .opt-btn.wrong .olet{background:var(--red); border-color:var(--red); color:#fff}
+      .dpad button{border-radius:15px; transition:background .12s, transform .12s}
+      .dpad button:active{transform:scale(.93)}
+      .pomo-modes{background:var(--bg2); border:1px solid var(--line); border-radius:99px; padding:4px; gap:4px}
+      .pomo-modes button{border:0; background:transparent}
+      .pomo-modes button.active{box-shadow:0 6px 14px rgba(227,170,60,.25)}
+      .qchat-row button{transition:.14s}
+      .qchat-row button:hover{border-color:var(--gold); color:var(--gold)}
+
       /* toast */
       #toast{
-        position:fixed; left:50%; bottom:96px; transform:translate(-50%, 20px); z-index:90;
+        position:fixed; left:50%; bottom:calc(106px + env(safe-area-inset-bottom)); transform:translate(-50%, 20px); z-index:90;
         background:var(--panel2); color:var(--text); border:1px solid var(--gold); border-radius:13px;
         padding:12px 18px; font-size:14px; font-weight:600; box-shadow:var(--shadow);
         opacity:0; pointer-events:none; transition:.3s; max-width:min(92vw,480px); text-align:center; line-height:1.5;
@@ -548,6 +667,13 @@
         <symbol id="ic-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 9.5v4l2.8 1.8M9.5 3h5M12 3v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
         <symbol id="ic-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.2 12h17.6M12 3.2c2.6 2.4 3.9 5.4 3.9 8.8s-1.3 6.4-3.9 8.8c-2.6-2.4-3.9-5.4-3.9-8.8S9.4 5.6 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
         <symbol id="ic-logout" viewBox="0 0 24 24"><path d="M9 21H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m16 17 5-5-5-5M21 12H9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+        <symbol id="ic-chev-r" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="ic-chev-l" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="ic-crown" viewBox="0 0 24 24"><path d="M3.5 17.5h17M4.2 16.5 3 7.8l5.6 3.9L12 5l3.4 6.7L21 7.8l-1.2 8.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M5.5 20.5h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+        <symbol id="ic-cards" viewBox="0 0 24 24"><rect x="3" y="6.5" width="12.5" height="14" rx="2.2" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-7 9 13)"/><rect x="9.5" y="3.5" width="12" height="14.5" rx="2.2" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(6 15 10)"/></symbol>
+        <symbol id="ic-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.4A2.6 2.6 0 1 1 12 12.4v1.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.25" fill="currentColor"/></symbol>
+        <symbol id="ic-spark" viewBox="0 0 24 24"><path d="M12 3.5 13.8 10 20.5 12 13.8 14 12 20.5 10.2 14 3.5 12 10.2 10Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></symbol>
         <!-- memory card faces -->
         <symbol id="mf-star" viewBox="0 0 24 24"><path d="m12 3.4 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.6l5.9-.9Z" fill="currentColor"/></symbol>
         <symbol id="mf-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" fill="currentColor"/></symbol>
@@ -646,15 +772,18 @@
 
       <div class="layout">
         <nav class="sidenav" id="sideNav" aria-label="Menu utama">
-          <button class="nav-btn active" data-nav="dashboard"><svg><use href="#ic-home"/></svg>Beranda</button>
-          <button class="nav-btn" data-nav="azan"><svg><use href="#ic-moon"/></svg>Azan</button>
-          <button class="nav-btn" data-nav="game"><svg><use href="#ic-game"/></svg>Game</button>
-          <button class="nav-btn" data-nav="belajar"><svg><use href="#ic-book"/></svg>Belajar</button>
-          <button class="nav-btn" data-nav="alat"><svg><use href="#ic-tools"/></svg>Alat</button>
-          <button class="nav-btn" data-nav="profil"><svg><use href="#ic-user"/></svg>Profil</button>
-          <button class="nav-btn" data-nav="pengaturan"><svg><use href="#ic-gear"/></svg>Atur</button>
-          <button class="nav-btn hidden" data-nav="owner" id="navOwner"><svg><use href="#ic-key"/></svg>Owner</button>
-          <button class="nav-btn" id="navLogout" type="button"><svg><use href="#ic-logout"/></svg>Log out</button>
+          <div class="sidenav-head">Menu Utama</div>
+          <button class="nav-btn active" data-nav="dashboard"><span class="nic"><svg><use href="#ic-home"/></svg></span><span>Beranda</span></button>
+          <button class="nav-btn" data-nav="azan"><span class="nic"><svg><use href="#ic-moon"/></svg></span><span>Azan</span></button>
+          <button class="nav-btn" data-nav="game"><span class="nic"><svg><use href="#ic-game"/></svg></span><span>Game</span></button>
+          <button class="nav-btn" data-nav="belajar"><span class="nic"><svg><use href="#ic-book"/></svg></span><span>Belajar</span></button>
+          <button class="nav-btn" data-nav="alat"><span class="nic"><svg><use href="#ic-tools"/></svg></span><span>Alat</span></button>
+          <button class="nav-btn" data-nav="profil"><span class="nic"><svg><use href="#ic-user"/></svg></span><span>Profil</span></button>
+          <button class="nav-btn" data-nav="pengaturan"><span class="nic"><svg><use href="#ic-gear"/></svg></span><span>Pengaturan</span></button>
+          <button class="nav-btn hidden" data-nav="owner" id="navOwner"><span class="nic"><svg><use href="#ic-key"/></svg></span><span>Panel Owner</span></button>
+          <button class="nav-btn" id="navLogout" type="button"><span class="nic"><svg><use href="#ic-logout"/></svg></span><span>Log out</span></button>
+          <button class="nav-more" id="navMore" type="button" aria-haspopup="true" aria-expanded="false"><span class="nic"><svg><use href="#ic-grid"/></svg></span><span>Lainnya</span></button>
+          <div class="sidenav-foot"><div class="avatar-dot" id="sideAvatar">M</div><div>Main, belajar,<br>dan ibadah.</div></div>
         </nav>
 
         <div id="views">
@@ -684,22 +813,26 @@
               <div class="stat"><div class="ic"><svg width="21" height="21" style="color:var(--green2)"><use href="#ic-check"/></svg></div><div><div class="v" id="statCorrect">0</div><div class="l">Jawaban benar</div></div></div>
             </div>
 
-            <h2 class="page-title" style="font-size:19px">Jelajahi SlashSMP Belajar</h2>
-            <p class="page-sub">Pilih yang mau kamu buka. Semua berjalan langsung di halaman ini.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-grid"/></svg></div>
+              <div class="grow"><h2>Jelajahi SlashSMP Belajar</h2><p>Pilih yang mau kamu buka — semua berjalan langsung di halaman ini.</p></div>
+            </div>
             <div class="menu-grid">
-              <button class="menu-tile" data-goto="azan"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-moon"/></svg></div><div class="t">Pengingat Azan</div><div class="d">Jadwal salat hari ini, hitung mundur, dan nada pengingat azan.</div></button>
-              <button class="menu-tile" data-goto="game"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-game"/></svg></div><div class="t">Game</div><div class="d">Catur, Ular, Memory, Tebak Angka, dan Kuis Pengetahuan. Kumpulkan XP dan koin.</div></button>
-              <button class="menu-tile" data-goto="belajar"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-book"/></svg></div><div class="t">Latihan Belajar</div><div class="d">Matematika, Bahasa Inggris, Kuis Islami (20 soal per latihan), dan Cerita dengan soal pemahaman.</div></button>
-              <button class="menu-tile" data-goto="alat"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-tools"/></svg></div><div class="t">Alat Bantu</div><div class="d">Catatan, kalkulator, dan timer fokus Pomodoro untuk belajar.</div></button>
-              <button class="menu-tile" data-goto="profil"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-user"/></svg></div><div class="t">Profil</div><div class="d">Level, XP, koin, dan rekor terbaikmu di semua game.</div></button>
-              <button class="menu-tile" data-goto="pengaturan"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-gear"/></svg></div><div class="t">Pengaturan</div><div class="d">Tema tampilan, suara, kota jadwal salat, dan sesi masuk.</div></button>
+              <button class="menu-tile acc-gold" data-goto="azan"><span class="ic"><svg><use href="#ic-moon"/></svg></span><span class="tx"><span class="t">Pengingat Azan</span><span class="d" style="display:block">Jadwal salat hari ini, hitung mundur, dan nada pengingat azan.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-green" data-goto="game"><span class="ic"><svg><use href="#ic-game"/></svg></span><span class="tx"><span class="t">Game <span class="pill">5 game</span></span><span class="d" style="display:block">Catur, Ular, Memory, Tebak Angka, dan Kuis Pengetahuan. Kumpulkan XP dan koin.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-sky" data-goto="belajar"><span class="ic"><svg><use href="#ic-book"/></svg></span><span class="tx"><span class="t">Latihan Belajar <span class="pill">20 soal</span></span><span class="d" style="display:block">Matematika, Bahasa Inggris, Kuis Islami, dan Cerita dengan soal pemahaman.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-coral" data-goto="alat"><span class="ic"><svg><use href="#ic-tools"/></svg></span><span class="tx"><span class="t">Alat Bantu</span><span class="d" style="display:block">Catatan, kalkulator, dan timer fokus Pomodoro untuk belajar.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-teal" data-goto="profil"><span class="ic"><svg><use href="#ic-user"/></svg></span><span class="tx"><span class="t">Profil</span><span class="d" style="display:block">Level, XP, koin, dan rekor terbaikmu di semua game.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-rose" data-goto="pengaturan"><span class="ic"><svg><use href="#ic-gear"/></svg></span><span class="tx"><span class="t">Pengaturan</span><span class="d" style="display:block">Tema tampilan, suara, kota jadwal salat, dan sesi masuk.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
             </div>
           </section>
 
           <!-- ===== AZAN ===== -->
           <section class="view" id="view-azan">
-            <h2 class="page-title">Pengingat Azan</h2>
-            <p class="page-sub">Jadwal salat dihitung langsung di perangkatmu dengan metode Kemenag RI (Subuh 20&deg;, Isya 18&deg;, Ashar Syafi&rsquo;i).</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-moon"/></svg></div>
+              <div class="grow"><h2>Pengingat Azan</h2><p>Jadwal salat dihitung langsung di perangkatmu dengan metode Kemenag RI (Subuh 20&deg;, Isya 18&deg;, Ashar Syafi&rsquo;i).</p></div>
+            </div>
             <div class="card">
               <div class="rowflex between" style="margin-bottom:12px">
                 <div class="rowflex">
@@ -730,19 +863,21 @@
 
           <!-- ===== GAME HUB ===== -->
           <section class="view" id="view-game">
-            <h2 class="page-title">Game</h2>
-            <p class="page-sub">Lima game yang bisa langsung dimainkan. Selesaikan game untuk dapat XP dan koin — rekor terbaikmu tersimpan di perangkat ini.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-game"/></svg></div>
+              <div class="grow"><h2>Game</h2><p>Lima game yang bisa langsung dimainkan. Selesaikan game untuk dapat XP dan koin — rekor terbaikmu tersimpan di perangkat ini.</p></div>
+            </div>
             <div class="menu-grid" id="gameMenu">
-              <button class="menu-tile" data-game="chess"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Catur</div><div class="d">Catur lengkap: rating ELO, penilaian langkah (Brilliant s.d. Blunder), bar pemain ala aplikasi catur (lencana title + nama + ELO + jam), jam bisa dipilih di semua mode, lawan bot, 2 pemain satu HP, atau mode Online (simulasi) lawan pemain dunia lengkap dengan bendera negaranya. ELO kamu: <b id="best-elo">800</b> · Menang vs komputer: <b id="best-chess">0</b>x</div></button>
-              <button class="menu-tile" data-game="snake"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-game"/></svg></div><div class="t">Ular</div><div class="d">Game ular klasik di kanvas. Makan buah, jangan menabrak. Rekor: <b id="best-snake">0</b></div></button>
-              <button class="menu-tile" data-game="memory"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Memory</div><div class="d">Balik kartu dan temukan 8 pasang gambar yang sama. Rekor: <b id="best-memory">—</b></div></button>
-              <button class="menu-tile" data-game="guess"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Tebak Angka</div><div class="d">Tebak angka rahasia 1–100 dengan petunjuk. Rekor: <b id="best-guess">—</b></div></button>
-              <button class="menu-tile" data-game="quiz"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-book"/></svg></div><div class="t">Kuis Pengetahuan</div><div class="d">10 soal acak pengetahuan umum. Rekor: <b id="best-quiz">0</b></div></button>
+              <button class="menu-tile acc-gold" data-game="chess"><span class="ic"><svg><use href="#ic-crown"/></svg></span><span class="tx"><span class="t">Catur <span class="pill">Unggulan</span></span><span class="d" style="display:block">Rating ELO, penilaian langkah, lawan bot, 2 pemain satu HP, dan Online simulasi dengan bendera negara. ELO kamu: <b id="best-elo">800</b> · Menang vs komputer: <b id="best-chess">0</b>x</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-green" data-game="snake"><span class="ic"><svg><use href="#ic-game"/></svg></span><span class="tx"><span class="t">Ular</span><span class="d" style="display:block">Game ular klasik di kanvas. Makan buah, jangan menabrak. Rekor: <b id="best-snake">0</b></span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-rose" data-game="memory"><span class="ic"><svg><use href="#ic-cards"/></svg></span><span class="tx"><span class="t">Memory</span><span class="d" style="display:block">Balik kartu dan temukan 8 pasang gambar yang sama. Rekor: <b id="best-memory">—</b></span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-sky" data-game="guess"><span class="ic"><svg><use href="#ic-help"/></svg></span><span class="tx"><span class="t">Tebak Angka</span><span class="d" style="display:block">Tebak angka rahasia 1–100 dengan petunjuk. Rekor: <b id="best-guess">—</b></span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-teal" data-game="quiz"><span class="ic"><svg><use href="#ic-book"/></svg></span><span class="tx"><span class="t">Kuis Pengetahuan <span class="pill">10 soal</span></span><span class="d" style="display:block">Soal acak pengetahuan umum. Rekor: <b id="best-quiz">0</b></span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
             </div>
 
             <!-- SNAKE -->
             <div class="card game-panel hidden" id="panel-snake">
-              <div class="rowflex between"><h3>Ular</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Ular</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
               <p class="csub">Pakai tombol arah di bawah, geser di kanvas, atau tombol panah / WASD di keyboard.</p>
               <div class="scorebar">
                 <span class="score-pill">Skor: <b id="snakeScore">0</b></span>
@@ -769,7 +904,7 @@
 
             <!-- MEMORY -->
             <div class="card game-panel hidden" id="panel-memory">
-              <div class="rowflex between"><h3>Memory</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Memory</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
               <p class="csub">Temukan semua 8 pasang. Semakin sedikit langkah dan semakin cepat, semakin besar hadiahnya.</p>
               <div class="scorebar">
                 <span class="score-pill">Pasangan: <b id="memPairs">0/8</b></span>
@@ -785,7 +920,7 @@
 
             <!-- GUESS -->
             <div class="card game-panel hidden" id="panel-guess">
-              <div class="rowflex between"><h3>Tebak Angka</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Tebak Angka</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
               <p class="csub">Komputer memilih angka rahasia antara 1 sampai 100. Kamu punya 10 kesempatan.</p>
               <div class="scorebar">
                 <span class="score-pill">Sisa kesempatan: <b id="guessLeft">10</b></span>
@@ -804,7 +939,7 @@
 
             <!-- QUIZ -->
             <div class="card game-panel hidden" id="panel-quiz">
-              <div class="rowflex between"><h3>Kuis Pengetahuan</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Kuis Pengetahuan</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
               <div class="scorebar">
                 <span class="score-pill">Soal: <b id="quizProg">0/10</b></span>
                 <span class="score-pill">Benar: <b id="quizScore">0</b></span>
@@ -825,16 +960,20 @@
             </div>
             <!-- CHESS -->
             <div class="card game-panel hidden" id="panel-chess">
-              <div class="rowflex between"><h3>Catur</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Catur</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
               <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang naik-turun tiap partai, <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), tombol <b>Nyerah</b> dan <b>Tawar Remis</b>, lawan bot dengan ratingnya sendiri, mode <b>2 pemain offline di satu HP</b>, dan mode <b>Online (simulasi)</b>: masuk lobi, tunggu di layar pencarian lawan, lalu bertanding melawan pemain dari negara lain — lengkap dengan <b>bendera negaranya</b> di bar pemain, pilihan region, dan chat cepat. <b>Jam catur dipilih dulu</b> dan berlaku di semua mode; khusus mode Online jam wajib dipakai. Di atas dan bawah papan ada <b>bar pemain ala aplikasi catur</b>: lencana title + nama + ELO, baris bidak yang ditangkap, dan jam di sisi kanan. Di mode 2 pemain, nama Putih &amp; Hitam bisa ditulis sendiri dan ada <b>pilihan rotasi papan</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan.</p>
+              <div class="field" style="margin-bottom:4px"><label>Mode Main — Ketuk untuk Memilih</label></div>
+              <div class="seg" id="chessModeSeg" role="group" aria-label="Mode main catur">
+                <button type="button" data-mode="cpu" class="active">Lawan Bot<small>Coach + ELO bot</small></button>
+                <button type="button" data-mode="2p">2 Pemain<small>Satu HP · offline</small></button>
+                <button type="button" data-mode="online">Online<small>Pemain dunia · simulasi</small></button>
+              </div>
+              <select class="input hidden" id="chessMode" aria-hidden="true" tabindex="-1">
+                <option value="cpu" selected>Lawan Komputer (Bot / Coach)</option>
+                <option value="2p">2 Pemain (satu HP, offline)</option>
+                <option value="online">Online — Lawan Pemain Dunia (Simulasi)</option>
+              </select>
               <div class="grid2" style="gap:12px">
-                <div class="field"><label for="chessMode">Mode Main</label>
-                  <select class="input" id="chessMode">
-                    <option value="cpu">Lawan Komputer (Bot / Coach)</option>
-                    <option value="2p">2 Pemain (satu HP, offline)</option>
-                    <option value="online">Online — Lawan Pemain Dunia (Simulasi)</option>
-                  </select>
-                </div>
                 <div class="field"><label for="chessClock">Jam Catur — Pilih Durasinya</label>
                   <select class="input" id="chessClock">
                     <option value="0">Tanpa jam (bebas — tidak berlaku untuk Online)</option>
@@ -1000,18 +1139,20 @@
 
           <!-- ===== BELAJAR ===== -->
           <section class="view" id="view-belajar">
-            <h2 class="page-title">Latihan Belajar</h2>
-            <p class="page-sub">Setiap latihan berisi 20 soal yang diacak setiap kali dimulai, lengkap dengan progress, skor akhir, dan tombol Main Lagi. Jawaban benar memberi XP dan koin.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-book"/></svg></div>
+              <div class="grow"><h2>Latihan Belajar</h2><p>Setiap latihan berisi 20 soal yang diacak setiap kali dimulai, lengkap dengan progress, skor akhir, dan tombol Main Lagi. Jawaban benar memberi XP dan koin.</p></div>
+            </div>
             <div class="menu-grid" id="learnMenu">
-              <button class="menu-tile" data-learn="math"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-calc"/></svg></div><div class="t">Matematika</div><div class="d">20 soal: tambah, kurang, kali, bagi — tiga level kesulitan.</div></button>
-              <button class="menu-tile" data-learn="english"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-globe"/></svg></div><div class="t">Bahasa Inggris</div><div class="d">20 soal: tebak arti kata Bahasa Inggris ke Bahasa Indonesia.</div></button>
-              <button class="menu-tile" data-learn="islamic"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-moon"/></svg></div><div class="t">Kuis Islami</div><div class="d">20 soal seputar Al-Qur&rsquo;an, sirah, dan ibadah.</div></button>
-              <button class="menu-tile" data-learn="story"><div class="ic"><svg width="23" height="23" style="color:var(--gold)"><use href="#ic-book"/></svg></div><div class="t">Cerita</div><div class="d">Baca satu cerita pendek tentang kejujuran, lalu jawab soal pemahaman isinya.</div></button>
+              <button class="menu-tile acc-coral" data-learn="math"><span class="ic"><svg><use href="#ic-calc"/></svg></span><span class="tx"><span class="t">Matematika <span class="pill">20 soal</span></span><span class="d" style="display:block">Tambah, kurang, kali, bagi — tiga level kesulitan.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-sky" data-learn="english"><span class="ic"><svg><use href="#ic-globe"/></svg></span><span class="tx"><span class="t">Bahasa Inggris <span class="pill">20 soal</span></span><span class="d" style="display:block">Tebak arti kata Bahasa Inggris ke Bahasa Indonesia.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-green" data-learn="islamic"><span class="ic"><svg><use href="#ic-moon"/></svg></span><span class="tx"><span class="t">Kuis Islami <span class="pill">20 soal</span></span><span class="d" style="display:block">Seputar Al-Qur&rsquo;an, sirah, dan ibadah.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
+              <button class="menu-tile acc-gold" data-learn="story"><span class="ic"><svg><use href="#ic-book"/></svg></span><span class="tx"><span class="t">Cerita <span class="pill">8 soal</span></span><span class="d" style="display:block">Baca satu cerita pendek tentang kejujuran, lalu jawab soal pemahaman isinya.</span></span><span class="go"><svg width="15" height="15"><use href="#ic-chev-r"/></svg></span></button>
             </div>
 
             <!-- MATH -->
             <div class="card learn-panel hidden" id="panel-math">
-              <div class="rowflex between"><h3>Matematika</h3><button class="btn btn-ghost btn-sm" data-back-learn type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Matematika</h3><button class="btn-back" data-back-learn type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Belajar</button></div>
               <div class="field">
                 <label for="mathLevel">Level</label>
                 <select class="input" id="mathLevel">
@@ -1044,7 +1185,7 @@
 
             <!-- ENGLISH -->
             <div class="card learn-panel hidden" id="panel-english">
-              <div class="rowflex between"><h3>Bahasa Inggris</h3><button class="btn btn-ghost btn-sm" data-back-learn type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Bahasa Inggris</h3><button class="btn-back" data-back-learn type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Belajar</button></div>
               <div class="scorebar">
                 <span class="score-pill">Benar: <b id="engScore">0</b></span>
                 <span class="score-pill">Streak: <b id="engStreak">0</b></span>
@@ -1060,7 +1201,7 @@
 
             <!-- ISLAMIC -->
             <div class="card learn-panel hidden" id="panel-islamic">
-              <div class="rowflex between"><h3>Kuis Islami</h3><button class="btn btn-ghost btn-sm" data-back-learn type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Kuis Islami</h3><button class="btn-back" data-back-learn type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Belajar</button></div>
               <div class="scorebar">
                 <span class="score-pill">Benar: <b id="islScore">0</b></span>
                 <span class="score-pill">Streak: <b id="islStreak">0</b></span>
@@ -1075,7 +1216,7 @@
 
             <!-- STORY -->
             <div class="card learn-panel hidden" id="panel-story">
-              <div class="rowflex between"><h3>Cerita</h3><button class="btn btn-ghost btn-sm" data-back-learn type="button">Kembali</button></div>
+              <div class="rowflex between"><h3>Cerita</h3><button class="btn-back" data-back-learn type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Belajar</button></div>
               <p class="csub">Baca cerita ini sampai habis, lalu jawab soal pemahaman di bawahnya.</p>
               <h3 style="font-size:19px; margin-bottom:10px">Dompet Pak Darma</h3>
               <div class="story-text">
@@ -1105,8 +1246,10 @@
 
           <!-- ===== ALAT ===== -->
           <section class="view" id="view-alat">
-            <h2 class="page-title">Alat Bantu</h2>
-            <p class="page-sub">Catatan pribadi, kalkulator, dan timer fokus — semua tersimpan dan berjalan di perangkat ini.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-tools"/></svg></div>
+              <div class="grow"><h2>Alat Bantu</h2><p>Catatan pribadi, kalkulator, dan timer fokus — semua tersimpan dan berjalan di perangkat ini.</p></div>
+            </div>
             <div class="grid2">
               <div class="card">
                 <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-note"/></svg> Catatan</h3>
@@ -1142,8 +1285,10 @@
 
           <!-- ===== PROFIL ===== -->
           <section class="view" id="view-profil">
-            <h2 class="page-title">Profil</h2>
-            <p class="page-sub">Kemajuanmu di SlashSMP Belajar. XP dan koin didapat dari game dan latihan belajar.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-user"/></svg></div>
+              <div class="grow"><h2>Profil</h2><p>Kemajuanmu di SlashSMP Belajar. XP dan koin didapat dari game dan latihan belajar.</p></div>
+            </div>
             <div class="card">
               <div class="profile-head">
                 <div class="avatar-big" id="profileAvatar">M</div>
@@ -1187,8 +1332,10 @@
 
           <!-- ===== PENGATURAN ===== -->
           <section class="view" id="view-pengaturan">
-            <h2 class="page-title">Pengaturan</h2>
-            <p class="page-sub">Atur tampilan dan cara SlashSMP Belajar bekerja di perangkat ini.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-gear"/></svg></div>
+              <div class="grow"><h2>Pengaturan</h2><p>Atur tampilan dan cara SlashSMP Belajar bekerja di perangkat ini.</p></div>
+            </div>
             <div class="card">
               <div class="set-row">
                 <div class="grow"><div class="t">Tema terang</div><div class="d">Matikan untuk tema gelap (bawaan). Tema tersimpan di perangkat ini.</div></div>
@@ -1219,8 +1366,10 @@
 
           <!-- ===== PANEL OWNER ===== -->
           <section class="view hidden" id="view-owner">
-            <h2 class="page-title">Panel Owner</h2>
-            <p class="page-sub">Hanya pemilik website yang bisa membuka halaman ini dan membuat token akses.</p>
+            <div class="sec-head">
+              <div class="sic"><svg width="21" height="21"><use href="#ic-key"/></svg></div>
+              <div class="grow"><h2>Panel Owner</h2><p>Hanya pemilik website yang bisa membuka halaman ini dan membuat token akses.</p></div>
+            </div>
 
             <div class="card">
               <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-globe"/></svg> IP Owner Otomatis</h3>
@@ -1274,6 +1423,18 @@
           </section>
         </div>
       </div>
+    </div>
+
+    <!-- lembar "Menu Lainnya" untuk HP -->
+    <div class="sheet-backdrop" id="sheetBackdrop"></div>
+    <div class="more-sheet" id="moreSheet" role="dialog" aria-label="Menu lainnya" aria-hidden="true">
+      <div class="sheet-grip"></div>
+      <p class="sheet-title">Menu Lainnya</p>
+      <button class="sheet-row" type="button" data-sheet-nav="alat"><span class="nic" style="background:rgba(239,125,84,.14); color:#ef7d54; border-color:rgba(239,125,84,.4)"><svg><use href="#ic-tools"/></svg></span><span>Alat Bantu<span class="sd">Catatan, kalkulator, dan timer fokus</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
+      <button class="sheet-row" type="button" data-sheet-nav="profil"><span class="nic" style="background:rgba(62,213,152,.13); color:#3ed598; border-color:rgba(62,213,152,.4)"><svg><use href="#ic-user"/></svg></span><span>Profil<span class="sd">Level, XP, koin, dan rekor terbaikmu</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
+      <button class="sheet-row" type="button" data-sheet-nav="pengaturan"><span class="nic" style="background:rgba(79,157,228,.14); color:#4f9de4; border-color:rgba(79,157,228,.4)"><svg><use href="#ic-gear"/></svg></span><span>Pengaturan<span class="sd">Tema, suara, dan kota jadwal salat</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
+      <button class="sheet-row hidden" type="button" data-sheet-nav="owner" id="sheetOwner"><span class="nic" style="background:rgba(227,170,60,.14); color:#e3aa3c; border-color:rgba(227,170,60,.4)"><svg><use href="#ic-key"/></svg></span><span>Panel Owner<span class="sd">Buat token akses dan atur IP Owner</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
+      <button class="sheet-row danger" type="button" id="sheetLogout"><span class="nic" style="background:rgba(228,87,79,.12); color:#e4574f; border-color:rgba(228,87,79,.4)"><svg><use href="#ic-logout"/></svg></span><span>Log out<span class="sd">Keluar dan kembali ke gerbang token</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
     </div>
 
     <div id="toast" role="status"></div>
@@ -1404,6 +1565,7 @@
       $("statCorrect").textContent = S.stats.correct;
       $("avatarDot").textContent = (S.profile.name||"M").trim().charAt(0).toUpperCase() || "M";
       $("profileAvatar").textContent = $("avatarDot").textContent;
+      var sa = $("sideAvatar"); if(sa) sa.textContent = $("avatarDot").textContent;
       $("profileLevel").textContent = lv;
       $("profileCoins").textContent = S.profile.coins;
       $("profileXp").textContent = S.profile.xp;
@@ -3611,6 +3773,64 @@
       $("btnLogout").addEventListener("click", doLogout);
       $("btnLogoutTop").addEventListener("click", doLogout);
       $("navLogout").addEventListener("click", doLogout);
+
+      /* ---- Menu "Lainnya" (lembar bawah khusus HP) ---- */
+      var moreSheet = $("moreSheet"), sheetBackdrop = $("sheetBackdrop"), navMoreBtn = $("navMore");
+      function sheetSet(open){
+        if(!moreSheet) return;
+        if(open){
+          var so = $("sheetOwner"), no = $("navOwner");
+          if(so && no) so.classList.toggle("hidden", no.classList.contains("hidden"));
+        }
+        moreSheet.classList.toggle("open", open);
+        sheetBackdrop.classList.toggle("open", open);
+        moreSheet.setAttribute("aria-hidden", open ? "false" : "true");
+        if(navMoreBtn) navMoreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+      if(navMoreBtn) navMoreBtn.addEventListener("click", function(){ sfxClick(); sheetSet(true); });
+      if(sheetBackdrop) sheetBackdrop.addEventListener("click", function(){ sheetSet(false); });
+      $$("[data-sheet-nav]").forEach(function(b){
+        b.addEventListener("click", function(){
+          sheetSet(false);
+          var target = document.querySelector('#sideNav .nav-btn[data-nav="' + b.dataset.sheetNav + '"]');
+          if(target) target.click();
+        });
+      });
+      var sheetLogoutBtn = $("sheetLogout");
+      if(sheetLogoutBtn) sheetLogoutBtn.addEventListener("click", function(){ sheetSet(false); doLogout(); });
+      document.addEventListener("keydown", function(ev){ if(ev.key === "Escape") sheetSet(false); });
+
+      /* ---- Pilihan mode Catur berbentuk segmen (menyinkronkan <select> tersembunyi) ---- */
+      var modeSeg = $("chessModeSeg"), modeSel = $("chessMode");
+      if(modeSeg && modeSel){
+        var segSync = function(){
+          $$("#chessModeSeg button").forEach(function(b){ b.classList.toggle("active", b.dataset.mode === modeSel.value); });
+        };
+        $$("#chessModeSeg button").forEach(function(b){
+          b.addEventListener("click", function(){
+            if(modeSel.value === b.dataset.mode){ segSync(); return; }
+            modeSel.value = b.dataset.mode;
+            modeSel.dispatchEvent(new Event("change"));
+            segSync(); sfxClick();
+          });
+        });
+        modeSel.addEventListener("change", segSync);
+        segSync();
+      }
+
+      /* ---- Huruf A–D pada tombol pilihan kuis & latihan ---- */
+      var LETTERS = ["A","B","C","D","E","F"];
+      ["quizOpts","engOpts","islOpts","storyOpts"].forEach(function(gid){
+        var grid = $(gid); if(!grid) return;
+        new MutationObserver(function(){
+          $$("#" + gid + " .opt-btn").forEach(function(btn, i){
+            if(btn.querySelector(".olet")) return;
+            var s = document.createElement("span");
+            s.className = "olet"; s.textContent = LETTERS[i] || "";
+            btn.insertBefore(s, btn.firstChild);
+          });
+        }).observe(grid, { childList:true });
+      });
       $("btnReset").addEventListener("click", function(){
         var keep = this.dataset.arm === "1";
         if(!keep){
