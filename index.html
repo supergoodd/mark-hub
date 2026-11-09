@@ -451,6 +451,56 @@
       .tb-Rs{background:#c2483a}
       .tb-Sx{background:#a02030}
       .tb-none{background:#596158}
+      /* ===== TITLE OWNER EKSKLUSIF — hanya bisa dipakai Owner =====
+         Lencana emas berkilau dengan mahkota: beda total dari title
+         ELO biasa (Bc–Sx), tidak bisa didapat dari ELO berapa pun. */
+      .pbar-badge svg{width:11px; height:11px; vertical-align:-1px; margin-right:3px}
+      .tb-Owner{
+        background:linear-gradient(110deg,#8a5a10 0%,#e3aa3c 28%,#ffefa8 50%,#e3aa3c 72%,#8a5a10 100%);
+        background-size:220% 100%;
+        color:#2a1a02; border:1px solid #ffefa8;
+        letter-spacing:.07em; font-size:10.5px; padding:2.5px 8px;
+        box-shadow:0 0 0 1px rgba(227,170,60,.55), 0 4px 12px rgba(227,170,60,.5), inset 0 1px 0 rgba(255,255,255,.7);
+        animation:ownerShine 3.4s linear infinite;
+      }
+      @keyframes ownerShine{to{background-position:-220% 0}}
+      .owner-badge-lg{
+        display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:99px;
+        background:linear-gradient(110deg,#8a5a10 0%,#e3aa3c 28%,#ffefa8 50%,#e3aa3c 72%,#8a5a10 100%);
+        background-size:220% 100%; color:#2a1a02; border:1px solid #ffefa8;
+        font-weight:900; font-size:14px; letter-spacing:.1em;
+        box-shadow:0 0 0 1px rgba(227,170,60,.55), 0 10px 24px rgba(227,170,60,.4), inset 0 1px 0 rgba(255,255,255,.7);
+        animation:ownerShine 3.4s linear infinite;
+      }
+      .owner-badge-lg svg{width:17px; height:17px; flex:none}
+      .owner-badge-lg small{font-size:10px; font-weight:800; letter-spacing:.14em; opacity:.75}
+      .owner-title-name{font-weight:800; font-size:14.5px; color:var(--gold2)}
+      html[data-theme="light"] .owner-title-name{color:var(--gold-deep)}
+      /* panggung pratinjau title Owner di Panel Owner */
+      .owner-stage{
+        position:relative; overflow:hidden; text-align:center; border-radius:16px; padding:22px 16px 18px; margin-bottom:14px;
+        background:
+          radial-gradient(420px 180px at 50% -20%, rgba(227,170,60,.32), transparent 65%),
+          radial-gradient(300px 160px at 50% 130%, rgba(39,181,116,.14), transparent 60%),
+          linear-gradient(160deg,#1a2416,#0e150f 75%);
+        border:1px solid rgba(227,170,60,.45); color:#eef3ec;
+      }
+      .owner-stage .crown-medal{
+        width:62px; height:62px; margin:0 auto 12px; border-radius:50%; display:grid; place-items:center; color:#2a1a02;
+        background:linear-gradient(145deg,#ffefa8,#e3aa3c 55%,#9a6d1c);
+        border:2px solid rgba(255,239,168,.85);
+        box-shadow:0 0 0 5px rgba(227,170,60,.22), 0 12px 26px rgba(227,170,60,.4), inset 0 2px 3px rgba(255,255,255,.75);
+      }
+      .owner-stage .crown-medal svg{width:32px; height:32px}
+      .owner-stage .os-name{font-size:17px; font-weight:800; margin-top:11px; letter-spacing:.02em}
+      .owner-stage .os-sub{font-size:12.5px; color:#bcd6c2; line-height:1.6; max-width:340px; margin:5px auto 0}
+      .owner-stage .os-status{margin-top:13px; display:inline-block; font-size:12px; font-weight:800; letter-spacing:.05em; padding:6px 13px; border-radius:99px; border:1px solid rgba(255,255,255,.22); background:rgba(0,0,0,.3); color:#d9e8dc}
+      .owner-stage .os-status.on{border-color:rgba(62,213,152,.6); color:#a9eccd; background:rgba(39,181,116,.16)}
+      .owner-stage.off .owner-badge-lg{filter:grayscale(.55) brightness(.82); animation:none; box-shadow:0 6px 16px rgba(0,0,0,.35)}
+      .owner-stage.off .crown-medal{filter:grayscale(.45) brightness(.9)}
+      /* cincin emas di avatar saat title OWNER aktif */
+      .avatar-owner{box-shadow:0 0 0 3px var(--gold), 0 0 0 6px rgba(227,170,60,.35), 0 8px 20px rgba(227,170,60,.35) !important}
+      @media (prefers-reduced-motion: reduce){ .tb-Owner,.owner-badge-lg{animation:none} }
       .pbar-name{font-weight:800; font-size:15.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
       .pbar-elo{flex:none; color:var(--muted); font-weight:700; font-size:13.5px; font-variant-numeric:tabular-nums}
       .pbar-caps{font-size:15.5px; line-height:1.3; min-height:20px; margin-top:1px; word-break:break-all}
@@ -1151,6 +1201,7 @@
               </div>
               <div class="chess-titles">
                 <div class="ct-title">Title Seru-Seruan (dari ELO kamu &amp; coach)</div>
+                <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:3px"><span class="pbar-badge tb-Owner"><svg><use href="#ic-crown"/></svg>OWNER</span><span><b style="color:var(--gold2)">Pemilik SlashSMP</b> — title eksklusif, hanya untuk Owner website. Tidak bisa didapat dari ELO.</span></div>
                 <div><b>—</b> Belum ada title — ELO di bawah 1200</div>
                 <div><b>Bc</b> Bidak Cekatan — ELO 1200–1449</div>
                 <div><b>Cs</b> Catur Sigap — ELO 1450–1699</div>
@@ -1327,6 +1378,7 @@
                     <button class="btn btn-gold btn-sm" id="profileSave" type="button">Simpan Nama</button>
                     <span class="badge ok" id="profileRole">Pengunjung</span>
                   </div>
+                  <div id="profileTitleLine" style="margin-top:12px"></div>
                 </div>
               </div>
               <div style="margin-top:18px">
@@ -1416,11 +1468,22 @@
             </div>
 
             <div class="card">
-              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-crown"/></svg> Title Catur Owner</h3>
-              <p class="csub">Sebagai Owner, kamu bebas memakai title catur apa pun untuk dirimu sendiri — tanpa syarat ELO. Title pilihanmu tampil di Profil, di bar pemain saat bermain catur, dan di ringkasan partai. Pilih "Ikuti ELO" untuk kembali ke title otomatis dari ELO.</p>
-              <div class="field"><label for="ownerTitlePick">Title Kamu</label>
+              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-crown"/></svg> Title OWNER Eksklusif</h3>
+              <p class="csub">Title paling istimewa di SlashSMP Belajar: lencana emas <b>OWNER</b> dengan mahkota. Title ini <b>tidak bisa didapat dari ELO</b> dan <b>hanya bisa dipakai oleh kamu sebagai Owner</b> — pengunjung, bot, dan coach tidak akan pernah memilikinya. Selama kamu masuk sebagai Owner, title ini tampil di Profil, di bar pemain saat bermain catur, dan di ringkasan partai; begitu kamu log out, title ini hilang dan profil kembali ke title ELO biasa.</p>
+              <div class="owner-stage off" id="ownerStage">
+                <div class="crown-medal"><svg><use href="#ic-crown"/></svg></div>
+                <div><span class="owner-badge-lg"><svg><use href="#ic-crown"/></svg>OWNER<small>EKSLUSIF</small></span></div>
+                <div class="os-name">Pemilik SlashSMP</div>
+                <p class="os-sub">Satu-satunya title bermahkota di website ini — khusus pemilik SlashSMP Belajar.</p>
+                <div><span class="os-status" id="ownerTitleStatus">Belum aktif — pakai tombol di bawah untuk mengaktifkan</span></div>
+              </div>
+              <div class="rowflex" style="margin-bottom:14px">
+                <button class="btn btn-gold" id="btnUseOwnerTitle" type="button"><svg width="16" height="16"><use href="#ic-crown"/></svg> Pakai Title OWNER</button>
+              </div>
+              <div class="field" style="margin-bottom:0"><label for="ownerTitlePick">Atau Pilih Title Lain (Khusus Owner)</label>
                 <select class="input" id="ownerTitlePick">
                   <option value="">Ikuti ELO (otomatis)</option>
+                  <option value="Owner">OWNER — Pemilik SlashSMP (eksklusif, hanya Owner)</option>
                   <option value="none">Belum Ada Title</option>
                   <option value="Bc">Bc — Bidak Cekatan</option>
                   <option value="Cs">Cs — Catur Sigap</option>
@@ -1430,6 +1493,7 @@
                   <option value="Sx">Sx — Sultan Skakmat</option>
                 </select>
               </div>
+              <p class="csub" style="margin:10px 0 0">Sebagai Owner kamu juga tetap bebas memakai title ELO apa pun (Bc–Sx) tanpa syarat ELO. Pilih "Ikuti ELO" untuk kembali ke title otomatis dari ELO.</p>
             </div>
 
             <div class="card">
@@ -1625,6 +1689,24 @@
       $("profileXpLine").textContent = (S.profile.xp - cur) + " / " + (next - cur) + " XP ke level " + (lv+1);
       $("profileRole").textContent = isOwner() ? "Owner Website" : "Pengunjung (Token)";
       $("profileRole").className = "badge " + (isOwner() ? "ok" : "exp");
+      /* Baris title catur di Profil: title OWNER tampil sebagai
+         lencana emas besar bermahkota; title ELO biasa tampil
+         sebagai lencana kecil + nama; belum ada title = teks redup. */
+      var ptl = $("profileTitleLine");
+      if(ptl && typeof chMyTitle === "function"){
+        var mt = chMyTitle();
+        if(mt.owner){
+          ptl.innerHTML = '<span class="owner-badge-lg"><svg><use href="#ic-crown"/></svg>OWNER<small>EKSLUSIF</small></span> <span class="owner-title-name">Pemilik SlashSMP</span><div style="font-size:12px; color:var(--muted); margin-top:6px">Title eksklusif Owner — hanya kamu yang bisa memakainya.</div>';
+        } else if(mt.none){
+          ptl.innerHTML = '<span style="font-size:12.5px; color:var(--muted)">Title catur: belum ada — capai ELO 1200 untuk title pertama (Bc Bidak Cekatan).</span>';
+        } else {
+          ptl.innerHTML = '<span style="font-size:12.5px; color:var(--muted)">Title catur:</span> <span class="pbar-badge tb-' + mt.code + '">' + mt.code + '</span> <span class="owner-title-name" style="font-size:13.5px">' + mt.name + '</span>';
+        }
+        var ownerOn = !!mt.owner;
+        var pa = $("profileAvatar"); if(pa) pa.classList.toggle("avatar-owner", ownerOn);
+        var ad = $("avatarDot"); if(ad) ad.classList.toggle("avatar-owner", ownerOn);
+      }
+      if(typeof updateOwnerTitleUI === "function") updateOwnerTitleUI();
       $("best-snake").textContent = S.bests.snake;
       $("best-memory").textContent = S.bests.memory == null ? "—" : S.bests.memory + " langkah";
       $("best-guess").textContent = S.bests.guess == null ? "—" : S.bests.guess + " tebakan";
@@ -2355,23 +2437,47 @@
     /* Di bawah ELO 1200 belum ada title — title terendah (Bc) baru
        didapat saat ELO mencapai 1200. */
     var CH_NO_TITLE = { code:"—", name:"Belum Ada Title", min:1200, none:true };
+    /* TITLE OWNER EKSKLUSIF: lencana emas bermahkota "OWNER —
+       Pemilik SlashSMP". SENGAJA tidak masuk CH_TITLES, jadi tidak
+       ada ELO berapa pun yang bisa mendapatkannya, dan bot / coach /
+       lawan simulasi / lawan server tidak pernah memakainya.
+       Satu-satunya jalan memakainya: masuk sebagai Owner (password
+       atau IP Owner) lalu memilihnya di Panel Owner. Begitu sesi
+       bukan Owner, chPickedTitle() mengembalikan null dan title
+       ini hilang — profil & bar pemain jatuh ke title ELO biasa. */
+    var CH_OWNER_TITLE = { code:"Owner", name:"Pemilik SlashSMP", min:0, owner:true };
     function chTitleFor(elo){
       var t = null;
       for(var i=0;i<CH_TITLES.length;i++) if(elo >= CH_TITLES[i].min) t = CH_TITLES[i];
       return t || CH_NO_TITLE;
     }
     /* Title pilihan Owner: pemilik website (masuk sebagai Owner)
-       bebas memakai title apa pun — Bc, Cs, Db, Kp, Rs, Sx, atau
-       Belum Ada Title — tanpa terikat syarat ELO. Tersimpan di
-       S.chess.titlePick ("" = ikuti ELO otomatis seperti biasa).
-       Title pilihan tampil di Profil, bar pemain, dan ringkasan. */
+       bebas memakai title apa pun — OWNER eksklusif, Bc, Cs, Db,
+       Kp, Rs, Sx, atau Belum Ada Title — tanpa terikat syarat ELO.
+       Tersimpan di S.chess.titlePick ("" = ikuti ELO otomatis
+       seperti biasa). Title pilihan tampil di Profil, bar pemain,
+       dan ringkasan. */
     function chPickedTitle(){
       if(typeof isOwner !== "function" || !isOwner()) return null;
       var pick = S.chess && S.chess.titlePick;
       if(!pick) return null;
+      if(pick === "Owner") return CH_OWNER_TITLE;
       if(pick === "none") return CH_NO_TITLE;
       for(var i=0;i<CH_TITLES.length;i++) if(CH_TITLES[i].code === pick) return CH_TITLES[i];
       return null;
+    }
+    /* Pratinjau title Owner di Panel Owner: panggung menyala penuh
+       saat title OWNER aktif dipakai, redup saat belum aktif. */
+    function updateOwnerTitleUI(){
+      var stage = $("ownerStage"), st = $("ownerTitleStatus");
+      if(!stage || !st) return;
+      var active = false;
+      try { active = !!(typeof chPickedTitle === "function" && chPickedTitle() && chPickedTitle().owner); } catch(e){ active = false; }
+      stage.classList.toggle("off", !active);
+      st.classList.toggle("on", active);
+      st.textContent = active
+        ? "AKTIF — title OWNER sedang kamu pakai"
+        : "Belum aktif — pakai tombol di bawah untuk mengaktifkan";
     }
     function chMyTitle(){ return chPickedTitle() || chTitleFor((S.chess && S.chess.elo) || 800); }
     var CH_COACHES = [
@@ -2533,7 +2639,9 @@
       }
       return '<div class="pbar-av ' + c + '"><span class="chess-pc ' + c + '">' + (c === "w" ? CH_GLYPH.P : CH_GLYPH.p) + "</span></div>" +
         '<div class="pbar-mid"><div class="pbar-nameline">' +
-        (t.none
+        (t.owner
+          ? '<span class="pbar-badge tb-Owner" title="OWNER — Pemilik SlashSMP. Title eksklusif: hanya Owner website yang bisa memakainya, tidak bisa didapat dari ELO."><svg><use href="#ic-crown"/></svg>OWNER</span>'
+          : t.none
           ? '<span class="pbar-badge tb-none" title="Belum ada title — title pertama Bc Bidak Cekatan didapat di ELO 1200">—</span>'
           : '<span class="pbar-badge tb-' + t.code + '" title="' + t.code + " " + t.name + " — didapat di ELO " + t.min + ' ke atas">' + t.code + "</span>") +
         '<span class="pbar-name">' + escHtml(chNameOf(c) || (c === "w" ? "Putih" : "Hitam")) + "</span>" + flagHtml +
@@ -4314,7 +4422,15 @@
         S.chess.titlePick = this.value; save();
         renderProfileBits();
         if(CH && CH.bd && CH.bd.length) chessRender();
-        toast(this.value ? "Title kamu sekarang: " + (this.value === "none" ? "Belum Ada Title" : this.value) + " — tampil di Profil dan saat bermain." : "Title kamu kembali mengikuti ELO otomatis.");
+        if(this.value === "Owner") toast("Title OWNER aktif! Lencana emas bermahkota sekarang tampil di Profil dan bar pemain catur — hanya kamu yang bisa memakainya.");
+        else toast(this.value ? "Title kamu sekarang: " + (this.value === "none" ? "Belum Ada Title" : this.value) + " — tampil di Profil dan saat bermain." : "Title kamu kembali mengikuti ELO otomatis.");
+      });
+      $("btnUseOwnerTitle").addEventListener("click", function(){
+        S.chess.titlePick = "Owner"; save();
+        var sel = $("ownerTitlePick"); if(sel) sel.value = "Owner";
+        renderProfileBits();
+        if(CH && CH.bd && CH.bd.length) chessRender();
+        toast("Title OWNER aktif! Lencana emas bermahkota sekarang tampil di Profil dan bar pemain catur — hanya kamu yang bisa memakainya.");
       });
       function doLogout(){
         /* Hanya melepas sesi masuk. Token yang sudah dibuat, IP Owner, dan
@@ -4425,6 +4541,7 @@
       $("setSound").checked = S.settings.sound;
       $("setPremove").checked = S.settings.premove !== false;
       if($("ownerTitlePick")) $("ownerTitlePick").value = S.chess.titlePick || "";
+      if(typeof updateOwnerTitleUI === "function") updateOwnerTitleUI();
       $("profileName").value = S.profile.name || "";
       buildCalc();
       pomoRender();
