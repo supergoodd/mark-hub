@@ -356,6 +356,30 @@
       .chess-moves .mv{flex:1; font-weight:600}
       .chess-promo{position:absolute; inset:0; z-index:5; background:rgba(6,10,7,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:15px; border-radius:10px; padding:16px}
       .chess-promo-title{color:#eef3ec; font-weight:800; font-size:16px; text-align:center}
+      .chess-lasttag{max-width:460px; margin:0 auto 10px; text-align:center; font-size:13.5px; font-weight:700; padding:7px 12px; border-radius:12px; background:var(--bg2); border:1px solid var(--line)}
+      .mvtag{display:inline-block; font-size:10.5px; font-weight:800; padding:1.5px 7px; border-radius:99px; margin-left:6px; vertical-align:1.5px; white-space:nowrap; border:1px solid}
+      .tg-brilliant{color:#0fb5a3; border-color:rgba(15,181,163,.55); background:rgba(15,181,163,.13)}
+      .tg-best{color:#63b344; border-color:rgba(99,179,68,.55); background:rgba(99,179,68,.12)}
+      .tg-excellent{color:#93c24d; border-color:rgba(147,194,77,.55); background:rgba(147,194,77,.12)}
+      .tg-great{color:#c2a93e; border-color:rgba(194,169,62,.55); background:rgba(194,169,62,.13)}
+      .tg-good{color:#8fa3b0; border-color:rgba(143,163,176,.55); background:rgba(143,163,176,.13)}
+      .tg-mistake{color:#e08a2e; border-color:rgba(224,138,46,.55); background:rgba(224,138,46,.13)}
+      .tg-blunder{color:#e04b3a; border-color:rgba(224,75,58,.55); background:rgba(224,75,58,.13)}
+      .chess-summary{max-width:460px; margin:12px auto 0; background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:13.5px; line-height:1.65}
+      .chess-summary .cs-title{font-weight:800; font-size:14.5px; margin-bottom:2px}
+      .chess-summary .up{color:#63b344; font-weight:800}
+      .chess-summary .down{color:#e04b3a; font-weight:800}
+      .chess-summary .flat{color:var(--muted); font-weight:800}
+      .chess-legend{max-width:460px; margin:10px auto 0; display:flex; flex-wrap:wrap; gap:5px}
+      .chess-titles{max-width:460px; margin:12px auto 0; background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:13px; line-height:1.7}
+      .chess-titles .ct-title{font-weight:800; font-size:13.5px; margin-bottom:2px}
+      .chess-titles b{color:var(--gold)}
+      .chess-range{width:100%; accent-color:var(--gold); height:30px; cursor:pointer}
+      .chess-botchat{max-width:460px; margin:0 auto 10px; text-align:left; font-size:13.5px; line-height:1.55; padding:9px 12px; border-radius:12px; background:var(--panel); border:1px solid var(--line)}
+      .chess-botchat b{color:var(--gold)}
+      .chess-review{max-width:460px; margin:12px auto 0}
+      .chess-review .chess-moves{max-height:320px}
+      .rvloss{color:var(--muted); font-size:12px; font-weight:600}
       .promo-pc{width:64px; height:64px; border-radius:14px; border:1px solid var(--line2); background:var(--panel); font-size:40px; display:grid; place-items:center; line-height:1}
       .promo-pc:active{transform:scale(.95); border-color:var(--gold)}
 
@@ -644,7 +668,7 @@
             <h2 class="page-title">Game</h2>
             <p class="page-sub">Lima game yang bisa langsung dimainkan. Selesaikan game untuk dapat XP dan koin — rekor terbaikmu tersimpan di perangkat ini.</p>
             <div class="menu-grid" id="gameMenu">
-              <button class="menu-tile" data-game="chess"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Catur</div><div class="d">Catur lengkap: lawan komputer 3 level atau main 2 pemain, ada jam catur dan riwayat langkah. Menang vs komputer: <b id="best-chess">0</b>x</div></button>
+              <button class="menu-tile" data-game="chess"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Catur</div><div class="d">Catur lengkap: rating ELO, penilaian langkah (Brilliant s.d. Blunder), lawan bot 3 level atau 2 pemain satu HP, ada jam catur. ELO kamu: <b id="best-elo">800</b> · Menang vs komputer: <b id="best-chess">0</b>x</div></button>
               <button class="menu-tile" data-game="snake"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-game"/></svg></div><div class="t">Ular</div><div class="d">Game ular klasik di kanvas. Makan buah, jangan menabrak. Rekor: <b id="best-snake">0</b></div></button>
               <button class="menu-tile" data-game="memory"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Memory</div><div class="d">Balik kartu dan temukan 8 pasang gambar yang sama. Rekor: <b id="best-memory">—</b></div></button>
               <button class="menu-tile" data-game="guess"><div class="ic"><svg width="23" height="23" style="color:var(--green2)"><use href="#ic-target"/></svg></div><div class="t">Tebak Angka</div><div class="d">Tebak angka rahasia 1–100 dengan petunjuk. Rekor: <b id="best-guess">—</b></div></button>
@@ -737,7 +761,7 @@
             <!-- CHESS -->
             <div class="card game-panel hidden" id="panel-chess">
               <div class="rowflex between"><h3>Catur</h3><button class="btn btn-ghost btn-sm" data-back-game type="button">Kembali</button></div>
-              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan.</p>
+              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang naik-turun tiap partai, <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), lawan bot dengan ratingnya sendiri, dan mode <b>2 pemain offline di satu HP</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan.</p>
               <div class="grid2" style="gap:12px">
                 <div class="field"><label for="chessMode">Mode Main</label>
                   <select class="input" id="chessMode">
@@ -754,11 +778,14 @@
                 </div>
               </div>
               <div class="grid2" style="gap:12px" id="chessCpuOpts">
-                <div class="field"><label for="chessDiff">Level Komputer</label>
+                <div class="field"><label for="chessDiff">Bot / Coach Lawan</label>
                   <select class="input" id="chessDiff">
-                    <option value="1">Mudah</option>
-                    <option value="2" selected>Sedang</option>
-                    <option value="3">Sulit</option>
+                    <option value="0">Bimo · Bc · ELO 550–699</option>
+                    <option value="1">Salsa · Cs · ELO 800–999</option>
+                    <option value="2" selected>Damar · Db · ELO 1000–1200</option>
+                    <option value="3">Kirana · Kp · ELO 1350–1550</option>
+                    <option value="4">Raka · Rs · ELO 1600–1800</option>
+                    <option value="5">Zora · Sx · ELO 1900–2100</option>
                   </select>
                 </div>
                 <div class="field"><label for="chessSide">Kamu Main Sebagai</label>
@@ -767,14 +794,22 @@
                     <option value="b">Hitam</option>
                   </select>
                 </div>
+                <div class="field" style="grid-column:1/-1"><label for="chessBotElo">ELO Bot yang Dipilih: <b id="chessBotEloVal">1100</b> · <span id="chessBotEloTitle">Db Dalang Bidak</span></label>
+                  <input type="range" class="chess-range" id="chessBotElo" min="100" max="2500" step="10" value="1100">
+                  <div style="font-size:12px; color:var(--muted); margin-top:2px">Geser untuk mengatur kekuatan bot: 100 paling mudah, 2500 paling kuat. ELO bot saat main bisa bergeser acak ±25 dari angka ini.</div>
+                </div>
               </div>
               <div class="scorebar">
                 <span class="score-pill" id="chessTurnPill">Giliran: <b>Putih</b></span>
                 <span class="score-pill hidden" id="chessClockW">Putih: <b>—</b></span>
                 <span class="score-pill hidden" id="chessClockB">Hitam: <b>—</b></span>
                 <span class="score-pill" id="chessMat">Materi: <b>Seimbang</b></span>
+                <span class="score-pill" id="chessEloYou">ELO Kamu: <b>800</b></span>
+                <span class="score-pill" id="chessEloOpp">Bot: <b>—</b></span>
               </div>
               <div class="chess-status" id="chessStatus">Tekan Partai Baru untuk mulai.</div>
+              <div class="chess-lasttag hidden" id="chessLastTag"></div>
+              <div class="chess-botchat hidden" id="chessBotChat"></div>
               <div class="chess-wrap">
                 <div class="chess-board" id="chessBoard"></div>
                 <div class="chess-promo hidden" id="chessPromo">
@@ -792,8 +827,32 @@
                 <button class="btn btn-ghost" id="chessUndo" type="button">Mundur</button>
                 <button class="btn btn-ghost" id="chessFlip" type="button">Balik Papan</button>
               </div>
+              <div class="chess-summary hidden" id="chessSummary"></div>
+              <div class="chess-review hidden" id="chessReview">
+                <h4 class="chess-hist-title">Ulasan Permainan</h4>
+                <div class="chess-moves" id="chessReviewMoves"></div>
+              </div>
               <h4 class="chess-hist-title">Riwayat Langkah</h4>
               <div class="chess-moves" id="chessMoves"><div class="empty-note">Belum ada langkah.</div></div>
+              <div class="chess-legend">
+                <span class="mvtag tg-brilliant" style="margin-left:0">Brilliant !!</span>
+                <span class="mvtag tg-best" style="margin-left:0">Langkah Terbaik</span>
+                <span class="mvtag tg-excellent" style="margin-left:0">Sangat Baik</span>
+                <span class="mvtag tg-great" style="margin-left:0">Bagus</span>
+                <span class="mvtag tg-good" style="margin-left:0">Baik</span>
+                <span class="mvtag tg-mistake" style="margin-left:0">Salah</span>
+                <span class="mvtag tg-blunder" style="margin-left:0">Blunder</span>
+              </div>
+              <div class="chess-titles">
+                <div class="ct-title">Title Seru-Seruan (dari ELO kamu &amp; coach)</div>
+                <div><b>Bc</b> Bidak Cekatan — ELO 0–699</div>
+                <div><b>Cs</b> Catur Sigap — ELO 700–999</div>
+                <div><b>Db</b> Dalang Bidak — ELO 1000–1299</div>
+                <div><b>Kp</b> Komandan Papan — ELO 1300–1599</div>
+                <div><b>Rs</b> Raja Strategi — ELO 1600–1899</div>
+                <div><b>Sx</b> Sultan Skakmat — ELO 1900 ke atas</div>
+                <div style="color:var(--muted); margin-top:4px">Title ini cuma buat gaya-gayaan di game ini — bukan gelar catur resmi. Memilih coach mengisi slider ELO di rentang coach itu, tapi kamu bebas menggeser slider ELO bot sendiri dari 100 sampai 2500.</div>
+              </div>
             </div>
           </section>
 
@@ -977,6 +1036,8 @@
                 <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-target"/></svg></div><span class="nm">Tebak Angka (tebakan paling sedikit)</span><span class="tm" id="rec-guess">—</span></div>
                 <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-book"/></svg></div><span class="nm">Kuis Pengetahuan</span><span class="tm" id="rec-quiz">0/10</span></div>
                 <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-target"/></svg></div><span class="nm">Catur (menang vs komputer)</span><span class="tm" id="rec-chess">0</span></div>
+                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--gold)"><use href="#ic-star"/></svg></div><span class="nm">Rating Catur (ELO)</span><span class="tm" id="rec-elo">800</span></div>
+                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-target"/></svg></div><span class="nm">Catur (Menang / Remis / Kalah)</span><span class="tm" id="rec-chess-wl">0 / 0 / 0</span></div>
               </div>
             </div>
           </section>
@@ -1121,6 +1182,7 @@
         ownerIp:"",
         notes:[],
         bests:{ snake:0, memory:null, guess:null, quiz:0, chess:0 },
+        chess:{ elo:800, w:0, l:0, d:0 },
         stats:{ games:0, correct:0, pomoDone:0 },
         session:null
       };
@@ -1132,6 +1194,7 @@
         S.profile = Object.assign(defaultState().profile, p.profile||{});
         S.settings = Object.assign(defaultState().settings, p.settings||{});
         S.bests = Object.assign(defaultState().bests, p.bests||{});
+        S.chess = Object.assign(defaultState().chess, p.chess||{});
         S.stats = Object.assign(defaultState().stats, p.stats||{});
         if(!Array.isArray(S.tokens)) S.tokens = [];
         if(!Array.isArray(S.notes)) S.notes = [];
@@ -1220,6 +1283,10 @@
       $("rec-quiz").textContent = S.bests.quiz + "/10";
       $("best-chess").textContent = S.bests.chess || 0;
       $("rec-chess").textContent = S.bests.chess || 0;
+      var eloNow = (S.chess && S.chess.elo) || 800;
+      if($("best-elo")) $("best-elo").textContent = eloNow;
+      if($("rec-elo")) $("rec-elo").textContent = eloNow + (typeof chTitleFor === "function" ? " (" + chTitleFor(eloNow).code + ")" : "");
+      if($("rec-chess-wl")) $("rec-chess-wl").textContent = (S.chess.w || 0) + " / " + (S.chess.d || 0) + " / " + (S.chess.l || 0);
       $("snakeBest").textContent = S.bests.snake;
     }
 
@@ -1652,7 +1719,9 @@
         sel:-1, legalSel:[], legalTurn:[], snaps:[], names:[], capW:[], capB:[],
         mode:"cpu", diff:2, human:"w", flipped:false, over:false, result:"", winner:null,
         clockSec:0, clocks:{w:0,b:0}, timer:null, aiTimer:null, promo:null, thinking:false,
-        counted:false, awarded:false, lastFrom:-1, lastTo:-1 };
+        counted:false, awarded:false, lastFrom:-1, lastTo:-1,
+        tags:[], losses:[], lossSum:{w:0,b:0}, lossCnt:{w:0,b:0}, tagCnt:{w:{},b:{}},
+        botElo:0, botName:"", coachIdx:2, eloDone:false, eloLine:"", accW:null, accB:null, lastChat:-9 };
     }
     function chCol(p){ return p === p.toUpperCase() ? "w" : "b"; }
     function chOpp(c){ return c === "w" ? "b" : "w"; }
@@ -1856,24 +1925,23 @@
       var moves = chLegal(CH, CH.turn);
       if(!moves.length) return null;
       chOrder(CH, moves);
-      if(CH.diff === 1){
-        if(Math.random() < 0.22) return moves[Math.floor(Math.random() * moves.length)];
-        var best1 = -Infinity, scored = [];
-        moves.forEach(function(m){
-          var sc = -chSearch(m.next, 0, -Infinity, Infinity);
-          scored.push({ m:m, sc:sc });
-          if(sc > best1) best1 = sc;
-        });
-        var pool = scored.filter(function(x){ return x.sc >= best1 - 130; });
-        return pool[Math.floor(Math.random() * pool.length)].m;
-      }
-      var best = -Infinity, bestMove = moves[0], alpha = -Infinity;
+      /* Kekuatan bot mengikuti ELO-nya: ELO rendah = pencarian dangkal,
+         sering asal langkah & toleransi besar; ELO tinggi = pencarian
+         dalam dan hampir selalu langkah terbaik. */
+      var elo = CH.botElo || 1000;
+      var depth = elo >= 1700 ? 2 : elo >= 1050 ? 1 : 0;
+      var randP = Math.max(0, 0.42 - (elo - 100) / 2400 * 0.42);
+      if(Math.random() < randP) return moves[Math.floor(Math.random() * moves.length)];
+      var best = -Infinity, scored = [], alpha = -Infinity;
       for(var i=0;i<moves.length;i++){
-        var sc = -chSearch(moves[i].next, CH.diff - 1, -Infinity, -alpha);
-        if(sc > best){ best = sc; bestMove = moves[i]; }
+        var sc = -chSearch(moves[i].next, depth, -Infinity, -alpha);
+        scored.push({ m:moves[i], sc:sc });
+        if(sc > best) best = sc;
         if(sc > alpha) alpha = sc;
       }
-      return bestMove;
+      var tol = elo >= 1700 ? 25 : elo >= 1050 ? 70 : 140;
+      var pool = scored.filter(function(x){ return x.sc >= best - tol; });
+      return pool[Math.floor(Math.random() * pool.length)].m;
     }
     function chInsufficient(bd){
       var rest = [], i, p, t;
@@ -1913,6 +1981,109 @@
       if(chInCheck(next.bd, next.turn)) base += chLegal(next, next.turn).length ? "+" : "#";
       return base;
     }
+    /* ===== Coach, Title Seru-Seruan & ELO =====
+       Title di bawah ini gelar buatan khusus game ini (bukan gelar
+       catur resmi), didapat dari ELO. ELO pemain & bot: 100–2500. */
+    var CH_TITLES = [
+      { code:"Bc", name:"Bidak Cekatan", min:0 },
+      { code:"Cs", name:"Catur Sigap", min:700 },
+      { code:"Db", name:"Dalang Bidak", min:1000 },
+      { code:"Kp", name:"Komandan Papan", min:1300 },
+      { code:"Rs", name:"Raja Strategi", min:1600 },
+      { code:"Sx", name:"Sultan Skakmat", min:1900 }
+    ];
+    function chTitleFor(elo){
+      var t = CH_TITLES[0];
+      for(var i=0;i<CH_TITLES.length;i++) if(elo >= CH_TITLES[i].min) t = CH_TITLES[i];
+      return t;
+    }
+    var CH_COACHES = [
+      { name:"Bimo", lo:550, hi:699 },
+      { name:"Salsa", lo:800, hi:999 },
+      { name:"Damar", lo:1000, hi:1200 },
+      { name:"Kirana", lo:1350, hi:1550 },
+      { name:"Raka", lo:1600, hi:1800 },
+      { name:"Zora", lo:1900, hi:2100 }
+    ];
+    var CH_GUEST_ELO = 800;
+    function chEloClamp(v){ return Math.max(100, Math.min(2500, Math.round(v))); }
+    function chEloDelta(myElo, oppElo, score){
+      var exp = 1 / (1 + Math.pow(10, (oppElo - myElo) / 400));
+      return Math.round(32 * (score - exp));
+    }
+    function chAccuracy(c){
+      if(!CH || !CH.lossCnt[c]) return null;
+      var acpl = CH.lossSum[c] / CH.lossCnt[c];
+      var acc = 103.1668 * Math.exp(-0.04354 * acpl) - 3.1669;
+      return Math.max(0, Math.min(100, Math.round(acc)));
+    }
+    /* ===== Penilaian Langkah (ala analisis catur) ===== */
+    var CH_CLS = {
+      brilliant:{ label:"Brilliant", sym:"!!", cls:"tg-brilliant" },
+      best:{ label:"Langkah Terbaik", sym:"", cls:"tg-best" },
+      excellent:{ label:"Sangat Baik", sym:"", cls:"tg-excellent" },
+      great:{ label:"Bagus", sym:"", cls:"tg-great" },
+      good:{ label:"Baik", sym:"", cls:"tg-good" },
+      mistake:{ label:"Salah", sym:"?", cls:"tg-mistake" },
+      blunder:{ label:"Blunder", sym:"??", cls:"tg-blunder" }
+    };
+    function chCheapestAttacker(bd, sq, by){
+      var r = Math.floor(sq/8), f = sq % 8, best = 0, i, nr, nf;
+      function note(p){ var v = CH_VAL[p.toLowerCase()]; if(!best || v < best) best = v; }
+      var pr = by === "w" ? r + 1 : r - 1;
+      var pawn = by === "w" ? "P" : "p";
+      if(pr >= 0 && pr < 8){
+        if(f > 0 && bd[pr*8 + f - 1] === pawn) note(pawn);
+        if(f < 7 && bd[pr*8 + f + 1] === pawn) note(pawn);
+      }
+      var knight = by === "w" ? "N" : "n";
+      var nd = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+      for(i=0;i<8;i++){ nr = r + nd[i][0]; nf = f + nd[i][1];
+        if(nr>=0 && nr<8 && nf>=0 && nf<8 && bd[nr*8+nf] === knight) note(knight); }
+      var bishop = by === "w" ? "B" : "b", rook = by === "w" ? "R" : "r", queen = by === "w" ? "Q" : "q";
+      var diag = [[-1,-1],[-1,1],[1,-1],[1,1]], straight = [[-1,0],[1,0],[0,-1],[0,1]], d, p;
+      for(i=0;i<4;i++){
+        d = diag[i]; nr = r; nf = f;
+        while(true){ nr += d[0]; nf += d[1]; if(nr<0||nr>7||nf<0||nf>7) break;
+          p = bd[nr*8+nf]; if(p){ if(p === bishop || p === queen) note(p); break; } }
+        d = straight[i]; nr = r; nf = f;
+        while(true){ nr += d[0]; nf += d[1]; if(nr<0||nr>7||nf<0||nf>7) break;
+          p = bd[nr*8+nf]; if(p){ if(p === rook || p === queen) note(p); break; } }
+      }
+      return best;
+    }
+    function chIsSacrifice(st, m){
+      if(m.promo || m.castle || !m.next) return false;
+      var piece = st.bd[m.from]; if(!piece) return false;
+      var v = CH_VAL[piece.toLowerCase()];
+      if(v < 300) return false;
+      var cheap = chCheapestAttacker(m.next.bd, m.to, chOpp(chCol(piece)));
+      return cheap > 0 && cheap < v;
+    }
+    function chClassify(st, m){
+      var moves = chLegal(st, st.turn), played = null, i;
+      for(i=0;i<moves.length;i++){
+        if(moves[i].from === m.from && moves[i].to === m.to && (moves[i].promo || null) === (m.promo || null)){ played = moves[i]; break; }
+      }
+      if(!played) return null;
+      var pScore = -chSearch(played.next, 1, -Infinity, Infinity);
+      var best = pScore, alpha = pScore;
+      chOrder(st, moves);
+      for(i=0;i<moves.length;i++){
+        if(moves[i] === played) continue;
+        var sc = -chSearch(moves[i].next, 1, -Infinity, -alpha);
+        if(sc > best) best = sc;
+        if(sc > alpha) alpha = sc;
+      }
+      var loss = Math.max(0, best - pScore), key;
+      if(loss <= 10) key = chIsSacrifice(st, played) ? "brilliant" : "best";
+      else if(loss <= 35) key = "excellent";
+      else if(loss <= 80) key = "great";
+      else if(loss <= 150) key = "good";
+      else if(loss <= 300) key = "mistake";
+      else key = "blunder";
+      return { key:key, loss:Math.min(loss, 1000) };
+    }
     function chessStopClock(){ if(CH && CH.timer){ clearInterval(CH.timer); CH.timer = null; } }
     function chessClockFmt(s){
       s = Math.max(0, Math.ceil(s));
@@ -1942,7 +2113,7 @@
         CH.awarded = true;
         if(winner === CH.human){
           S.bests.chess = (S.bests.chess || 0) + 1; save();
-          var xp = CH.diff === 1 ? 30 : CH.diff === 2 ? 50 : 80;
+          var xp = Math.max(15, Math.min(100, Math.round((CH.botElo || 1000) / 25)));
           renderProfileBits();
           award(xp, Math.floor(xp / 3));
           sfxGood();
@@ -1958,7 +2129,121 @@
         toast(text);
         if(winner) sfxGood();
       }
+      chessApplyElo(winner);
+      CH.accW = chAccuracy("w"); CH.accB = chAccuracy("b");
+      chessShowSummary(winner);
+      if(CH.mode === "cpu"){
+        if(winner === null) chBotSay("draw", true);
+        else if(winner === CH.human) chBotSay("lose", true);
+        else chBotSay("win", true);
+      }
+      chessShowReview();
       renderProfileBits();
+    }
+    function chessApplyElo(winner){
+      if(CH.eloDone || CH.names.length < 4) return;
+      CH.eloDone = true;
+      if(CH.mode === "cpu"){
+        var myScore = winner === null ? 0.5 : winner === CH.human ? 1 : 0;
+        var oldElo = (S.chess && S.chess.elo) || 800;
+        var newElo = chEloClamp(oldElo + chEloDelta(oldElo, CH.botElo || 1000, myScore));
+        S.chess.elo = newElo;
+        if(myScore === 1) S.chess.w = (S.chess.w || 0) + 1;
+        else if(myScore === 0) S.chess.l = (S.chess.l || 0) + 1;
+        else S.chess.d = (S.chess.d || 0) + 1;
+        save();
+        var t = chTitleFor(newElo);
+        CH.eloLine = "ELO kamu: " + oldElo + " → " + newElo + " (" + (newElo - oldElo >= 0 ? "+" : "") + (newElo - oldElo) + ") · Title kamu: " + t.code + " " + t.name;
+      } else {
+        var wScore = winner === null ? 0.5 : winner === "w" ? 1 : 0;
+        var eW = (S.chess && S.chess.elo) || 800, eB = CH_GUEST_ELO;
+        var dw = chEloDelta(eW, eB, wScore);
+        var nW = chEloClamp(eW + dw), nB = chEloClamp(eB - dw);
+        S.chess.elo = nW; CH_GUEST_ELO = nB; save();
+        CH.eloLine = "ELO Putih: " + eW + " → " + nW + " (" + (dw >= 0 ? "+" : "") + dw + ") · ELO Hitam: " + eB + " → " + nB;
+      }
+    }
+    function chessTagLine(c){
+      var order = ["brilliant","best","excellent","great","good","mistake","blunder"], parts = [];
+      for(var i=0;i<order.length;i++){
+        var n = CH.tagCnt[c][order[i]] || 0;
+        if(n) parts.push(CH_CLS[order[i]].label + " " + n + "x");
+      }
+      return parts.length ? parts.join(" · ") : "—";
+    }
+    function chessShowSummary(winner){
+      var box = $("chessSummary"); if(!box) return;
+      var html = '<div class="cs-title">Ringkasan Partai</div>';
+      html += "<div>" + CH.result + "</div>";
+      if(CH.eloLine){
+        html += "<div>" + CH.eloLine + "</div>";
+      } else {
+        html += '<div style="color:var(--muted)">ELO tidak berubah — partai terlalu pendek (minimal 4 langkah).</div>';
+      }
+      if(CH.mode === "cpu"){
+        var accYou = CH.human === "w" ? CH.accW : CH.accB;
+        var accBot = CH.human === "w" ? CH.accB : CH.accW;
+        var bt = chTitleFor(CH.botElo || 0);
+        html += "<div>Akurasi kamu: <b>" + (accYou == null ? "—" : accYou + "%") + "</b> · Akurasi " + CH.botName + " (" + bt.code + " · ELO " + CH.botElo + "): <b>" + (accBot == null ? "—" : accBot + "%") + "</b></div>";
+        html += "<div>Langkah kamu: " + chessTagLine(CH.human) + "</div>";
+        html += "<div>Langkah " + CH.botName + ": " + chessTagLine(chOpp(CH.human)) + "</div>";
+      } else {
+        html += "<div>Akurasi Putih: <b>" + (CH.accW == null ? "—" : CH.accW + "%") + "</b> · Akurasi Hitam: <b>" + (CH.accB == null ? "—" : CH.accB + "%") + "</b></div>";
+        html += "<div>Langkah Putih: " + chessTagLine("w") + "</div>";
+        html += "<div>Langkah Hitam: " + chessTagLine("b") + "</div>";
+      }
+      box.innerHTML = html;
+      box.classList.remove("hidden");
+    }
+    /* ===== Basa-basi Bot (bot lawan yang berkomentar) ===== */
+    var CH_BANTER = {
+      start:["Halo! Aku {n}. Santai saja, aku mainnya kalem… kadang-kadang.", "Siap? Papan sudah rapi, bidak sudah semangat. Yang terhormat silakan jalan duluan… eh, tergantung warna ya.", "Halo halo! Semoga beruntung — kamu bakal butuh sedikit keberuntungan lawan aku.", "Main yang rapi ya. Langkah bagusmu aku catat semua, buat kubalas nanti."],
+      praiseBrilliant:["Waduh, Brilliant?! Itu langkah kelas berat. Aku sampai berhenti ngopi.", "Gila sih itu… pengorbanan yang cantik. Hormat, suhu!", "Oke oke, itu tadi keren banget. Aku pura-pura tidak terkesan, padahal terkesan."],
+      praise:["Langkah bagus! Kamu belajar dari siapa? Ngaku.", "Nah, itu baru langkah beneran. Aku harus mikir ulang nih.", "Solid! Kamu main lebih rapi dari biasanya.", "Bagus, bagus… aku mulai keringetan digital di sini."],
+      teaseBlunder:["Eh… itu tadi sengaja, kan? KAN? Soalnya itu blunder gede.", "Ups. Bidakmu berkorban tanpa pamit. Makasih ya!", "Aku tidak mau ketawa… tapi itu tadi lumayan lucu. Semangat, masih bisa comeback!", "Tenang, semua orang pernah blunder. Bedanya, punyamu barusan terekam di Ulasan Permainan."],
+      teaseMistake:["Hmm, langkah itu agak meragukan… tapi biar kamu sendiri yang menilai.", "Itu tadi kurang rapi dikit. Dikit banget. Lumayan gede sih.", "Aku pura-pura tidak lihat kelemahan itu. Pura-puranya gagal."],
+      botCheck:["Skak! Rajamu aku sapa dulu ya.", "Skak. Jangan panik — paniknya nanti saja pas skakmat.", "Cek! Aku memang hobi ngecek."],
+      botMove:["Giliranku. Lihat dan pelajari.", "Aku jalan ini saja. Alasannya? Rahasia dapur.", "Langkahku simpel, tapi rencanaku tidak.", "Hmm… iya, ini langkah yang benar. Percaya saja."],
+      botCapture:["Nyam! Bidak itu enak juga ternyata.", "Kutangkap ya. Jangan nangis, masih banyak bidak lain.", "Itu tadi gratis, jadi kuambil. Makasih traktirannya!"],
+      win:["Skakmat! GG — mainmu bagus, cuma aku lagi hoki. Rematch?", "Aku menang! Jangan kapok ya, lain kali gantian kamu yang menang.", "GG WP! Seru banget partainya. Tekan Partai Baru kalau berani lagi."],
+      lose:["Kamu menang… aku akui, partai ini kamu mainnya rapi banget.", "Aduh, kalah. Bidakku pada mogok di akhir. Selamat ya, pantas menang!", "GG! Aku kalah fair. Lain kali aku balas — catat itu."],
+      draw:["Remis! Sama kuat, sama keras kepala. Seru!", "Seri ternyata. Berarti kita selevel… hari ini saja tapi.", "Remis yang adil. Tidak ada yang pulang malu."]
+    };
+    function chBotSay(kind, force){
+      if(!CH || CH.mode !== "cpu") return;
+      var pool = CH_BANTER[kind]; if(!pool) return;
+      if(!force && CH.names.length - CH.lastChat < 2) return;
+      CH.lastChat = CH.names.length;
+      var box = $("chessBotChat"); if(!box) return;
+      var line = pool[Math.floor(Math.random() * pool.length)].replace("{n}", CH.botName);
+      box.innerHTML = "<b>" + CH.botName + ":</b> " + line;
+      box.classList.remove("hidden");
+    }
+    /* ===== Ulasan Permainan (semua langkah + penilaiannya) ===== */
+    function chTagPill(idx){
+      var key = CH.tags[idx];
+      if(!key || !CH_CLS[key]) return "";
+      return '<span class="mvtag ' + CH_CLS[key].cls + '">' + CH_CLS[key].label + (CH_CLS[key].sym ? " " + CH_CLS[key].sym : "") + "</span>";
+    }
+    function chReviewCell(idx){
+      if(idx >= CH.names.length) return "";
+      var s = "<b>" + CH.names[idx] + "</b>" + chTagPill(idx);
+      var key = CH.tags[idx], l = CH.losses[idx];
+      if(key && l != null && l >= 35 && (key === "great" || key === "good" || key === "mistake" || key === "blunder")){
+        s += ' <span class="rvloss">−' + (l / 100).toFixed(1).replace(".", ",") + " pion dari langkah terbaik</span>";
+      }
+      return s;
+    }
+    function chessShowReview(){
+      var wrap = $("chessReview"), box = $("chessReviewMoves");
+      if(!wrap || !box) return;
+      if(!CH.names.length){ wrap.classList.add("hidden"); return; }
+      var html = "";
+      for(var k=0;k<CH.names.length;k+=2){
+        html += '<div class="mvrow"><span class="mvnum">' + (k / 2 + 1) + '.</span><span class="mv">' + chReviewCell(k) + '</span><span class="mv">' + chReviewCell(k + 1) + '</span></div>';
+      }
+      box.innerHTML = html;
+      wrap.classList.remove("hidden");
     }
     function chessDoMove(m){
       CH.snaps.push({
@@ -1966,9 +2251,20 @@
         cast: { K:CH.cast.K, Q:CH.cast.Q, k:CH.cast.k, q:CH.cast.q },
         ep: CH.ep, half: CH.half, capW: CH.capW.slice(), capB: CH.capB.slice(),
         namesLen: CH.names.length, lastFrom: CH.lastFrom, lastTo: CH.lastTo,
-        clocks: { w:CH.clocks.w, b:CH.clocks.b }
+        clocks: { w:CH.clocks.w, b:CH.clocks.b },
+        tagsLen: CH.tags.length,
+        lossSum: { w:CH.lossSum.w, b:CH.lossSum.b }, lossCnt: { w:CH.lossCnt.w, b:CH.lossCnt.b },
+        tagCnt: JSON.parse(JSON.stringify(CH.tagCnt))
       });
       var mover = CH.turn;
+      var clsRes = null;
+      try{ clsRes = chClassify(CH, m); }catch(e){ clsRes = null; }
+      if(clsRes){
+        CH.tags.push(clsRes.key);
+        CH.losses.push(clsRes.loss);
+        CH.lossSum[mover] += clsRes.loss; CH.lossCnt[mover]++;
+        CH.tagCnt[mover][clsRes.key] = (CH.tagCnt[mover][clsRes.key] || 0) + 1;
+      } else { CH.tags.push(null); CH.losses.push(null); }
       var next = m.next || chApply(CH, m);
       var note = chNotation(CH, m, next);
       if(next.captured){ if(mover === "w") CH.capW.push(next.captured); else CH.capB.push(next.captured); }
@@ -1976,6 +2272,18 @@
       CH.lastFrom = m.from; CH.lastTo = m.to;
       CH.sel = -1; CH.legalSel = [];
       CH.names.push(note);
+      if(CH.mode === "cpu"){
+        if(mover === CH.human && clsRes){
+          if(clsRes.key === "brilliant") chBotSay("praiseBrilliant", true);
+          else if(clsRes.key === "blunder") chBotSay("teaseBlunder", true);
+          else if((clsRes.key === "best" || clsRes.key === "excellent") && Math.random() < 0.5) chBotSay("praise");
+          else if(clsRes.key === "mistake" && Math.random() < 0.5) chBotSay("teaseMistake");
+        } else if(mover !== CH.human){
+          if(next.captured && Math.random() < 0.45) chBotSay("botCapture");
+          else if(chInCheck(next.bd, next.turn) && Math.random() < 0.6) chBotSay("botCheck");
+          else if(Math.random() < 0.14) chBotSay("botMove");
+        }
+      }
       if(!CH.counted){ CH.counted = true; S.stats.games++; save(); renderProfileBits(); }
       if(note.indexOf("#") > -1) beep(392, 0, .2, "sine", .15);
       else if(note.indexOf("+") > -1) beep(880, 0, .14, "sine", .14);
@@ -2012,7 +2320,12 @@
       if(CH.aiTimer) clearTimeout(CH.aiTimer);
       chessStopClock();
       CH.mode = $("chessMode").value;
-      CH.diff = parseInt($("chessDiff").value, 10) || 2;
+      CH.coachIdx = parseInt($("chessDiff").value, 10);
+      if(isNaN(CH.coachIdx) || !CH_COACHES[CH.coachIdx]) CH.coachIdx = 2;
+      CH.botName = CH_COACHES[CH.coachIdx].name;
+      var sliderElo = parseInt($("chessBotElo").value, 10) || 1100;
+      CH.botElo = chEloClamp(sliderElo + Math.floor(Math.random() * 51) - 25);
+      CH.diff = CH.botElo >= 1400 ? 3 : CH.botElo >= 800 ? 2 : 1;
       CH.human = $("chessSide").value;
       CH.clockSec = parseInt($("chessClock").value, 10) || 0;
       $("chessCpuOpts").classList.toggle("hidden", CH.mode !== "cpu");
@@ -2021,6 +2334,12 @@
       CH.sel = -1; CH.legalSel = []; CH.snaps = []; CH.names = []; CH.capW = []; CH.capB = [];
       CH.over = false; CH.result = ""; CH.winner = null; CH.promo = null; CH.thinking = false;
       CH.counted = false; CH.awarded = false; CH.lastFrom = -1; CH.lastTo = -1;
+      CH.tags = []; CH.losses = []; CH.lossSum = {w:0,b:0}; CH.lossCnt = {w:0,b:0}; CH.tagCnt = {w:{},b:{}};
+      CH.eloDone = false; CH.eloLine = ""; CH.accW = null; CH.accB = null; CH.lastChat = -9;
+      $("chessSummary").classList.add("hidden");
+      $("chessReview").classList.add("hidden");
+      $("chessBotChat").classList.add("hidden");
+      $("chessLastTag").classList.add("hidden");
       CH.flipped = CH.mode === "cpu" && CH.human === "b";
       CH.clocks = { w: CH.clockSec, b: CH.clockSec };
       $("chessPromo").classList.add("hidden");
@@ -2029,17 +2348,27 @@
       chessRender();
       if(CH.clockSec) CH.timer = setInterval(chessClockTick, 250);
       chessMaybeAi();
-      toast("Partai catur baru dimulai. " + (CH.mode === "cpu" ? "Kamu main sebagai " + (CH.human === "w" ? "Putih" : "Hitam") + ", level " + $("chessDiff").options[$("chessDiff").selectedIndex].text + "." : "Mode 2 pemain — Putih jalan duluan."));
+      toast(CH.mode === "cpu"
+        ? "Partai baru vs " + CH.botName + " (" + chTitleFor(CH.botElo).code + " " + chTitleFor(CH.botElo).name + " · ELO " + CH.botElo + "). Kamu main sebagai " + (CH.human === "w" ? "Putih" : "Hitam") + "."
+        : "Partai baru — mode 2 pemain offline satu HP. Putih jalan duluan.");
+      if(CH.mode === "cpu") chBotSay("start", true);
     }
     function chessRestore(snap){
       CH.bd = snap.bd; CH.turn = snap.turn; CH.cast = snap.cast; CH.ep = snap.ep; CH.half = snap.half;
       CH.capW = snap.capW; CH.capB = snap.capB;
       CH.names.length = snap.namesLen;
+      if(typeof snap.tagsLen === "number"){
+        CH.tags.length = snap.tagsLen;
+        CH.losses.length = snap.tagsLen;
+        CH.lossSum = snap.lossSum; CH.lossCnt = snap.lossCnt; CH.tagCnt = snap.tagCnt;
+      }
       CH.lastFrom = snap.lastFrom; CH.lastTo = snap.lastTo;
       CH.clocks = snap.clocks;
       CH.sel = -1; CH.legalSel = []; CH.promo = null;
       CH.over = false; CH.result = ""; CH.winner = null;
       $("chessPromo").classList.add("hidden");
+      $("chessSummary").classList.add("hidden");
+      $("chessReview").classList.add("hidden");
     }
     function chessUndo(){
       if(!CH) return;
@@ -2129,7 +2458,7 @@
       if(CH.over) st.textContent = CH.result;
       else {
         var txt = "Giliran " + who;
-        if(CH.mode === "cpu") txt += CH.turn === CH.human ? " (kamu)" : " (komputer)";
+        if(CH.mode === "cpu") txt += CH.turn === CH.human ? " (kamu)" : " (" + CH.botName + " · " + chTitleFor(CH.botElo || 0).code + " · ELO " + CH.botElo + ")";
         if(checkSq >= 0) txt += " — Skak! Raja harus diamankan.";
         if(CH.thinking) txt += " Komputer sedang berpikir…";
         st.textContent = txt;
@@ -2146,11 +2475,28 @@
       else {
         var html2 = "";
         for(var k=0;k<CH.names.length;k+=2){
-          html2 += '<div class="mvrow"><span class="mvnum">' + (k / 2 + 1) + '.</span><span class="mv">' + CH.names[k] + '</span><span class="mv">' + (CH.names[k + 1] || "") + '</span></div>';
+          html2 += '<div class="mvrow"><span class="mvnum">' + (k / 2 + 1) + '.</span><span class="mv">' + CH.names[k] + chTagPill(k) + '</span><span class="mv">' + (CH.names[k + 1] ? CH.names[k + 1] + chTagPill(k + 1) : "") + '</span></div>';
         }
         mv.innerHTML = html2;
       }
       mv.scrollTop = mv.scrollHeight;
+      var myEloNow = (S.chess && S.chess.elo) || 800;
+      if(CH.mode === "cpu"){
+        var btNow = chTitleFor(CH.botElo || 0), mtNow = chTitleFor(myEloNow);
+        $("chessEloYou").innerHTML = "ELO Kamu: <b>" + myEloNow + "</b> · " + mtNow.code + " " + mtNow.name;
+        $("chessEloOpp").innerHTML = CH.botName + ": <b>" + (CH.botElo || "—") + "</b> · " + btNow.code + " " + btNow.name;
+      } else {
+        $("chessEloYou").innerHTML = "Putih: <b>" + myEloNow + "</b> · " + chTitleFor(myEloNow).code;
+        $("chessEloOpp").innerHTML = "Hitam (Tamu): <b>" + CH_GUEST_ELO + "</b> · " + chTitleFor(CH_GUEST_ELO).code;
+      }
+      var lt = $("chessLastTag");
+      if(CH.names.length){
+        var li = CH.names.length - 1;
+        if(CH.tags[li] && CH_CLS[CH.tags[li]]){
+          lt.innerHTML = "Langkah terakhir " + (li % 2 === 0 ? "Putih" : "Hitam") + ": <b>" + CH.names[li] + "</b>" + chTagPill(li);
+          lt.classList.remove("hidden");
+        } else lt.classList.add("hidden");
+      } else lt.classList.add("hidden");
       chessClockRender();
     }
     function chessOpen(){
@@ -2743,6 +3089,18 @@
       $("chessMode").addEventListener("change", function(){
         $("chessCpuOpts").classList.toggle("hidden", this.value !== "cpu");
       });
+      function chessBotEloPreview(){
+        var v = parseInt($("chessBotElo").value, 10) || 1100;
+        $("chessBotEloVal").textContent = v;
+        var t = chTitleFor(v);
+        $("chessBotEloTitle").textContent = t.code + " " + t.name;
+      }
+      $("chessBotElo").addEventListener("input", chessBotEloPreview);
+      $("chessDiff").addEventListener("change", function(){
+        var c = CH_COACHES[parseInt(this.value, 10) || 0];
+        if(c){ $("chessBotElo").value = c.lo + Math.floor(Math.random() * (c.hi - c.lo + 1)); chessBotEloPreview(); }
+      });
+      chessBotEloPreview();
       $("chessPromoCancel").addEventListener("click", function(){
         if(CH) CH.promo = null;
         $("chessPromo").classList.add("hidden");
