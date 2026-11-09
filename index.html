@@ -1149,7 +1149,7 @@
                   <button class="btn btn-ghost btn-sm" id="chessLobbyRefresh" type="button">Segarkan Lobi</button>
                 </div>
                 <div id="chessLobby"></div>
-                <div class="online-note">Tekan <b>Main Online</b> untuk langsung masuk antrean matchmaking server — <b>tanpa memilih lawan dan tanpa tombol tantang</b>: server mencarikan lawan acak dan <b>pemain asli diprioritaskan</b>, jadi kalau temanmu menekan Main Online di waktu yang berdekatan, besar kemungkinan kalian dipertemukan. Kalau antrean pemain asli sedang kosong, <b>bot pengganti dari server</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu bot pengganti disiapkan). Nama, negara, bendera, title, dan ELO lawan ditentukan server saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. ELO hasil partai online dihitung server. Untuk lawan bot lokal dan lawan mode cadangan, ELO lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang. Pilihan region hanya berlaku pada mode cadangan. Melawan bot pengganti (dari server maupun simulasi), ELO kamu tidak berubah — ELO hanya dipertaruhkan saat melawan pemain asli. Catatan: server berjalan lewat alamat ws:// tanpa SSL — sebagian browser bisa menolak koneksi itu dari halaman https; bila server tidak terjangkau, mode ini otomatis memakai <b>mode cadangan (simulasi)</b> dengan bot lokal dan statusnya ditampilkan apa adanya.</div>
+                <div class="online-note">Tekan <b>Main Online</b> untuk langsung masuk antrean matchmaking server — <b>tanpa memilih lawan dan tanpa tombol tantang</b>: server mencarikan lawan acak dan <b>pemain asli diprioritaskan</b>, jadi kalau temanmu menekan Main Online di waktu yang berdekatan, besar kemungkinan kalian dipertemukan. Kalau antrean pemain asli sedang kosong, <b>bot pengganti dari server</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu bot pengganti disiapkan). Nama, negara, bendera, title, dan ELO lawan ditentukan server saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. ELO hasil partai online dihitung server. Untuk lawan bot lokal dan lawan mode cadangan, ELO lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang. Pilihan region hanya berlaku pada mode cadangan. Melawan bot pengganti (dari server maupun simulasi), ELO kamu tidak berubah — ELO hanya dipertaruhkan saat melawan pemain asli. Catatan koneksi: server juga bisa dihubungi lewat <b>Cloudflare Tunnel gratis</b> beralamat <b>wss://…trycloudflare.com</b> (terenkripsi, tidak diblokir browser dari halaman https ini) — alamat tunnelnya ditempel Owner di Panel Owner dan berubah setiap server di-restart. Bila alamat tunnel belum diatur, website mencoba alamat ws:// langsung yang biasanya diblokir browser dari halaman https; bila server tetap tidak terjangkau, mode ini otomatis memakai <b>mode cadangan (simulasi)</b> dengan bot lokal dan statusnya ditampilkan apa adanya.</div>
               </div>
               <div class="scorebar">
                 <span class="score-pill" id="chessTurnPill">Giliran: <b>Putih</b></span>
@@ -1493,6 +1493,20 @@
             </div>
 
             <div class="card">
+              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-globe"/></svg> Tunnel Server Catur — Cloudflare (Gratis)</h3>
+              <p class="csub">Website ini adalah halaman <b>https</b>, sedangkan server catur di panel hanya punya alamat <b>ws://</b> polos — browser memblokir koneksi itu, jadi mode Online selalu jatuh ke mode cadangan. Server catur <b>v1.3.0</b> menjalankan <b>Cloudflare Tunnel gratis</b> dan mendapat alamat terenkripsi <b>wss://…trycloudflare.com</b>. Alamat tunnel tampil di <b>console server</b> saat server start, dan juga bisa dilihat dengan membuka alamat <b>/health</b> server di browser. Salin alamatnya, lalu tempel di sini — mode Online dari perangkat ini lalu tersambung lewat tunnel. Perhatian: alamat tunnel <b>berubah setiap server di-restart</b>, jadi tempel ulang alamat barunya di sini setiap habis restart server. Alamat ini tersimpan di perangkat ini.</p>
+              <div class="prayer-list" style="margin-bottom:14px">
+                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-globe"/></svg></div><span class="nm">Status Alamat Tunnel</span><span class="tm" style="font-size:14px" id="ownerTunnelStatus">Belum diatur</span></div>
+              </div>
+              <div class="field"><label for="tunnelUrlInput">Alamat Tunnel (wss://)</label><input class="input" id="tunnelUrlInput" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="wss://nama-acak.trycloudflare.com" /></div>
+              <div class="rowflex">
+                <button class="btn btn-gold" id="btnSaveTunnel" type="button"><svg width="16" height="16"><use href="#ic-globe"/></svg> Simpan Alamat Tunnel</button>
+                <button class="btn btn-danger hidden" id="btnRemoveTunnel" type="button">Hapus</button>
+              </div>
+              <div class="feedback" id="tunnelMsg"></div>
+            </div>
+
+            <div class="card">
               <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-crown"/></svg> Title OWNER Eksklusif</h3>
               <p class="csub">Title paling istimewa di SlashSMP Belajar: lencana emas <b>OWNER</b> dengan mahkota. Title ini <b>tidak bisa didapat dari ELO</b> dan <b>hanya bisa dipakai oleh kamu sebagai Owner</b> — pengunjung, bot, dan coach tidak akan pernah memilikinya. Selama kamu masuk sebagai Owner, title ini tampil di Profil, di bar pemain saat bermain catur, dan di ringkasan partai; begitu kamu log out, title ini hilang dan profil kembali ke title ELO biasa.</p>
               <div class="owner-stage off" id="ownerStage">
@@ -1622,7 +1636,7 @@
         ownerIp:"",
         notes:[],
         bests:{ snake:0, memory:null, guess:null, quiz:0, chess:0 },
-        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"" },
+        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"", tunnelUrl:"" },
         stats:{ games:0, correct:0, pomoDone:0 },
         session:null
       };
@@ -1913,6 +1927,14 @@
       if(si) si.textContent = S.ownerIp ? "Sudah diatur" : "Belum diatur";
       var rm = $("btnRemoveIp"); if(rm) rm.classList.toggle("hidden", !S.ownerIp);
     }
+    function updateTunnelUi(){
+      var st = $("ownerTunnelStatus"); if(!st) return;
+      var has = !!chTunnelNormalize(S.chess && S.chess.tunnelUrl);
+      st.textContent = has ? "Sudah diatur" : "Belum diatur";
+      var inp = $("tunnelUrlInput");
+      if(inp && document.activeElement !== inp) inp.value = (S.chess && S.chess.tunnelUrl) || "";
+      var rm = $("btnRemoveTunnel"); if(rm) rm.classList.toggle("hidden", !has);
+    }
     function detectIpThen(after){
       fetchIp().then(function(ip){
         currentIp = ip; ipResolved = true;
@@ -1928,7 +1950,7 @@
       $("sessionInfo").textContent = S.session === "owner" ? "Kamu masuk sebagai Owner (password)." :
         S.session === "owner-ip" ? "Kamu masuk sebagai Owner (IP dikenali otomatis)." :
         "Kamu masuk sebagai pengunjung dengan token.";
-      renderProfileBits(); renderTokens(); renderNotes(); updateIpUi();
+      renderProfileBits(); renderTokens(); renderNotes(); updateIpUi(); updateTunnelUi();
       startClock();
     }
     function tryToken(code){
@@ -3555,8 +3577,10 @@
     }
 
     /* ================= MODE ONLINE — SERVER ASLI =================
-       Server catur Node.js v1.1.0 SUDAH AKTIF di panel Pterodactyl
-       (alamat di bawah). Protokol WebSocket JSON sesuai server.js:
+       Server catur Node.js SUDAH AKTIF di panel Pterodactyl
+       (alamat ws:// langsung di bawah; alamat tunnel Cloudflare
+       wss:// dari Panel Owner menimpanya bila diatur — lihat
+       chServerWs). Protokol WebSocket JSON sesuai server.js:
        matchmaking ACAK langsung (tanpa tombol tantang), prioritas
        PEMAIN ASLI (dua orang yang sama-sama menekan Main Online di
        waktu berdekatan dipertemukan — jadi pemilik website bisa
@@ -3568,8 +3592,26 @@
        Online tetap bisa dimainkan, dan statusnya ditampilkan
        apa adanya di layar. */
     var CH_SERVER_WS = "ws://alwaysashanode.hyungseok.web.id:2008";
+    /* TUNNEL CLOUDFLARE GRATIS: server v1.3.0 menjalankan cloudflared
+       dan mendapat alamat wss://…trycloudflare.com (terenkripsi).
+       Alamat itu ditempel Owner di Panel Owner -> S.chess.tunnelUrl,
+       dan MENIMPA alamat ws:// polos di atas, karena dari halaman
+       https hanya wss:// yang tidak diblokir browser. Alamat tunnel
+       berubah setiap server di-restart, jadi harus ditempel ulang. */
+    function chTunnelNormalize(raw){
+      var s = String(raw || "").trim().toLowerCase();
+      if(!s) return "";
+      s = s.replace(/^[a-z][a-z0-9+.-]*:\/\//, "").split("/")[0].split("?")[0].split("#")[0];
+      if(!s || s.indexOf(".") < 0 || /\s/.test(s)) return "";
+      return "wss://" + s;
+    }
+    function chServerWs(){
+      var t = chTunnelNormalize(S.chess && S.chess.tunnelUrl);
+      return t || CH_SERVER_WS;
+    }
+    function chUsingTunnel(){ return !!chTunnelNormalize(S.chess && S.chess.tunnelUrl); }
     var NET = { ws:null, state:"off", searching:false, inGame:false, real:false,
-      gameId:null, online:0, inGames:0, pendingOverElo:null, failTimer:null, oppIsBot:false };
+      gameId:null, online:0, inGames:0, pendingOverElo:null, failTimer:null, oppIsBot:false, silentClose:false };
     var NET_FORCED_SIDE = null;
     var NET_FLAG_NAMES = { ID:"Indonesia", US:"Amerika Serikat", GB:"Inggris", DE:"Jerman", FR:"Prancis", ES:"Spanyol", IT:"Italia", NL:"Belanda", BR:"Brasil", AR:"Argentina", IN:"India", JP:"Jepang", KR:"Korea Selatan", CN:"Tiongkok", RU:"Rusia", TR:"Turki", EG:"Mesir", NG:"Nigeria", AU:"Australia", CA:"Kanada", MY:"Malaysia", SG:"Singapura", MX:"Meksiko", VN:"Vietnam", TH:"Thailand" };
     var NET_FLAG_CODES = { "🇮🇩":"ID", "🇺🇸":"US", "🇲🇾":"MY", "🇸🇬":"SG", "🇬🇧":"GB", "🇩🇪":"DE", "🇫🇷":"FR", "🇯🇵":"JP", "🇰🇷":"KR", "🇮🇳":"IN", "🇧🇷":"BR", "🇦🇺":"AU" };
@@ -3594,9 +3636,9 @@
     }
     function netSetStatus(){
       var el = $("chessServerStatus"); if(!el) return;
-      if(NET.state === "online") el.innerHTML = '<span style="color:var(--green2)">&#9679;</span>&nbsp;Server asli terhubung · ' + NET.online + " pemain online · " + NET.inGames + " partai berjalan";
-      else if(NET.state === "connecting") el.textContent = "Server: menghubungkan…";
-      else el.textContent = "Server: belum terhubung";
+      if(NET.state === "online") el.innerHTML = '<span style="color:var(--green2)">&#9679;</span>&nbsp;Server asli terhubung' + (chUsingTunnel() ? " · via tunnel Cloudflare" : "") + " · " + NET.online + " pemain online · " + NET.inGames + " partai berjalan";
+      else if(NET.state === "connecting") el.textContent = "Server: menghubungkan" + (chUsingTunnel() ? " via tunnel…" : "…");
+      else el.textContent = "Server: belum terhubung" + (chUsingTunnel() ? " · alamat tunnel tersimpan" : "");
     }
     function netQueueStatus(txt){
       var q = $("chessQueue"), st = $("chessQueueStatus");
@@ -3607,7 +3649,7 @@
       if(NET.ws && (NET.ws.readyState === 0 || NET.ws.readyState === 1)) return;
       NET.state = "connecting"; netSetStatus();
       var ws;
-      try{ ws = new WebSocket(CH_SERVER_WS); }catch(e){ NET.state = "off"; netSetStatus(); return; }
+      try{ ws = new WebSocket(chServerWs()); }catch(e){ NET.state = "off"; netSetStatus(); return; }
       NET.ws = ws;
       ws.onopen = function(){
         NET.state = "online"; netSetStatus();
@@ -3619,7 +3661,8 @@
       };
       ws.onerror = function(){ /* onclose yang menyusul menangani sisanya */ };
       ws.onclose = function(){
-        var wasSearching = NET.searching, wasInGame = NET.inGame;
+        var silent = NET.silentClose; NET.silentClose = false;
+        var wasSearching = NET.searching && !silent, wasInGame = NET.inGame && !silent;
         NET.ws = null; NET.state = "off"; NET.searching = false; NET.inGame = false;
         netSetStatus();
         var rb = $("chessRematchOffer"); if(rb) rb.classList.add("hidden");
@@ -3645,7 +3688,9 @@
         if(NET.state === "online"){ clearInterval(NET.failTimer); NET.failTimer = null; netFindMatch(); }
         else if(waited >= 4500){
           clearInterval(NET.failTimer); NET.failTimer = null;
-          toast("Server catur tidak terjangkau dari browser ini — memakai mode cadangan (simulasi) dengan bot lokal.");
+          toast(chUsingTunnel()
+            ? "Server catur lewat tunnel tidak terjangkau — alamat tunnel mungkin sudah berubah setelah server di-restart; tempel alamat baru di Panel Owner. Sementara memakai mode cadangan (simulasi)."
+            : "Server catur tidak terjangkau dari browser ini — memakai mode cadangan (simulasi) dengan bot lokal.");
           chessQueueStart();
         }
       }, 250);
@@ -4794,6 +4839,30 @@
         S.ownerIp = ""; save(); updateIpUi();
         var m = $("ipMsg"); m.className = "feedback show"; m.textContent = "IP Owner dihapus. Masuk sebagai Owner sekarang hanya bisa dengan password.";
       });
+      $("btnSaveTunnel").addEventListener("click", function(){
+        var m = $("tunnelMsg");
+        var norm = chTunnelNormalize($("tunnelUrlInput").value);
+        if(!norm){
+          m.className = "feedback show bad";
+          m.textContent = "Alamat tunnel tidak valid. Tempel alamat seperti wss://nama-acak.trycloudflare.com dari console server (atau dari /health server).";
+          return;
+        }
+        S.chess.tunnelUrl = norm; save(); updateTunnelUi();
+        /* Koneksi lama yang menganggur ditutup diam-diam supaya
+           Main Online berikutnya memakai alamat tunnel baru. */
+        if(NET.ws && !NET.inGame){
+          NET.silentClose = true;
+          try{ NET.ws.close(); }catch(e){}
+          NET.ws = null; NET.state = "off"; NET.searching = false; netSetStatus();
+        }
+        m.className = "feedback show good";
+        m.textContent = "Alamat tunnel tersimpan. Mode Online sekarang tersambung lewat tunnel ini (wss:// terenkripsi) — coba tekan Main Online di menu Catur.";
+        sfxGood();
+      });
+      $("btnRemoveTunnel").addEventListener("click", function(){
+        S.chess.tunnelUrl = ""; save(); updateTunnelUi();
+        var m = $("tunnelMsg"); m.className = "feedback show"; m.textContent = "Alamat tunnel dihapus. Mode Online kembali memakai alamat ws:// langsung (biasanya diblokir browser dari halaman https).";
+      });
     }
 
     /* ================= BOOT / LOADER ================= */
@@ -4806,6 +4875,7 @@
       $("setPremove").checked = S.settings.premove !== false;
       if($("ownerTitlePick")) $("ownerTitlePick").value = S.chess.titlePick || "";
       if(typeof updateOwnerTitleUI === "function") updateOwnerTitleUI();
+      updateTunnelUi();
       $("profileName").value = S.profile.name || "";
       buildCalc();
       pomoRender();
