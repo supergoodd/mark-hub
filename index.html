@@ -2061,39 +2061,46 @@
        diperiksa di halaman ini. Yang diketik pengguna dikirim ke
        server catur lewat POST {alamat tunnel https}/check-owner
        dengan JSON {password}; server menjawab JSON {ok:true} atau
-       {ok:false}. Alamat diambil dari pengaturan Tunnel yang sudah
-       tersimpan (S.chess.tunnelUrl, dinormalisasi chTunnelNormalize
-       menjadi "wss://host") lalu skemanya diubah menjadi https://.
-       Tanpa alamat Tunnel, atau bila server tidak terjangkau,
-       login password tidak bisa dipakai dan pengguna diarahkan ke
-       login token / pengenalan IP Owner. */
-    function ownerCheckBase(){
-      var t = chTunnelNormalize(S.chess && S.chess.tunnelUrl);
-      if(!t) return "";
-      return "https://" + t.slice("wss://".length);
-    }
+       {ok:false}. Alamat yang dicoba berurutan mengikuti
+       tunnelCandidates: (1) alamat Tunnel tersimpan di perangkat,
+       (2) file tunnel.json di folder yang sama dengan halaman ini,
+       (3) alamat bawaan — karena alamat tersimpan bisa saja masih
+       alamat lama (server tanpa /check-owner) dan hanya bisa diganti
+       dari Panel Owner yang justru butuh login dulu. Alamat yang
+       memberi jawaban pasti ({ok:true}/{ok:false}) disimpan sebagai
+       alamat Tunnel perangkat ini (adoptTunnel), supaya percobaan
+       berikutnya langsung memakai alamat yang benar. Bila semua
+       alamat gagal, pengguna diarahkan ke login token / IP Owner. */
     function tryOwnerPassword(pw, done){
-      var base = ownerCheckBase();
-      if(!base){ done("notunnel"); return; }
-      var finished = false;
-      var finish = function(res){ if(finished) return; finished = true; done(res); };
-      var ctrl = null;
-      try{
-        if(window.AbortController) ctrl = new AbortController();
-        if(ctrl) setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 12000);
-        fetch(base + "/check-owner", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password: pw }),
-          signal: ctrl ? ctrl.signal : undefined
-        }).then(function(r){
-          return r.json().catch(function(){ return null; }).then(function(d){
-            if(d && d.ok === true) finish("ok");
-            else if(d && d.ok === false) finish("wrong");
-            else finish("unreachable");
-          });
-        }).catch(function(){ finish("unreachable"); });
-      }catch(e){ finish("unreachable"); }
+      tunnelCandidates(function(list){
+        var finished = false;
+        var finish = function(res){ if(finished) return; finished = true; done(res); };
+        if(!list.length){ finish("notunnel"); return; }
+        var attempt = function(i){
+          if(finished) return;
+          if(i >= list.length){ finish("unreachable"); return; }
+          var base = "https://" + list[i].slice("wss://".length);
+          var next = function(){ attempt(i + 1); };
+          var ctrl = null;
+          try{
+            if(window.AbortController) ctrl = new AbortController();
+            if(ctrl) setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 10000);
+            fetch(base + "/check-owner", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ password: pw }),
+              signal: ctrl ? ctrl.signal : undefined
+            }).then(function(r){
+              return r.json().catch(function(){ return null; }).then(function(d){
+                if(d && d.ok === true){ adoptTunnel(list[i]); finish("ok"); }
+                else if(d && d.ok === false){ adoptTunnel(list[i]); finish("wrong"); }
+                else next(); /* tidak terjangkau / bukan JSON / bukan ok: coba alamat berikutnya */
+              });
+            }).catch(next);
+          }catch(e){ next(); }
+        };
+        attempt(0);
+      });
     }
 
     /* ================= NAVIGATION ================= */
@@ -3925,6 +3932,49 @@
       return t || CH_SERVER_WS;
     }
     function chUsingTunnel(){ return !!chTunnelNormalize(S.chess && S.chess.tunnelUrl); }
+    /* ALAMAT TUNNEL CADANGAN — dipakai bersama oleh cek password
+       Owner dan koneksi Main Online. Alamat tunnel berubah setiap
+       server di-restart, sedangkan alamat yang tersimpan di
+       perangkat hanya bisa diganti dari Panel Owner (yang butuh
+       login dulu), jadi alamat dicoba berurutan: (1) alamat
+       tersimpan di perangkat, (2) file tunnel.json di folder yang
+       sama dengan halaman ini (berisi {"wss":"wss://..."}),
+       (3) alamat bawaan di bawah. Alamat yang terbukti menjawab
+       disimpan sebagai alamat Tunnel perangkat ini lewat
+       adoptTunnel, supaya percobaan berikutnya langsung benar. */
+    var CH_TUNNEL_BUILTIN = "wss://bent-mouse-materials-here.trycloudflare.com";
+    var _tunnelJsonCache; /* undefined = belum diambil; "" = tidak ada/gagal */
+    function tunnelJsonFetch(done){
+      if(_tunnelJsonCache !== undefined){ done(_tunnelJsonCache); return; }
+      var finished = false;
+      var finish = function(v){ if(finished) return; finished = true; _tunnelJsonCache = v; done(v); };
+      try{
+        var ctrl = null;
+        if(window.AbortController) ctrl = new AbortController();
+        if(ctrl) setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 6000);
+        fetch("tunnel.json", { cache: "no-store", signal: ctrl ? ctrl.signal : undefined })
+          .then(function(r){ return r.ok ? r.json().catch(function(){ return null; }) : null; })
+          .then(function(d){ finish(chTunnelNormalize(d && d.wss)); })
+          .catch(function(){ finish(""); });
+      }catch(e){ finish(""); }
+    }
+    function tunnelCandidates(done){
+      tunnelJsonFetch(function(fromFile){
+        var list = [], seen = {};
+        [S.chess && S.chess.tunnelUrl, fromFile, CH_TUNNEL_BUILTIN].forEach(function(raw){
+          var n = chTunnelNormalize(raw);
+          if(n && !seen[n]){ seen[n] = 1; list.push(n); }
+        });
+        done(list);
+      });
+    }
+    function adoptTunnel(wss){
+      var n = chTunnelNormalize(wss);
+      if(!n) return;
+      if(chTunnelNormalize(S.chess && S.chess.tunnelUrl) === n) return;
+      if(!S.chess) S.chess = {};
+      S.chess.tunnelUrl = n; save(); updateTunnelUi();
+    }
     var NET = { ws:null, state:"off", searching:false, inGame:false, real:false,
       gameId:null, online:0, inGames:0, pendingOverElo:null, failTimer:null, oppIsBot:false, silentClose:false };
     var NET_FORCED_SIDE = null;
@@ -3963,10 +4013,25 @@
     function netConnect(){
       if(NET.ws && (NET.ws.readyState === 0 || NET.ws.readyState === 1)) return;
       NET.state = "connecting"; netSetStatus();
-      var ws;
-      try{ ws = new WebSocket(chServerWs()); }catch(e){ NET.state = "off"; netSetStatus(); return; }
+      /* Alamat dicoba dengan urutan yang sama seperti cek password
+         Owner (tunnelCandidates: tersimpan -> tunnel.json ->
+         bawaan), lalu alamat ws:// langsung sebagai cadangan
+         terakhir. Alamat wss:// yang berhasil tersambung disimpan
+         sebagai alamat Tunnel perangkat ini (adoptTunnel). */
+      tunnelCandidates(function(list){
+        if(NET.state !== "connecting") return;
+        if(NET.ws && (NET.ws.readyState === 0 || NET.ws.readyState === 1)) return;
+        netTryUrls(list.concat([CH_SERVER_WS]), 0);
+      });
+    }
+    function netTryUrls(list, i){
+      if(i >= list.length){ NET.state = "off"; netSetStatus(); return; }
+      var url = list[i], opened = false, ws;
+      try{ ws = new WebSocket(url); }catch(e){ netTryUrls(list, i + 1); return; }
       NET.ws = ws;
       ws.onopen = function(){
+        opened = true;
+        if(url.indexOf("wss://") === 0) adoptTunnel(url);
         NET.state = "online"; netSetStatus();
         if($("chessMode") && $("chessMode").value === "online") chessLobbyRender();
       };
@@ -3976,6 +4041,13 @@
       };
       ws.onerror = function(){ /* onclose yang menyusul menangani sisanya */ };
       ws.onclose = function(){
+        if(!opened){
+          /* Belum sempat tersambung ke alamat ini: coba alamat berikutnya. */
+          if(NET.ws === ws) NET.ws = null;
+          if(NET.state === "connecting") netTryUrls(list, i + 1);
+          else { NET.state = "off"; netSetStatus(); }
+          return;
+        }
         var silent = NET.silentClose; NET.silentClose = false;
         var wasSearching = NET.searching && !silent, wasInGame = NET.inGame && !silent;
         NET.ws = null; NET.state = "off"; NET.searching = false; NET.inGame = false;
@@ -4001,7 +4073,7 @@
       NET.failTimer = setInterval(function(){
         waited += 250;
         if(NET.state === "online"){ clearInterval(NET.failTimer); NET.failTimer = null; netFindMatch(); }
-        else if(waited >= 4500){
+        else if(waited >= 10000){ /* lebih longgar: koneksi kini mencoba beberapa alamat cadangan berurutan */
           clearInterval(NET.failTimer); NET.failTimer = null;
           toast(chUsingTunnel()
             ? "Server catur lewat tunnel tidak terjangkau — alamat tunnel mungkin sudah berubah setelah server di-restart; tempel alamat baru di Panel Owner. Sementara memakai mode cadangan (simulasi)."
@@ -4862,10 +4934,6 @@
         var show = function(kind, text){ m.className = "feedback show " + kind; m.textContent = text; };
         var pw = inp.value;
         if(!pw){ show("bad", "Isi dulu password Owner-nya."); inp.focus(); return; }
-        if(!ownerCheckBase()){
-          show("bad", "Server tidak terjangkau: alamat Tunnel belum diatur di perangkat ini, jadi password tidak bisa diperiksa. Masuklah dengan token akses di atas, atau dari IP Owner yang dikenali otomatis.");
-          sfxBad(); return;
-        }
         var origBtn = btn.innerHTML;
         btn.disabled = true; btn.textContent = "Memeriksa ke server…";
         tryOwnerPassword(pw, function(res){
