@@ -413,16 +413,16 @@
       /* chess */
       .chess-status{max-width:460px; margin:0 auto 10px; text-align:center; font-weight:700; font-size:15px; padding:10px 12px; border-radius:14px; background:linear-gradient(160deg,var(--panel),var(--bg2)); border:1px solid var(--line2); box-shadow:0 8px 18px rgba(0,0,0,.20); line-height:1.5}
       .chess-wrap{position:relative; max-width:460px; margin:0 auto}
-      .chess-board{display:grid; grid-template-columns:repeat(8,1fr); border:3px solid #2e2115; border-radius:14px; overflow:hidden; box-shadow:0 0 0 5px #1d1409, 0 0 0 7px rgba(227,170,60,.5), 0 26px 48px rgba(0,0,0,.5)}
+      .chess-board{display:grid; grid-template-columns:repeat(8,1fr); border:3px solid var(--cb-frame,#2e2115); border-radius:14px; overflow:hidden; box-shadow:0 0 0 5px var(--cb-frame,#2e2115), 0 0 0 7px var(--cb-glow,rgba(227,170,60,.5)), 0 26px 48px rgba(0,0,0,.5)}
       .chess-sq{aspect-ratio:1; border:0; padding:0; display:grid; place-items:center; font-size:clamp(21px,8vw,40px); line-height:1; position:relative; cursor:pointer; border-radius:0; touch-action:manipulation; -webkit-tap-highlight-color:transparent}
       .chess-sq:active{filter:brightness(1.1)}
-      .chess-sq.light{background:linear-gradient(145deg,#f3e2b6,#ead098)}
-      .chess-sq.dark{background:linear-gradient(145deg,#6a9e63,#52834e)}
+      .chess-sq.light{background:linear-gradient(145deg,var(--cb-l1,#f3e2b6),var(--cb-l2,#ead098))}
+      .chess-sq.dark{background:linear-gradient(145deg,var(--cb-d1,#6a9e63),var(--cb-d2,#52834e))}
       .chess-sq .coord{position:absolute; font-size:9px; font-weight:800; pointer-events:none}
       .chess-sq .coord-r{top:2px; left:3px}
       .chess-sq .coord-f{bottom:2px; right:3px}
-      .chess-sq.light .coord{color:#52834e}
-      .chess-sq.dark .coord{color:#f3e2b6}
+      .chess-sq.light .coord{color:var(--cb-d2,#52834e)}
+      .chess-sq.dark .coord{color:var(--cb-l1,#f3e2b6)}
       .chess-sq.sel{box-shadow:inset 0 0 0 3px var(--gold), inset 0 0 0 999px rgba(227,170,60,.38)}
       .chess-sq.last{box-shadow:inset 0 0 0 999px rgba(227,170,60,.34)}
       .chess-sq.check{box-shadow:inset 0 0 0 999px rgba(228,87,79,.48), inset 0 0 18px rgba(160,10,0,.55)}
@@ -606,6 +606,43 @@
       .recbox-title{font-weight:800; font-size:14.5px; margin-bottom:8px}
       .recbox-meta{font-size:12.5px; color:var(--muted); margin:8px 0; line-height:1.5}
       .recbox-note{font-size:12px; color:var(--muted); margin-top:8px; line-height:1.55}
+      /* ===== WARNA PAPAN & LATAR BELAKANG CATUR =====
+         Panggung area main: latar di belakang bar pemain + papan,
+         diganti dari pemilih latar (variabel --cstage-bg diatur JS
+         dari tema terpilih, tersimpan di perangkat). */
+      .chess-stage{
+        max-width:494px; margin:14px auto 0; padding:14px 13px 13px;
+        border-radius:24px; border:1px solid var(--line2);
+        background:var(--cstage-bg, linear-gradient(160deg,var(--panel2),var(--panel)));
+        box-shadow:0 18px 36px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.06);
+      }
+      .chess-stage .chess-pbar.top{margin-top:0}
+      .chess-stage .chess-pbar.bot{margin-bottom:0}
+      /* kotak pemilih tema di panel Catur */
+      .chess-theme-box{
+        background:var(--bg2); border:1px solid var(--line); border-radius:16px;
+        padding:15px 15px 13px; margin-bottom:14px;
+      }
+      .chess-theme-box h4{margin:0; font-size:15.5px; display:flex; align-items:center; gap:8px}
+      .chess-theme-box h4 svg{color:var(--gold); flex:none}
+      .theme-now{font-size:11.5px; font-weight:800; padding:4px 10px; border-radius:99px; background:rgba(227,170,60,.14); color:var(--gold); border:1px solid rgba(227,170,60,.4); white-space:nowrap; text-align:right}
+      html[data-theme="light"] .theme-now{color:var(--gold-deep)}
+      .theme-group-label{font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:14px 0 8px}
+      .theme-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:9px}
+      .theme-opt{
+        text-align:left; padding:8px; border-radius:13px; cursor:pointer;
+        border:1px solid var(--line2); background:var(--panel); color:var(--text);
+        transition:border-color .15s, box-shadow .15s, transform .15s; width:100%;
+      }
+      .theme-opt:hover{border-color:var(--gold)}
+      .theme-opt:active{transform:scale(.97)}
+      .theme-opt.active{border-color:var(--gold); box-shadow:0 0 0 1px var(--gold), 0 8px 18px rgba(0,0,0,.22)}
+      .theme-opt .sw{display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; height:40px; border-radius:9px; overflow:hidden; border:1px solid rgba(0,0,0,.3)}
+      .theme-opt .swbg{height:40px; border-radius:9px; border:1px solid rgba(0,0,0,.3)}
+      .theme-opt .tn{display:block; font-size:12.5px; font-weight:800; margin-top:7px; line-height:1.3}
+      .theme-opt .td{display:block; font-size:11px; font-weight:500; color:var(--muted); line-height:1.4; margin-top:1px}
+      .theme-opt .on-pill{display:none; font-size:9.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:99px; background:var(--gold); color:#241a02; margin-left:5px; vertical-align:2px}
+      .theme-opt.active .on-pill{display:inline-block}
 
       /* tools */
       .calc-display{
@@ -806,7 +843,7 @@
 
         <div class="ip-status" id="ipStatusBox">
           <svg width="19" height="19" style="color:var(--green2)"><use href="#ic-shield"/></svg>
-          <div id="ipStatusText">Mendeteksi alamat IP kamu…</div>
+          <div id="ipStatusText">Status: <b>pengunjung</b>. Masuk dengan token akses. Pemilik website dikenali otomatis dari IP perangkat ini.</div>
         </div>
 
         <div class="gate-msg" id="gateMsg"></div>
@@ -821,19 +858,21 @@
           </button>
         </form>
 
-        <div class="gate-divider">khusus pemilik website</div>
+        <div class="gate-divider">atau masuk sebagai Owner</div>
 
-        <form id="ownerForm" autocomplete="off">
+        <form id="ownerPwForm" autocomplete="off">
           <div class="field">
-            <label for="ownerPass">Password Owner</label>
-            <input class="input" id="ownerPass" type="password" placeholder="Password pemilik website" />
+            <label for="ownerPwInput">Password Owner</label>
+            <input class="input" id="ownerPwInput" type="password" placeholder="Password Owner" autocomplete="off" spellcheck="false" />
           </div>
-          <button class="btn btn-green btn-block" type="submit">
+          <button class="btn btn-ghost btn-block" type="submit" id="ownerPwBtn">
             <svg width="18" height="18"><use href="#ic-shield"/></svg> Masuk sebagai Owner
           </button>
+          <div class="feedback" id="ownerPwMsg"></div>
+          <p class="fineprint" style="margin-top:12px">Password tidak disimpan di perangkat ini dan tidak diperiksa di halaman ini — password dikirim ke server catur (lewat alamat Tunnel yang diatur di Panel Owner) untuk diperiksa di sana. Cara ini hanya bisa dipakai bila server menyala dan alamat Tunnel sudah diatur.</p>
         </form>
 
-        <p class="fineprint">Token hanya bisa dibuat oleh Owner dari Panel Owner setelah masuk. Token tersimpan di perangkat ini — ini pengaman sederhana untuk halaman statis, bukan keamanan server.</p>
+        <p class="fineprint">Token hanya bisa dibuat oleh Owner dari Panel Owner setelah masuk. Pemilik website dikenali otomatis dari IP perangkat ini (atur di Panel Owner). Token tersimpan di perangkat ini — ini pengaman sederhana untuk halaman statis, bukan keamanan server.</p>
       </div>
     </main>
 
@@ -1045,7 +1084,7 @@
             <!-- CHESS -->
             <div class="card game-panel hidden" id="panel-chess">
               <div class="rowflex between"><h3>Catur</h3><button class="btn-back" data-back-game type="button"><svg width="15" height="15"><use href="#ic-chev-l"/></svg> Kembali ke Menu Game</button></div>
-              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang <b>hanya berubah di mode Online melawan pemain asli</b> — melawan bot (coach lokal maupun bot pengganti) ELO kamu tidak berubah, menang atau kalah — plus <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), tombol <b>Nyerah</b> dan <b>Tawar Remis</b>, lawan bot dengan ratingnya sendiri, mode <b>2 pemain offline di satu HP</b>, dan mode <b>Online asli</b>: tersambung ke server catur — tekan Main Online dan kamu langsung masuk antrean matchmaking acak (tanpa memilih lawan, tanpa tombol tantang), <b>pemain asli diprioritaskan</b> dan bot pengganti dari server mengisi bila antrean pemain asli kosong, lengkap dengan <b>bendera negara</b> lawan di bar pemain dan chat cepat; bila server tidak terjangkau dari browser, mode cadangan (simulasi) berjalan otomatis dan statusnya ditampilkan apa adanya. <b>Jam catur dipilih dulu</b> dan berlaku di semua mode; khusus mode Online jam wajib dipakai. Di atas dan bawah papan ada <b>bar pemain ala aplikasi catur</b>: lencana title + nama + ELO, baris bidak yang ditangkap, dan jam di sisi kanan. Di mode 2 pemain, nama Putih &amp; Hitam bisa ditulis sendiri dan ada <b>pilihan rotasi papan</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan. Ada juga <b>premove</b>: selagi giliran lawan, ketuk bidakmu lalu petak tujuan untuk menyimpan langkah (tampil biru di papan) — otomatis jalan begitu giliranmu tiba, bisa dibatalkan dengan mengetuk petak premove-nya, dan bisa dimatikan di Pengaturan. Ada juga <b>Rekam Video Partai</b>: rekam jalannya partai jadi video langsung dari papan — lengkap dengan bar pemain, jam, dan langkah terakhir — lalu unduh videonya untuk disimpan atau dibagikan.</p>
+              <p class="csub">Catur lengkap dengan aturan resmi: langkah legal, skak &amp; skakmat, rokade, en passant, dan promosi pion. Ada <b>rating ELO</b> yang <b>hanya berubah di mode Online melawan pemain asli</b> — melawan bot (coach lokal maupun bot pengganti) ELO kamu tidak berubah, menang atau kalah — plus <b>penilaian tiap langkah</b> (Brilliant, Terbaik, Sangat Baik, Bagus, Baik, Salah, Blunder), tombol <b>Nyerah</b> dan <b>Tawar Remis</b>, lawan bot dengan ratingnya sendiri, mode <b>2 pemain offline di satu HP</b>, dan mode <b>Online asli</b>: tersambung ke server catur — tekan Main Online dan kamu langsung masuk antrean matchmaking acak (tanpa memilih lawan, tanpa tombol tantang), <b>pemain asli diprioritaskan</b> dan bot pengganti dari server mengisi bila antrean pemain asli kosong, lengkap dengan <b>bendera negara</b> lawan di bar pemain dan chat cepat; bila server tidak terjangkau dari browser, mode cadangan (simulasi) berjalan otomatis dan statusnya ditampilkan apa adanya. <b>Jam catur dipilih dulu</b> dan berlaku di semua mode; khusus mode Online jam wajib dipakai. Di atas dan bawah papan ada <b>bar pemain ala aplikasi catur</b>: lencana title + nama + ELO, baris bidak yang ditangkap, dan jam di sisi kanan. Di mode 2 pemain, nama Putih &amp; Hitam bisa ditulis sendiri dan ada <b>pilihan rotasi papan</b>. Ketuk bidakmu untuk melihat langkah yang boleh, lalu ketuk petak tujuan. Ada juga <b>premove</b>: selagi giliran lawan, ketuk bidakmu lalu petak tujuan untuk menyimpan langkah (tampil biru di papan) — otomatis jalan begitu giliranmu tiba, bisa dibatalkan dengan mengetuk petak premove-nya, dan bisa dimatikan di Pengaturan. Ada juga <b>Rekam Video Partai</b>: rekam jalannya partai jadi video langsung dari papan — lengkap dengan bar pemain, jam, dan langkah terakhir — lalu unduh videonya untuk disimpan atau dibagikan. Dan ada <b>Warna Papan &amp; Latar</b>: 12 tema warna papan dan 12 latar belakang area main yang bisa diganti kapan saja — pilihanmu tersimpan di perangkat ini dan ikut dipakai di video rekaman partai.</p>
               <div class="field" style="margin-bottom:4px"><label>Mode Main — Ketuk untuk Memilih</label></div>
               <div class="seg" id="chessModeSeg" role="group" aria-label="Mode main catur">
                 <button type="button" data-mode="cpu" class="active">Lawan Bot<small>Coach + ELO bot</small></button>
@@ -1151,6 +1190,21 @@
                 <div id="chessLobby"></div>
                 <div class="online-note">Tekan <b>Main Online</b> untuk langsung masuk antrean matchmaking server — <b>tanpa memilih lawan dan tanpa tombol tantang</b>: server mencarikan lawan acak dan <b>pemain asli diprioritaskan</b>, jadi kalau temanmu menekan Main Online di waktu yang berdekatan, besar kemungkinan kalian dipertemukan. Kalau antrean pemain asli sedang kosong, <b>bot pengganti dari server</b> yang mengisi supaya kamu tetap bisa main — statusnya tampil selama pencarian ("Mencari pemain asli…" lalu bot pengganti disiapkan). Nama, negara, bendera, title, dan ELO lawan ditentukan server saat matchmaking, jadi kekuatannya tidak bisa ditebak sebelum bermain. ELO hasil partai online dihitung server. Untuk lawan bot lokal dan lawan mode cadangan, ELO lawan selalu disetarakan di sekitar ELO kamu (maksimal beda ±150) supaya partainya seimbang. Pilihan region hanya berlaku pada mode cadangan. Melawan bot pengganti (dari server maupun simulasi), ELO kamu tidak berubah — ELO hanya dipertaruhkan saat melawan pemain asli. Catatan koneksi: server juga bisa dihubungi lewat <b>Cloudflare Tunnel gratis</b> beralamat <b>wss://…trycloudflare.com</b> (terenkripsi, tidak diblokir browser dari halaman https ini) — alamat tunnelnya ditempel Owner di Panel Owner dan berubah setiap server di-restart. Bila alamat tunnel belum diatur, website mencoba alamat ws:// langsung yang biasanya diblokir browser dari halaman https; bila server tetap tidak terjangkau, mode ini otomatis memakai <b>mode cadangan (simulasi)</b> dengan bot lokal dan statusnya ditampilkan apa adanya.</div>
               </div>
+              <div class="chess-theme-box" id="chessThemeBox">
+                <div class="rowflex between" style="align-items:flex-start">
+                  <h4><svg width="19" height="19"><use href="#ic-spark"/></svg> Warna Papan &amp; Latar</h4>
+                  <span class="theme-now" id="chessThemeNow">Klasik · Latar Bawaan</span>
+                </div>
+                <p class="csub" style="margin:6px 0 0">Ganti warna papan dan latar belakang area main sesuka hati — ketuk satu tema, langsung berubah tanpa perlu Partai Baru. Pilihan tersimpan di perangkat ini, berlaku di semua mode (Bot, 2 Pemain, Online), dan warna yang sama ikut terekam di <b>Video Partai</b>.</p>
+                <div class="theme-group-label">Tema Warna Papan — 12 Pilihan</div>
+                <div class="theme-grid" id="chessBoardThemes"></div>
+                <div class="theme-group-label">Latar Belakang Area Main — 12 Pilihan</div>
+                <div class="theme-grid" id="chessBgThemes"></div>
+                <div class="rowflex" style="margin-top:13px">
+                  <button class="btn btn-gold btn-sm" id="chessThemeRandom" type="button">Acak Warna &amp; Latar</button>
+                  <button class="btn btn-ghost btn-sm" id="chessThemeReset" type="button">Kembali ke Bawaan</button>
+                </div>
+              </div>
               <div class="scorebar">
                 <span class="score-pill" id="chessTurnPill">Giliran: <b>Putih</b></span>
                 <span class="score-pill" id="chessMat">Materi: <b>Seimbang</b></span>
@@ -1160,6 +1214,7 @@
               <div class="chess-botchat hidden" id="chessBotChat"></div>
               <div class="chess-drawbar hidden" id="chessDrawOffer"><span><b>Lawan menawar remis.</b> Terima supaya partai berakhir seri?</span><button class="btn btn-gold btn-sm" id="chessDrawAccept" type="button">Terima Remis</button><button class="btn btn-ghost btn-sm" id="chessDrawDecline" type="button">Tolak</button></div>
               <div class="chess-drawbar hidden" id="chessRematchOffer"><span><b>Rematch?</b> Main lagi melawan lawan yang sama.</span><button class="btn btn-gold btn-sm" id="chessRematchAccept" type="button">Rematch — Lawan yang Sama</button></div>
+              <div class="chess-stage" id="chessStage">
               <div class="chess-pbar top" id="chessBarTop"></div>
               <div class="chess-wrap">
                 <div class="chess-board" id="chessBoard"></div>
@@ -1177,6 +1232,7 @@
                 </div>
               </div>
               <div class="chess-pbar bot" id="chessBarBot"></div>
+              </div>
               <div class="rowflex chess-actions" style="margin-top:12px">
                 <button class="btn btn-gold" id="chessNew" type="button">Partai Baru</button>
                 <button class="btn btn-ghost" id="chessUndo" type="button">Mundur</button>
@@ -1479,17 +1535,13 @@
             </div>
 
             <div class="card">
-              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-globe"/></svg> IP Owner Otomatis</h3>
-              <p class="csub">Jika IP pengunjung sama dengan IP Owner yang tersimpan, ia langsung dikenali sebagai pemilik — masuk tanpa token dan bisa membuka Panel Owner. IP HP bisa berubah saat ganti WiFi atau data seluler; bila itu terjadi, masuk lagi dengan password Owner lalu perbarui IP di sini.</p>
+              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-shield"/></svg> IP Owner Otomatis</h3>
+              <p class="csub">Dengan fitur ini, SlashSMP Belajar mengenali kamu dari IP perangkat ini: setiap kali halaman dibuka dari IP yang sama, kamu langsung masuk sebagai Owner tanpa token. Demi keamanan, <b>angka IP tidak pernah ditampilkan di layar</b> — yang tampil hanya statusnya saja. Bila IP berubah karena berganti Wi-Fi atau paket data, masuklah memakai token akses yang sudah kamu buat, lalu daftarkan IP yang baru dengan tombol di bawah.</p>
               <div class="prayer-list" style="margin-bottom:14px">
-                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-pin"/></svg></div><span class="nm">Status IP kamu</span><span class="tm" style="font-size:14px" id="ownerCurrentIp">Mendeteksi…</span></div>
-                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--gold)"><use href="#ic-shield"/></svg></div><span class="nm">Status IP Owner</span><span class="tm" style="font-size:14px" id="ownerSavedIp">Belum diatur</span></div>
+                <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--green2)"><use href="#ic-shield"/></svg></div><span class="nm">Status IP Owner</span><span class="tm" style="font-size:14px" id="ownerIpStatus">Belum diatur</span></div>
               </div>
-              <div class="rowflex">
-                <button class="btn btn-gold" id="btnSetMyIp" type="button"><svg width="16" height="16"><use href="#ic-shield"/></svg> Jadikan IP Saya Sebagai IP Owner</button>
-                <button class="btn btn-danger hidden" id="btnRemoveIp" type="button">Hapus IP Owner</button>
-              </div>
-              <div class="feedback" id="ipMsg"></div>
+              <button class="btn btn-gold" id="btnSetOwnerIp" type="button"><svg width="16" height="16"><use href="#ic-shield"/></svg> Jadikan IP Saya Sebagai IP Owner</button>
+              <div class="feedback" id="ownerIpMsg"></div>
             </div>
 
             <div class="card">
@@ -1568,7 +1620,7 @@
 
             <div class="card">
               <h3>Tentang Pengaman Ini</h3>
-              <p class="csub" style="margin-bottom:0">SlashSMP Belajar adalah halaman statis (siap di-host di GitHub Pages), jadi token dan IP Owner tersimpan di penyimpanan browser perangkat ini — bukan di server. Artinya pengaman ini mengatur siapa yang bisa masuk dari perangkat ini, dan bukan pengganti keamanan server sungguhan.</p>
+              <p class="csub" style="margin-bottom:0">SlashSMP Belajar adalah halaman statis (siap di-host di GitHub Pages), jadi token tersimpan di penyimpanan browser perangkat ini — bukan di server. Artinya pengaman ini mengatur siapa yang bisa masuk dari perangkat ini, dan bukan pengganti keamanan server sungguhan.</p>
             </div>
           </section>
         </div>
@@ -1583,7 +1635,7 @@
       <button class="sheet-row" type="button" data-sheet-nav="alat"><span class="nic" style="background:rgba(239,125,84,.14); color:#ef7d54; border-color:rgba(239,125,84,.4)"><svg><use href="#ic-tools"/></svg></span><span>Alat Bantu<span class="sd">Catatan, kalkulator, dan timer fokus</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
       <button class="sheet-row" type="button" data-sheet-nav="profil"><span class="nic" style="background:rgba(62,213,152,.13); color:#3ed598; border-color:rgba(62,213,152,.4)"><svg><use href="#ic-user"/></svg></span><span>Profil<span class="sd">Level, XP, koin, dan rekor terbaikmu</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
       <button class="sheet-row" type="button" data-sheet-nav="pengaturan"><span class="nic" style="background:rgba(79,157,228,.14); color:#4f9de4; border-color:rgba(79,157,228,.4)"><svg><use href="#ic-gear"/></svg></span><span>Pengaturan<span class="sd">Tema, suara, dan kota jadwal salat</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
-      <button class="sheet-row hidden" type="button" data-sheet-nav="owner" id="sheetOwner"><span class="nic" style="background:rgba(227,170,60,.14); color:#e3aa3c; border-color:rgba(227,170,60,.4)"><svg><use href="#ic-key"/></svg></span><span>Panel Owner<span class="sd">Buat token akses dan atur IP Owner</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
+      <button class="sheet-row hidden" type="button" data-sheet-nav="owner" id="sheetOwner"><span class="nic" style="background:rgba(227,170,60,.14); color:#e3aa3c; border-color:rgba(227,170,60,.4)"><svg><use href="#ic-key"/></svg></span><span>Panel Owner<span class="sd">Buat token akses dan atur server catur</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
       <button class="sheet-row danger" type="button" id="sheetLogout"><span class="nic" style="background:rgba(228,87,79,.12); color:#e4574f; border-color:rgba(228,87,79,.4)"><svg><use href="#ic-logout"/></svg></span><span>Log out<span class="sd">Keluar dan kembali ke gerbang token</span></span><svg class="chev" width="18" height="18"><use href="#ic-chev-r"/></svg></button>
     </div>
 
@@ -1595,7 +1647,6 @@
     var $ = function(id){ return document.getElementById(id); };
     var $$ = function(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); };
     var STORE_KEY = "markhub_state_v1";
-    var OWNER_PASS = "Best67";
 
     var CITIES = [
       {name:"Makassar", lat:-5.1477, lng:119.4327, tz:8},
@@ -1636,7 +1687,7 @@
         ownerIp:"",
         notes:[],
         bests:{ snake:0, memory:null, guess:null, quiz:0, chess:0 },
-        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"", tunnelUrl:"" },
+        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"", tunnelUrl:"", boardTheme:"klasik", bgTheme:"bawaan" },
         stats:{ games:0, correct:0, pomoDone:0 },
         session:null
       };
@@ -1897,35 +1948,73 @@
     var clockTimer = null;
     function startClock(){ if(clockTimer) return; tickClock(); clockTimer = setInterval(tickClock, 1000); }
 
-    /* ================= IP DETECTION & AUTH ================= */
-    var currentIp = null, ipResolved = false;
-    function fetchIp(){
-      return new Promise(function(resolve){
-        var done = false;
-        var to = setTimeout(function(){ if(!done){ done = true; resolve(null); } }, 5000);
-        try{
-          fetch("https://api.ipify.org?format=json").then(function(r){ return r.json(); }).then(function(j){
-            if(!done){ done = true; clearTimeout(to); resolve(j && j.ip ? j.ip : null); }
-          }).catch(function(){ if(!done){ done = true; clearTimeout(to); resolve(null); } });
-        }catch(e){ if(!done){ done = true; clearTimeout(to); resolve(null); } }
-      });
-    }
+    /* ================= AUTH =================
+       Dua cara masuk: token akses, atau pengenalan Owner otomatis
+       berdasarkan IP. IP pengunjung diambil lewat api.ipify.org
+       lalu dibandingkan dengan IP Owner yang
+       tersimpan di perangkat ini; bila cocok, langsung masuk sebagai
+       Owner tanpa token. ATURAN PENTING: angka IP TIDAK PERNAH
+       ditampilkan di layar — IP hanya dipakai internal untuk
+       perbandingan dan penyimpanan; semua status di layar berupa
+       teks saja ("dikenali sebagai Pemilik" / "pengunjung" di
+       gerbang, "Terdeteksi" / "Sudah diatur" / "Belum diatur" di
+       Panel Owner). */
+    var currentIp = "";        /* IP perangkat ini — internal saja, tidak pernah dirender ke layar */
+    var ipLookupDone = false;
     function gateMsg(kind, text){
       var m = $("gateMsg"); m.className = "gate-msg " + kind; m.textContent = text;
     }
+    function ipIsOwner(){
+      return !!(currentIp && S.ownerIp && currentIp === S.ownerIp);
+    }
+    function fetchVisitorIp(done){
+      if(ipLookupDone){ if(done) done(currentIp); return; }
+      var finished = false;
+      var finish = function(ip){
+        if(finished) return; finished = true;
+        ipLookupDone = true; currentIp = ip || "";
+        if(done) done(currentIp);
+      };
+      try{
+        fetch("https://api.ipify.org?format=json")
+          .then(function(r){ return r.json(); })
+          .then(function(d){ finish(d && d.ip ? String(d.ip) : ""); })
+          .catch(function(){ finish(""); });
+      }catch(e){ finish(""); }
+      setTimeout(function(){ finish(currentIp); }, 6000); /* jaring pengaman bila jaringan menggantung */
+    }
     function updateIpUi(){
       var t = $("ipStatusText");
-      if(currentIp){
-        if(S.ownerIp && currentIp === S.ownerIp) t.innerHTML = "Status: <b>dikenali sebagai Pemilik</b>. IP kamu cocok dengan IP Owner — kamu bisa langsung masuk tanpa token.";
-        else if(S.ownerIp) t.innerHTML = "Status: <b>pengunjung (butuh token)</b>. IP kamu tidak cocok dengan IP Owner yang tersimpan.";
-        else t.innerHTML = "Status: <b>pengunjung (butuh token)</b>. Belum ada IP Owner yang tersimpan di perangkat ini.";
-      } else {
-        t.textContent = "Status: IP tidak terdeteksi (mungkin sedang offline). Masuk dengan token atau password Owner tetap bisa.";
+      if(t){
+        if(ipIsOwner()){
+          t.innerHTML = "Status: <b>dikenali sebagai Pemilik</b>. Perangkat ini dikenali sebagai milik Owner, jadi kamu masuk otomatis tanpa token.";
+        } else {
+          t.innerHTML = "Status: <b>pengunjung</b>. Masuk dengan token akses. Pemilik website dikenali otomatis dari IP perangkat ini.";
+        }
       }
-      var ci = $("ownerCurrentIp"), si = $("ownerSavedIp");
-      if(ci) ci.textContent = currentIp ? "Terdeteksi" : "Tidak terdeteksi";
-      if(si) si.textContent = S.ownerIp ? "Sudah diatur" : "Belum diatur";
-      var rm = $("btnRemoveIp"); if(rm) rm.classList.toggle("hidden", !S.ownerIp);
+      updateOwnerIpUi();
+    }
+    function updateOwnerIpUi(){
+      var st = $("ownerIpStatus"); if(!st) return;
+      st.textContent = ipIsOwner() ? "Terdeteksi" : (S.ownerIp ? "Sudah diatur" : "Belum diatur");
+    }
+    /* Dipanggil saat boot bila belum ada sesi dan IP Owner sudah
+       diatur di perangkat ini: cocok → langsung masuk sebagai Owner. */
+    function checkOwnerIp(){
+      if(S.session || !S.ownerIp) return;
+      var ls = $("loadIpStatus");
+      if(ls) ls.textContent = "Memeriksa IP perangkat…";
+      fetchVisitorIp(function(){
+        if(ipIsOwner()){
+          if(ls) ls.textContent = "IP dikenali — masuk sebagai Pemilik…";
+          S.session = "owner-ip"; save();
+          enterApp();
+          toast("Selamat datang, Owner. Kamu dikenali otomatis dari IP perangkat ini.");
+        } else {
+          if(ls) ls.textContent = "";
+          updateIpUi();
+        }
+      });
     }
     function updateTunnelUi(){
       var st = $("ownerTunnelStatus"); if(!st) return;
@@ -1935,22 +2024,20 @@
       if(inp && document.activeElement !== inp) inp.value = (S.chess && S.chess.tunnelUrl) || "";
       var rm = $("btnRemoveTunnel"); if(rm) rm.classList.toggle("hidden", !has);
     }
-    function detectIpThen(after){
-      fetchIp().then(function(ip){
-        currentIp = ip; ipResolved = true;
-        updateIpUi();
-        if(after) after(ip);
-      });
-    }
     function enterApp(){
       $("gate").classList.add("hidden");
       $("app").classList.remove("hidden");
       $("navOwner").classList.toggle("hidden", !isOwner());
       $("view-owner").classList.toggle("hidden", !isOwner());
-      $("sessionInfo").textContent = S.session === "owner" ? "Kamu masuk sebagai Owner (password)." :
+      $("sessionInfo").textContent = S.session === "owner" ? "Kamu masuk sebagai Owner." :
         S.session === "owner-ip" ? "Kamu masuk sebagai Owner (IP dikenali otomatis)." :
         "Kamu masuk sebagai pengunjung dengan token.";
       renderProfileBits(); renderTokens(); renderNotes(); updateIpUi(); updateTunnelUi();
+      /* Status IP di Panel Owner disegarkan untuk sesi Owner
+         (hasilnya hanya teks status, angka IP tidak ditampilkan). */
+      if(isOwner() && S.ownerIp && !ipLookupDone){
+        fetchVisitorIp(function(){ updateIpUi(); });
+      }
       startClock();
     }
     function tryToken(code){
@@ -1967,6 +2054,46 @@
         return null;
       }
       return "Token tidak dikenal di perangkat ini. Periksa lagi kodenya, atau minta token ke Owner.";
+    }
+
+    /* ================= LOGIN PASSWORD OWNER LEWAT SERVER =================
+       Password Owner TIDAK ditulis, TIDAK disimpan, dan TIDAK
+       diperiksa di halaman ini. Yang diketik pengguna dikirim ke
+       server catur lewat POST {alamat tunnel https}/check-owner
+       dengan JSON {password}; server menjawab JSON {ok:true} atau
+       {ok:false}. Alamat diambil dari pengaturan Tunnel yang sudah
+       tersimpan (S.chess.tunnelUrl, dinormalisasi chTunnelNormalize
+       menjadi "wss://host") lalu skemanya diubah menjadi https://.
+       Tanpa alamat Tunnel, atau bila server tidak terjangkau,
+       login password tidak bisa dipakai dan pengguna diarahkan ke
+       login token / pengenalan IP Owner. */
+    function ownerCheckBase(){
+      var t = chTunnelNormalize(S.chess && S.chess.tunnelUrl);
+      if(!t) return "";
+      return "https://" + t.slice("wss://".length);
+    }
+    function tryOwnerPassword(pw, done){
+      var base = ownerCheckBase();
+      if(!base){ done("notunnel"); return; }
+      var finished = false;
+      var finish = function(res){ if(finished) return; finished = true; done(res); };
+      var ctrl = null;
+      try{
+        if(window.AbortController) ctrl = new AbortController();
+        if(ctrl) setTimeout(function(){ try{ ctrl.abort(); }catch(e){} }, 12000);
+        fetch(base + "/check-owner", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: pw }),
+          signal: ctrl ? ctrl.signal : undefined
+        }).then(function(r){
+          return r.json().catch(function(){ return null; }).then(function(d){
+            if(d && d.ok === true) finish("ok");
+            else if(d && d.ok === false) finish("wrong");
+            else finish("unreachable");
+          });
+        }).catch(function(){ finish("unreachable"); });
+      }catch(e){ finish("unreachable"); }
     }
 
     /* ================= NAVIGATION ================= */
@@ -2207,7 +2334,7 @@
         nameW:"Putih", nameB:"Hitam", rotate:false,
         flagW:"", flagB:"", ctyW:"", ctyB:"", drawCool:0,
         netReal:false, oppFallback:false, netCut:false,
-        premove:null, pmSel:-1, pmLegal:[], botEloBase:0 };
+        premove:null, pmSel:-1, pmLegal:[], botEloBase:0, resynced:false };
     }
     function chCol(p){ return p === p.toUpperCase() ? "w" : "b"; }
     function chOpp(c){ return c === "w" ? "b" : "w"; }
@@ -2357,6 +2484,80 @@
       }
       return res;
     }
+    /* Posisi state -> string FEN standar. Dipakai untuk mengirim
+       posisi resmi ke server bersama langkah (lihat chessDoMove),
+       supaya lawan bisa sinkronisasi ulang dari FEN ini. */
+    function chFen(st){
+      var rows = [];
+      for(var r=0;r<8;r++){
+        var row = "", empty = 0;
+        for(var f=0;f<8;f++){
+          var p = st.bd[r*8+f];
+          if(!p){ empty++; continue; }
+          if(empty){ row += empty; empty = 0; }
+          row += p;
+        }
+        if(empty) row += empty;
+        rows.push(row);
+      }
+      var cast = (st.cast.K ? "K" : "") + (st.cast.Q ? "Q" : "") + (st.cast.k ? "k" : "") + (st.cast.q ? "q" : "");
+      var full = Math.floor(((st.names ? st.names.length : 0)) / 2) + 1;
+      return rows.join("/") + " " + st.turn + " " + (cast || "-") + " " +
+        (st.ep >= 0 ? chSqName(st.ep) : "-") + " " + (st.half || 0) + " " + full;
+    }
+    /* Muat posisi FEN ke state (bidang, giliran, rokade, en passant,
+       halfmove). Bidak tertangkap dihitung ulang dari bidak yang
+       hilang dibanding susunan awal, supaya bar bidak tertangkap
+       tetap benar. Riwayat langkah (names/snaps) PERTAHANKAN —
+       ini sinkronisasi ulang posisi, bukan partai baru. Pilihan &
+       sorotan dibersihkan; st.resynced ditandai true. */
+    function chLoadFen(st, fen){
+      if(!st || !fen) return false;
+      var parts = String(fen).trim().split(/\s+/);
+      var rows = (parts[0] || "").split("/");
+      if(rows.length !== 8) return false;
+      var bd = new Array(64).fill(null);
+      for(var r=0;r<8;r++){
+        var f = 0;
+        for(var i=0;i<rows[r].length;i++){
+          var ch = rows[r].charAt(i);
+          if(ch >= "1" && ch <= "8"){ f += parseInt(ch, 10); }
+          else { if(f > 7) return false; bd[r*8+f] = ch; f++; }
+        }
+        if(f !== 8) return false;
+      }
+      st.bd = bd;
+      st.turn = parts[1] === "b" ? "b" : "w";
+      var cs = parts[2] || "-";
+      st.cast = { K: cs.indexOf("K") > -1, Q: cs.indexOf("Q") > -1, k: cs.indexOf("k") > -1, q: cs.indexOf("q") > -1 };
+      st.ep = (parts[3] && parts[3] !== "-") ? chSqIdx(parts[3]) : -1;
+      var hf = parseInt(parts[4], 10);
+      st.half = isNaN(hf) ? 0 : hf;
+      var startCnt = { p:8, n:2, b:2, r:2, q:1 };
+      var present = { w:{ p:0, n:0, b:0, r:0, q:0 }, b:{ p:0, n:0, b:0, r:0, q:0 } };
+      for(var s2=0;s2<64;s2++){
+        var pc = bd[s2]; if(!pc) continue;
+        var cc = chCol(pc), tt0 = pc.toLowerCase();
+        if(present[cc][tt0] != null) present[cc][tt0]++;
+      }
+      function missingCaps(color){
+        var extra = 0, tt;
+        for(tt in startCnt){ if(tt !== "p") extra += Math.max(0, present[color][tt] - startCnt[tt]); }
+        var caps = [], order = ["q","r","b","n","p"];
+        for(var oi=0;oi<order.length;oi++){
+          tt = order[oi];
+          var miss = startCnt[tt] - present[color][tt] - (tt === "p" ? extra : 0);
+          for(var k2=0;k2<miss;k2++) caps.push(color === "w" ? tt.toUpperCase() : tt);
+        }
+        return caps;
+      }
+      st.capW = missingCaps("b");
+      st.capB = missingCaps("w");
+      st.sel = -1; st.legalSel = [];
+      st.lastFrom = -1; st.lastTo = -1;
+      st.resynced = true;
+      return true;
+    }
     function chEval(bd){
       var s = 0;
       for(var i=0;i<64;i++){
@@ -2488,8 +2689,8 @@
        Pemilik SlashSMP". SENGAJA tidak masuk CH_TITLES, jadi tidak
        ada ELO berapa pun yang bisa mendapatkannya, dan bot / coach /
        lawan simulasi / lawan server tidak pernah memakainya.
-       Satu-satunya jalan memakainya: masuk sebagai Owner (password
-       atau IP Owner) lalu memilihnya di Panel Owner. Begitu sesi
+       Satu-satunya jalan memakainya: masuk sebagai Owner (lewat
+       IP Owner yang dikenali) lalu memilihnya di Panel Owner. Begitu sesi
        bukan Owner, chPickedTitle() mengembalikan null dan title
        ini hilang — profil & bar pemain jatuh ke title ELO biasa. */
     var CH_OWNER_TITLE = { code:"Owner", name:"Pemilik SlashSMP", min:0, owner:true };
@@ -2890,6 +3091,115 @@
        pakai MediaRecorder dari captureStream canvas — semua di
        perangkat pengguna, tanpa server. Berhenti -> video WebM/MP4
        (sesuai dukungan browser) tampil untuk diputar + diunduh. */
+    /* ===== WARNA PAPAN & LATAR BELAKANG CATUR =====
+       12 tema warna papan + 12 latar area main. Pilihan disimpan di
+       S.chess.boardTheme / S.chess.bgTheme (perangkat ini), langsung
+       diterapkan lewat variabel CSS di panel Catur, dan warna yang
+       sama dipakai gambar ulang papan di video rekaman partai. */
+    var CH_BOARD_THEMES = [
+      { id:"klasik", name:"Klasik", desc:"Hijau & krem bawaan", l1:"#f3e2b6", l2:"#ead098", d1:"#6a9e63", d2:"#52834e", frame:"#2e2115", glow:"rgba(227,170,60,.5)" },
+      { id:"kayu", name:"Kayu Cokelat", desc:"Nuansa kayu hangat", l1:"#f0d9b5", l2:"#e3c188", d1:"#b58863", d2:"#94684a", frame:"#3a2415", glow:"rgba(181,136,99,.55)" },
+      { id:"biru", name:"Biru Samudra", desc:"Biru abu sejuk", l1:"#e3e9ec", l2:"#cbd8de", d1:"#8ca2ad", d2:"#5f7f93", frame:"#22333d", glow:"rgba(79,157,228,.5)" },
+      { id:"toska", name:"Toska Segar", desc:"Hijau toska cerah", l1:"#dcf2ea", l2:"#bfe7d9", d1:"#43aa8b", d2:"#2b7f68", frame:"#17352c", glow:"rgba(46,196,182,.5)" },
+      { id:"ungu", name:"Ungu Royal", desc:"Ungu elegan", l1:"#ece5f7", l2:"#d9cbf0", d1:"#9d7bc4", d2:"#7556a3", frame:"#2d2142", glow:"rgba(157,123,196,.55)" },
+      { id:"marun", name:"Merah Marun", desc:"Merah anggur klasik", l1:"#f2ddc8", l2:"#e6c19e", d1:"#a34a3a", d2:"#7e352a", frame:"#331a14", glow:"rgba(228,87,79,.45)" },
+      { id:"senja", name:"Oranye Senja", desc:"Oranye hangat", l1:"#ffe7ba", l2:"#ffd48f", d1:"#e08a3c", d2:"#b9661f", frame:"#3a2410", glow:"rgba(239,125,84,.55)" },
+      { id:"sakura", name:"Sakura Pink", desc:"Pink pastel lembut", l1:"#ffe7ef", l2:"#ffd3e1", d1:"#e88bb0", d2:"#c75f8a", frame:"#40202e", glow:"rgba(228,104,138,.5)" },
+      { id:"abu", name:"Abu Modern", desc:"Monokrom minimalis", l1:"#ededed", l2:"#d9d9d9", d1:"#8f8f8f", d2:"#666666", frame:"#262626", glow:"rgba(180,180,180,.45)" },
+      { id:"es", name:"Biru Es", desc:"Terang & dingin", l1:"#eef8ff", l2:"#d6edff", d1:"#84bde0", d2:"#5b97c4", frame:"#1d3547", glow:"rgba(132,189,224,.55)" },
+      { id:"hutan", name:"Hutan Rimba", desc:"Hijau tua pekat", l1:"#e9e2ba", l2:"#d8cc96", d1:"#55703e", d2:"#3c552b", frame:"#1e2b14", glow:"rgba(85,112,62,.6)" },
+      { id:"emas", name:"Hitam Emas", desc:"Gelap mewah", l1:"#d8c69a", l2:"#c2ab7c", d1:"#55534a", d2:"#35342e", frame:"#17150f", glow:"rgba(227,170,60,.65)" }
+    ];
+    var CH_BG_THEMES = [
+      { id:"bawaan", name:"Bawaan", desc:"Mengikuti tema aplikasi", css:"linear-gradient(160deg, var(--panel2), var(--panel))", rec:"#1a231a", rec2:"#141a14" },
+      { id:"malam", name:"Malam Pekat", desc:"Hitam kehijauan", css:"radial-gradient(520px 240px at 50% -10%, rgba(62,213,152,.18), transparent 60%), linear-gradient(160deg, #101a13, #070b08)", rec:"#101a13", rec2:"#0a100b" },
+      { id:"kayu", name:"Meja Kayu", desc:"Cokelat kayu hangat", css:"radial-gradient(520px 260px at 50% 0%, rgba(227,170,60,.22), transparent 60%), linear-gradient(160deg, #3a2716, #211407)", rec:"#2e2011", rec2:"#211708" },
+      { id:"samudra", name:"Samudra Dalam", desc:"Biru laut dalam", css:"radial-gradient(520px 260px at 80% 0%, rgba(79,157,228,.30), transparent 60%), linear-gradient(160deg, #12283d, #081521)", rec:"#122739", rec2:"#0b1a29" },
+      { id:"senja", name:"Senja Jingga", desc:"Hangat sore hari", css:"radial-gradient(520px 260px at 50% -10%, rgba(255,183,90,.38), transparent 62%), linear-gradient(160deg, #5a2c17, #2a130b)", rec:"#472511", rec2:"#2e160c" },
+      { id:"anggur", name:"Anggur Marun", desc:"Marun gelap anggun", css:"radial-gradient(520px 260px at 20% 0%, rgba(228,87,79,.26), transparent 60%), linear-gradient(160deg, #3d1620, #1d0a10)", rec:"#33141d", rec2:"#20090f" },
+      { id:"langit-ungu", name:"Langit Ungu", desc:"Ungu malam", css:"radial-gradient(520px 260px at 80% -10%, rgba(157,123,196,.34), transparent 60%), linear-gradient(160deg, #2c2145, #140f24)", rec:"#261d3f", rec2:"#171228" },
+      { id:"emas", name:"Emas Premium", desc:"Hitam kilau emas", css:"radial-gradient(560px 260px at 50% -10%, rgba(227,170,60,.34), transparent 62%), linear-gradient(160deg, #241b08, #100c04)", rec:"#201906", rec2:"#141003" },
+      { id:"hutan", name:"Hutan Pinus", desc:"Hijau pinus pekat", css:"radial-gradient(520px 260px at 15% 0%, rgba(85,112,62,.4), transparent 60%), linear-gradient(160deg, #1d2f16, #0d170a)", rec:"#1a2b14", rec2:"#101b0b" },
+      { id:"studio", name:"Abu Studio", desc:"Abu netral tenang", css:"radial-gradient(520px 260px at 50% -10%, rgba(255,255,255,.14), transparent 60%), linear-gradient(160deg, #333338, #1c1c20)", rec:"#2b2b30", rec2:"#1d1d21" },
+      { id:"es", name:"Es Terang", desc:"Biru es cerah", css:"radial-gradient(520px 260px at 80% 0%, rgba(255,255,255,.55), transparent 60%), linear-gradient(160deg, #eaf6ff, #c9e5f8)", rec:"#17334a", rec2:"#102636" },
+      { id:"sakura", name:"Sakura Lembut", desc:"Pink pastel cerah", css:"radial-gradient(520px 260px at 20% 0%, rgba(255,255,255,.5), transparent 60%), linear-gradient(160deg, #ffe9f1, #ffd7e5)", rec:"#432233", rec2:"#2d1622" }
+    ];
+    function chBoardTheme(){
+      var id = S.chess && S.chess.boardTheme;
+      for(var i=0;i<CH_BOARD_THEMES.length;i++) if(CH_BOARD_THEMES[i].id === id) return CH_BOARD_THEMES[i];
+      return CH_BOARD_THEMES[0];
+    }
+    function chBgTheme(){
+      var id = S.chess && S.chess.bgTheme;
+      for(var i=0;i<CH_BG_THEMES.length;i++) if(CH_BG_THEMES[i].id === id) return CH_BG_THEMES[i];
+      return CH_BG_THEMES[0];
+    }
+    function chessThemeApply(){
+      var panel = $("panel-chess"); if(!panel) return;
+      var bt = chBoardTheme(), bg = chBgTheme();
+      panel.style.setProperty("--cb-l1", bt.l1);
+      panel.style.setProperty("--cb-l2", bt.l2);
+      panel.style.setProperty("--cb-d1", bt.d1);
+      panel.style.setProperty("--cb-d2", bt.d2);
+      panel.style.setProperty("--cb-frame", bt.frame);
+      panel.style.setProperty("--cb-glow", bt.glow);
+      panel.style.setProperty("--cstage-bg", bg.css);
+      $$("#chessBoardThemes .theme-opt").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-btheme") === bt.id); });
+      $$("#chessBgThemes .theme-opt").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-bgtheme") === bg.id); });
+      var now = $("chessThemeNow");
+      if(now) now.textContent = bt.name + " · Latar " + bg.name;
+    }
+    function chessThemeRenderPickers(){
+      var bg1 = $("chessBoardThemes"), bg2 = $("chessBgThemes");
+      if(bg1 && !bg1.children.length){
+        bg1.innerHTML = CH_BOARD_THEMES.map(function(t){
+          return '<button type="button" class="theme-opt" data-btheme="' + t.id + '" aria-label="Tema papan ' + t.name + '">' +
+            '<span class="sw"><span style="background:' + t.l1 + '"></span><span style="background:' + t.d1 + '"></span><span style="background:' + t.d1 + '"></span><span style="background:' + t.l1 + '"></span></span>' +
+            '<span class="tn">' + t.name + '<span class="on-pill">Aktif</span></span>' +
+            '<span class="td">' + t.desc + '</span></button>';
+        }).join("");
+        $$("#chessBoardThemes .theme-opt").forEach(function(b){
+          b.addEventListener("click", function(){
+            if(!S.chess) S.chess = defaultState().chess;
+            S.chess.boardTheme = b.getAttribute("data-btheme"); save();
+            chessThemeApply(); sfxClick();
+            toast("Warna papan diganti: " + chBoardTheme().name + ".");
+          });
+        });
+      }
+      if(bg2 && !bg2.children.length){
+        bg2.innerHTML = CH_BG_THEMES.map(function(t){
+          return '<button type="button" class="theme-opt" data-bgtheme="' + t.id + '" aria-label="Latar belakang ' + t.name + '">' +
+            '<span class="swbg" style="background:' + t.css + '"></span>' +
+            '<span class="tn">' + t.name + '<span class="on-pill">Aktif</span></span>' +
+            '<span class="td">' + t.desc + '</span></button>';
+        }).join("");
+        $$("#chessBgThemes .theme-opt").forEach(function(b){
+          b.addEventListener("click", function(){
+            if(!S.chess) S.chess = defaultState().chess;
+            S.chess.bgTheme = b.getAttribute("data-bgtheme"); save();
+            chessThemeApply(); sfxClick();
+            toast("Latar belakang diganti: " + chBgTheme().name + ".");
+          });
+        });
+      }
+      chessThemeApply();
+    }
+    function chessThemeRandom(){
+      if(!S.chess) S.chess = defaultState().chess;
+      var bt = CH_BOARD_THEMES[Math.floor(Math.random() * CH_BOARD_THEMES.length)];
+      var bg = CH_BG_THEMES[Math.floor(Math.random() * CH_BG_THEMES.length)];
+      S.chess.boardTheme = bt.id; S.chess.bgTheme = bg.id; save();
+      chessThemeApply(); sfxClick();
+      toast("Warna diacak: papan " + bt.name + " dengan latar " + bg.name + ".");
+    }
+    function chessThemeReset(){
+      if(!S.chess) S.chess = defaultState().chess;
+      S.chess.boardTheme = "klasik"; S.chess.bgTheme = "bawaan"; save();
+      chessThemeApply(); sfxClick();
+      toast("Warna papan & latar dikembalikan ke bawaan (Klasik).");
+    }
+
     var CHREC = { on:false, rec:null, chunks:[], stream:null, canvas:null, ctx:null,
       timer:null, labelTimer:null, startedAt:0, url:null, mime:"" };
     function chessRecSupported(){
@@ -2967,14 +3277,15 @@
     function chessRecDraw(){
       var g = CHREC.ctx, cv = CHREC.canvas; if(!g || !cv) return;
       var W = cv.width, HH = 118, BH = 840, BB = 118, FH = cv.height - HH - BH - BB;
-      g.fillStyle = "#141a14"; g.fillRect(0, 0, W, cv.height);
+      var btR = chBoardTheme(), bgR = chBgTheme();
+      g.fillStyle = bgR.rec2; g.fillRect(0, 0, W, cv.height);
       if(!CH || !CH.bd || !CH.bd.length){
         g.font = "700 30px system-ui,sans-serif"; g.fillStyle = "#eef3ec"; g.textAlign = "center"; g.textBaseline = "middle";
         g.fillText("Menunggu partai…", W / 2, cv.height / 2);
         g.textAlign = "left"; return;
       }
       var topC = CH.flipped ? "w" : "b", botC = CH.flipped ? "b" : "w";
-      g.fillStyle = "#1a231a"; g.fillRect(0, 0, W, HH); g.fillRect(0, HH + BH, W, BB);
+      g.fillStyle = bgR.rec; g.fillRect(0, 0, W, HH); g.fillRect(0, HH + BH, W, BB);
       chessRecBar(g, topC, 0, HH);
       chessRecBar(g, botC, HH + BH, BB);
       var checkSq = chInCheck(CH.bd, CH.turn) ? chKingSq(CH.bd, CH.turn) : -1;
@@ -2983,13 +3294,13 @@
         for(var df=0; df<8; df++){
           var r = CH.flipped ? 7 - dr : dr, f = CH.flipped ? 7 - df : df;
           var i = r * 8 + f, x = df * sq, y = HH + dr * sq;
-          g.fillStyle = (r + f) % 2 === 0 ? "#eedcae" : "#5f9455";
+          g.fillStyle = (r + f) % 2 === 0 ? btR.l1 : btR.d1;
           g.fillRect(x, y, sq, sq);
           if(i === CH.lastFrom || i === CH.lastTo){ g.fillStyle = "rgba(227,170,60,.45)"; g.fillRect(x, y, sq, sq); }
           if(CH.premove && (i === CH.premove.from || i === CH.premove.to)){ g.fillStyle = "rgba(79,157,228,.45)"; g.fillRect(x, y, sq, sq); }
           if(i === checkSq){ g.fillStyle = "rgba(224,60,45,.5)"; g.fillRect(x, y, sq, sq); }
           g.font = "700 17px system-ui,sans-serif"; g.textBaseline = "alphabetic";
-          g.fillStyle = (r + f) % 2 === 0 ? "#5f9455" : "#eedcae";
+          g.fillStyle = (r + f) % 2 === 0 ? btR.d2 : btR.l1;
           if(df === 0){ g.textAlign = "left"; g.fillText(String(8 - r), x + 5, y + 21); }
           if(dr === 7){ g.textAlign = "right"; g.fillText("abcdefgh".charAt(f), x + sq - 5, y + sq - 6); }
           var p = CH.bd[i];
@@ -3003,7 +3314,7 @@
           }
         }
       }
-      g.strokeStyle = "#2e2115"; g.lineWidth = 4; g.strokeRect(2, HH + 2, W - 4, BH - 4);
+      g.strokeStyle = btR.frame; g.lineWidth = 4; g.strokeRect(2, HH + 2, W - 4, BH - 4);
       /* strip status + indikator REC */
       var sy = HH + BH + BB;
       g.fillStyle = "#10150f"; g.fillRect(0, sy, W, FH);
@@ -3197,7 +3508,10 @@
       if(CH.mode === "online" && CH.netReal && NET.inGame && mover === CH.human){
         var lgm = chLegal(CH, CH.turn), lgs = [];
         for(var li2=0; li2<lgm.length; li2++) lgs.push({ from: chSqName(lgm[li2].from), to: chSqName(lgm[li2].to), promotion: lgm[li2].promo || undefined });
-        netSend({ type:"move", move:{ from: chSqName(m.from), to: chSqName(m.to), promotion: m.promo || undefined }, legalMoves: lgs });
+        /* fen diambil SETELAH langkah kita diterapkan ke CH, jadi
+           isinya posisi resmi terbaru — lawan memakainya untuk
+           sinkronisasi ulang bila papan lokalnya tidak cocok. */
+        netSend({ type:"move", move:{ from: chSqName(m.from), to: chSqName(m.to), promotion: m.promo || undefined }, legalMoves: lgs, fen: chFen(CH) });
       }
       var legal = chLegal(CH, CH.turn);
       if(!legal.length){
@@ -3492,6 +3806,7 @@
     }
     function chessRender(){
       if(!CH || !CH.bd.length) return;
+      chessThemeApply();
       /* Rotasi otomatis (mode 2 pemain): papan selalu menghadap pemain yang jalan. */
       if(CH.mode === "2p" && CH.rotate && !CH.over) CH.flipped = CH.turn === "b";
       CH.legalTurn = CH.over ? [] : chLegal(CH, CH.turn);
@@ -3736,7 +4051,21 @@
       for(var i=0;i<legal.length;i++){
         if(legal[i].from === from && legal[i].to === to && (legal[i].promo || null) === (msg.move.promotion || null)){ mv = legal[i]; break; }
       }
-      if(!mv){ toast("Langkah lawan tidak cocok dengan papan — kemungkinan koneksi tidak sinkron."); return; }
+      if(!mv){
+        /* Langkah lawan tidak ada di langkah legal papan lokal
+           (papan tidak sinkron): bila server menyertakan FEN posisi
+           resmi, muat FEN itu sebagai sinkronisasi ulang supaya
+           partai LANJUT, bukan macet. Hanya bila tidak ada fen,
+           tampilkan pesan lama. */
+        if(msg.fen && chLoadFen(CH, msg.fen)){
+          if(msg.clocks) CH.clocks = { w: Math.max(0, (msg.clocks.white || 0) / 1000), b: Math.max(0, (msg.clocks.black || 0) / 1000) };
+          CH.lastFrom = from; CH.lastTo = to;
+          toast("Papan disinkronkan ulang dari server");
+          chessRender();
+          return;
+        }
+        toast("Langkah lawan tidak cocok dengan papan — kemungkinan koneksi tidak sinkron."); return;
+      }
       if(msg.clocks) CH.clocks = { w: Math.max(0, (msg.clocks.white || 0) / 1000), b: Math.max(0, (msg.clocks.black || 0) / 1000) };
       chessDoMove(mv);
     }
@@ -4524,16 +4853,36 @@
         gateMsg("ok", "Token diterima. Selamat datang di SlashSMP Belajar.");
         sfxGood(); setTimeout(enterApp, 350);
       });
-      $("ownerForm").addEventListener("submit", function(ev){
+      /* Login Password Owner: password dikirim ke server catur untuk
+         diperiksa (POST /check-owner) — tidak disimpan di perangkat,
+         kolom selalu dikosongkan setelah setiap percobaan. */
+      $("ownerPwForm").addEventListener("submit", function(ev){
         ev.preventDefault();
-        if($("ownerPass").value === OWNER_PASS){
-          S.session = "owner"; save();
-          gateMsg("ok", "Selamat datang, Owner.");
-          sfxGood(); setTimeout(enterApp, 350);
-        } else {
-          gateMsg("err", "Password Owner salah.");
-          sfxBad();
+        var inp = $("ownerPwInput"), btn = $("ownerPwBtn"), m = $("ownerPwMsg");
+        var show = function(kind, text){ m.className = "feedback show " + kind; m.textContent = text; };
+        var pw = inp.value;
+        if(!pw){ show("bad", "Isi dulu password Owner-nya."); inp.focus(); return; }
+        if(!ownerCheckBase()){
+          show("bad", "Server tidak terjangkau: alamat Tunnel belum diatur di perangkat ini, jadi password tidak bisa diperiksa. Masuklah dengan token akses di atas, atau dari IP Owner yang dikenali otomatis.");
+          sfxBad(); return;
         }
+        var origBtn = btn.innerHTML;
+        btn.disabled = true; btn.textContent = "Memeriksa ke server…";
+        tryOwnerPassword(pw, function(res){
+          inp.value = ""; /* password tidak disimpan di mana pun */
+          btn.disabled = false; btn.innerHTML = origBtn;
+          if(res === "ok"){
+            S.session = "owner"; save();
+            show("good", "Password benar — server mengonfirmasi kamu Owner. Selamat datang kembali.");
+            sfxGood(); setTimeout(enterApp, 350);
+          } else if(res === "wrong"){
+            show("bad", "Password salah. Coba lagi, atau masuk dengan token akses.");
+            sfxBad();
+          } else {
+            show("bad", "Server tidak terjangkau — password tidak bisa diperiksa sekarang. Pastikan server catur menyala dan alamat Tunnel masih berlaku, atau masuk dengan token akses / dari IP Owner.");
+            sfxBad();
+          }
+        });
       });
       /* dashboard / azan */
       $("citySelect").addEventListener("change", function(){
@@ -4615,6 +4964,8 @@
       $("chessResign").addEventListener("click", function(){ chessResign(); });
       $("chessDraw").addEventListener("click", function(){ chessOfferDraw(); });
       $("chessRecBtn").addEventListener("click", function(){ chessRecToggle(); });
+      $("chessThemeRandom").addEventListener("click", function(){ chessThemeRandom(); });
+      $("chessThemeReset").addEventListener("click", function(){ chessThemeReset(); });
       $("chessRecClose").addEventListener("click", function(){
         $("chessRecBox").classList.add("hidden");
         var v = $("chessRecVideo");
@@ -4820,24 +5171,21 @@
       });
       /* owner */
       $("btnCreateToken").addEventListener("click", createToken);
-      $("btnSetMyIp").addEventListener("click", function(){
-        var m = $("ipMsg");
-        if(!currentIp){
-          fetchIp().then(function(ip){
-            currentIp = ip; updateIpUi();
-            if(ip){ S.ownerIp = ip; save(); updateIpUi(); m.className = "feedback show good"; m.textContent = "IP kamu sudah disimpan sebagai IP Owner. Kunjungan berikutnya dari IP ini langsung dikenali sebagai Owner."; }
-            else { m.className = "feedback show bad"; m.textContent = "IP tidak terdeteksi. Periksa koneksi internet, lalu coba lagi."; }
-          });
-          return;
-        }
-        S.ownerIp = currentIp; save(); updateIpUi();
-        m.className = "feedback show good";
-        m.textContent = "IP kamu sudah disimpan sebagai IP Owner. Kunjungan berikutnya dari IP ini langsung dikenali sebagai Owner.";
-        sfxGood();
-      });
-      $("btnRemoveIp").addEventListener("click", function(){
-        S.ownerIp = ""; save(); updateIpUi();
-        var m = $("ipMsg"); m.className = "feedback show"; m.textContent = "IP Owner dihapus. Masuk sebagai Owner sekarang hanya bisa dengan password.";
+      $("btnSetOwnerIp").addEventListener("click", function(){
+        var m = $("ownerIpMsg");
+        m.className = "feedback show"; m.textContent = "Mendeteksi IP perangkat ini…";
+        if(!currentIp) ipLookupDone = false; /* coba lagi bila deteksi sebelumnya gagal */
+        fetchVisitorIp(function(ip){
+          if(!ip){
+            m.className = "feedback show bad";
+            m.textContent = "IP perangkat ini belum bisa terdeteksi. Periksa koneksi internet, lalu coba lagi.";
+            sfxBad(); return;
+          }
+          S.ownerIp = ip; save(); updateIpUi();
+          m.className = "feedback show good";
+          m.textContent = "Berhasil disimpan. Mulai sekarang perangkat dengan IP ini langsung dikenali sebagai Owner dan masuk tanpa token. (Angka IP sengaja tidak ditampilkan di layar.)";
+          sfxGood();
+        });
       });
       $("btnSaveTunnel").addEventListener("click", function(){
         var m = $("tunnelMsg");
@@ -4876,32 +5224,14 @@
       if($("ownerTitlePick")) $("ownerTitlePick").value = S.chess.titlePick || "";
       if(typeof updateOwnerTitleUI === "function") updateOwnerTitleUI();
       updateTunnelUi();
+      chessThemeRenderPickers();
       $("profileName").value = S.profile.name || "";
       buildCalc();
       pomoRender();
       bindAll();
-      if(S.ownerIp){
-        /* Pengenalan Owner via IP hanya bisa cocok bila IP Owner
-           memang sudah tersimpan di perangkat ini — hanya dalam
-           keadaan itu lookup IP keluar dijalankan saat halaman
-           dibuka. */
-        detectIpThen(function(ip){
-          if(ip && ip === S.ownerIp && !S.session){
-            S.session = "owner-ip"; save();
-          }
-          updateIpUi();
-        });
-      } else {
-        /* Belum ada IP Owner tersimpan: lookup IP keluar TIDAK
-           dijalankan untuk pengunjung biasa (tidak ada yang bisa
-           dicocokkan). IP baru diambil saat Owner sendiri menekan
-           tombol atur IP di Panel Owner. */
-        ipResolved = true;
-        updateIpUi();
-        var gt = $("ipStatusText");
-        if(gt) gt.innerHTML = "Status: <b>pengunjung (butuh token)</b>. Belum ada IP Owner yang tersimpan di perangkat ini.";
-      }
+      updateIpUi();
       if(S.session) enterApp();
+      else checkOwnerIp();
     }
     (function boot(){
       var steps = ["Menyiapkan halaman…","Memuat game dan latihan…","Menghitung jadwal salat…","Memeriksa sesi masuk…","Hampir selesai…"];
