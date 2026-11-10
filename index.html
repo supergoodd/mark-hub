@@ -745,6 +745,163 @@
       @media(min-width:960px){#toast{bottom:30px}}
       #toast.show{opacity:1; transform:translate(-50%,0)}
       .empty-note{color:var(--faint); font-size:13.5px; text-align:center; padding:18px 8px; line-height:1.6}
+
+      /* ================= POLISH PREMIUM MENU (polesan tampilan saja) =================
+         Gradasi & bayangan lebih halus, hierarki lebih rapi, status aktif
+         lebih jelas, transisi lembut saat disentuh. Tidak mengubah
+         fungsi, handler, atau tata letak dasar apa pun. */
+      .card{
+        border-radius:19px; padding:20px;
+        box-shadow:0 12px 28px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.045);
+      }
+      html[data-theme="light"] .card{box-shadow:0 10px 24px rgba(60,50,10,.10), inset 0 1px 0 rgba(255,255,255,.65)}
+      .card h3{letter-spacing:.01em}
+      h2.page-title{font-size:25px; letter-spacing:.005em}
+      .sec-head .sic{box-shadow:0 8px 18px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.08)}
+      .hero{box-shadow:0 20px 42px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.09)}
+      .chip{box-shadow:0 4px 12px rgba(0,0,0,.16)}
+      .avatar-dot{box-shadow:0 6px 14px rgba(0,0,0,.25)}
+      /* tombol: gradasi lebih kaya, angkat halus saat disentuh */
+      .btn{transition:transform .14s ease, filter .14s ease, background .14s ease, box-shadow .14s ease, border-color .14s ease; box-shadow:0 4px 12px rgba(0,0,0,.14)}
+      .btn-gold{background:linear-gradient(150deg,#ffd97a,var(--gold2) 30%,var(--gold) 62%,var(--gold-deep)); box-shadow:0 12px 26px rgba(227,170,60,.32), inset 0 1px 0 rgba(255,255,255,.55)}
+      .btn-gold:hover{filter:brightness(1.07); transform:translateY(-1px)}
+      .btn-green{background:linear-gradient(150deg,#5fe3ab,var(--green2) 32%,var(--green) 62%,var(--green-deep)); box-shadow:0 12px 26px rgba(39,181,116,.28), inset 0 1px 0 rgba(255,255,255,.45)}
+      .btn-green:hover{filter:brightness(1.07); transform:translateY(-1px)}
+      .btn-ghost:hover{border-color:var(--gold); box-shadow:0 8px 18px rgba(0,0,0,.18)}
+      .btn-danger:hover{border-color:var(--red); background:rgba(228,87,79,.08)}
+      .input{transition:border-color .15s ease, box-shadow .15s ease}
+      select.input{box-shadow:0 4px 12px rgba(0,0,0,.12)}
+      /* dock melayang HP: kaca lebih dalam + bayangan berlapis */
+      .sidenav{
+        background:linear-gradient(165deg, color-mix(in srgb, var(--panel2) 94%, transparent), color-mix(in srgb, var(--panel) 88%, transparent));
+        box-shadow:0 22px 44px rgba(0,0,0,.55), 0 4px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.07);
+        border-radius:24px;
+      }
+      .nav-btn,.nav-more{transition:color .16s ease, background .16s ease, transform .12s ease}
+      .nav-btn .nic,.nav-more .nic{transition:background .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease}
+      .nav-btn.active .nic{background:linear-gradient(150deg,#ffd97a,var(--gold) 58%,var(--gold-deep)); box-shadow:0 8px 18px rgba(227,170,60,.45), inset 0 1px 0 rgba(255,255,255,.55); transform:translateY(-1px)}
+      .nav-btn.active::after{width:6px; height:6px; box-shadow:0 0 8px rgba(227,170,60,.9)}
+      .nav-more:active{transform:scale(.96)}
+      @media(min-width:960px){
+        .sidenav{box-shadow:0 18px 38px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.05); border-radius:22px}
+        .nav-btn{transition:background .16s ease, color .16s ease, transform .16s ease, box-shadow .16s ease}
+        .nav-btn:hover{transform:translateX(2px)}
+        .nav-btn .nic{transition:background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease}
+        .nav-btn.active{background:linear-gradient(90deg, rgba(227,170,60,.24), rgba(39,181,116,.08) 75%, transparent); box-shadow:inset 3px 0 0 var(--gold), 0 6px 16px rgba(0,0,0,.16)}
+        .nav-btn.active .nic{background:linear-gradient(150deg,#ffd97a,var(--gold) 58%,var(--gold-deep)); box-shadow:0 6px 14px rgba(227,170,60,.4)}
+      }
+      /* lembar "Menu Lainnya" di HP */
+      .more-sheet{box-shadow:0 28px 56px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.06)}
+      .sheet-row{transition:background .15s ease, transform .12s ease}
+      .sheet-row:hover{background:var(--bg2)}
+      .sheet-row .nic{box-shadow:0 5px 12px rgba(0,0,0,.18)}
+      /* kartu menu: kilau aksen, ikon bergradasi, panah bergeser */
+      .menu-tile{
+        background:linear-gradient(155deg, color-mix(in srgb, var(--acc) 7%, var(--panel2)), var(--panel) 68%);
+        border-radius:20px; padding:18px 17px 16px;
+        box-shadow:0 8px 20px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.045);
+        transition:border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+      }
+      .menu-tile::before{height:3px; background:linear-gradient(90deg,var(--acc), color-mix(in srgb, var(--acc) 35%, transparent) 55%, transparent 85%); opacity:.95}
+      .menu-tile::after{content:""; position:absolute; inset:0; background:radial-gradient(340px 150px at 88% -20%, var(--accsoft), transparent 62%); opacity:.55; pointer-events:none}
+      .menu-tile:hover{transform:translateY(-3px); box-shadow:0 18px 34px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.05)}
+      .menu-tile .ic{
+        background:linear-gradient(150deg, color-mix(in srgb, var(--acc) 26%, transparent), var(--accsoft));
+        box-shadow:0 8px 16px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.14);
+        transition:transform .18s ease;
+      }
+      .menu-tile:hover .ic{transform:scale(1.06) rotate(-2deg)}
+      .menu-tile .go{transition:background .16s ease, border-color .16s ease, color .16s ease, transform .16s ease}
+      .menu-tile:hover .go{transform:translateX(2px)}
+      .menu-tile .pill{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+      /* statistik & baris daftar */
+      .stat{box-shadow:0 8px 18px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.04); transition:transform .15s ease, box-shadow .15s ease}
+      .stat:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(0,0,0,.2)}
+      .stat .ic{background:linear-gradient(150deg,var(--panel2),var(--bg2)); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+      .prayer-row{transition:border-color .15s ease, background .15s ease, transform .15s ease}
+      .prayer-row.next{box-shadow:0 8px 20px rgba(227,170,60,.16)}
+      /* pengaturan: baris lebih lega, saklar lebih jelas */
+      .set-row{padding:15px 0}
+      .switch .tr{box-shadow:inset 0 2px 5px rgba(0,0,0,.25)}
+      .switch .tr::after{box-shadow:0 2px 6px rgba(0,0,0,.35)}
+      .switch input:checked + .tr{box-shadow:0 4px 12px rgba(39,181,116,.3), inset 0 1px 0 rgba(255,255,255,.15)}
+      /* segmen (mode Catur, Pomodoro): rel cekung + tombol aktif timbul */
+      .seg{border-radius:16px; padding:5px; box-shadow:inset 0 2px 7px rgba(0,0,0,.22)}
+      .seg button{border-radius:12px; transition:background .16s ease, color .16s ease, box-shadow .16s ease, transform .12s ease}
+      .seg button:not(.active):hover{color:var(--text); background:color-mix(in srgb, var(--panel2) 70%, transparent)}
+      .seg button.active{background:linear-gradient(150deg,#ffd97a,var(--gold2) 28%,var(--gold) 60%,var(--gold-deep)); box-shadow:0 8px 18px rgba(227,170,60,.32), inset 0 1px 0 rgba(255,255,255,.5)}
+      .seg button:active{transform:scale(.97)}
+      .seg.seg-green button.active{background:linear-gradient(150deg,#5fe3ab,var(--green2) 28%,var(--green) 60%,var(--green-deep)); box-shadow:0 8px 18px rgba(39,181,116,.3), inset 0 1px 0 rgba(255,255,255,.45)}
+      .pomo-modes{box-shadow:inset 0 2px 7px rgba(0,0,0,.2)}
+      .pomo-modes button{transition:background .16s ease, color .16s ease, box-shadow .16s ease, transform .12s ease}
+      .pomo-modes button:active{transform:scale(.96)}
+      /* tombol kembali & pilihan jawaban */
+      .btn-back{box-shadow:0 4px 12px rgba(0,0,0,.14); transition:border-color .15s ease, color .15s ease, transform .12s ease, background .15s ease}
+      .btn-back:hover{background:var(--panel)}
+      .opt-btn{transition:border-color .15s ease, background .15s ease, transform .13s ease, box-shadow .15s ease}
+      .opt-btn:hover{transform:translateY(-1px); box-shadow:0 8px 18px rgba(0,0,0,.16)}
+      .lobby-row{transition:border-color .15s ease, transform .13s ease}
+      .lobby-row:hover{border-color:var(--line2); transform:translateY(-1px)}
+      .token-item{box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+      #toast{box-shadow:0 18px 38px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06)}
+
+      /* ================= ACHIEVEMENT TITLE CATUR ================= */
+      .ach-overlay{
+        position:fixed; inset:0; z-index:96; display:flex; align-items:center; justify-content:center;
+        padding:20px 16px; background:rgba(4,8,5,.66); backdrop-filter:blur(4px); -webkit-backdrop-filter:blur(4px);
+      }
+      .ach-card{
+        position:relative; width:min(380px,100%); text-align:center; overflow:hidden;
+        background:linear-gradient(170deg,var(--panel2),var(--panel) 70%);
+        border:1px solid rgba(227,170,60,.55); border-radius:24px; padding:28px 24px 22px;
+        box-shadow:0 30px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(227,170,60,.22), 0 0 44px rgba(227,170,60,.22), inset 0 1px 0 rgba(255,255,255,.08);
+        animation:achPop .45s cubic-bezier(.2,1.4,.4,1) both;
+      }
+      @keyframes achPop{from{opacity:0; transform:scale(.82) translateY(16px)}to{opacity:1; transform:none}}
+      .ach-card::before{content:""; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--green),var(--gold),var(--green))}
+      .ach-kicker{display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); background:rgba(227,170,60,.13); border:1px solid rgba(227,170,60,.45); padding:6px 13px; border-radius:99px}
+      .ach-kicker svg{width:14px; height:14px}
+      html[data-theme="light"] .ach-kicker{color:var(--gold-deep)}
+      .ach-medal{
+        width:88px; height:88px; margin:18px auto 6px; border-radius:50%; display:grid; place-items:center;
+        background:radial-gradient(circle at 32% 28%, rgba(255,255,255,.35), transparent 55%), linear-gradient(150deg,var(--panel2),var(--bg2));
+        border:1px solid var(--line2); box-shadow:0 16px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.1);
+        animation:achMedal 2.6s ease-in-out infinite;
+      }
+      @keyframes achMedal{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+      .ach-medal .pbar-badge{font-size:19px; padding:7px 13px; border-radius:11px; letter-spacing:.05em}
+      .ach-medal .pbar-badge svg{width:16px; height:16px}
+      .ach-tname{font-size:23px; font-weight:800; margin-top:10px; line-height:1.25}
+      .ach-tsub{font-size:13.5px; color:var(--muted); line-height:1.6; margin-top:5px}
+      .ach-bonus{display:flex; gap:9px; justify-content:center; margin:16px 0 18px; flex-wrap:wrap}
+      .ach-bonus span{display:inline-flex; align-items:center; gap:6px; font-weight:800; font-size:14px; padding:8px 14px; border-radius:99px; background:rgba(39,181,116,.13); border:1px solid rgba(39,181,116,.45); color:var(--green2)}
+      .ach-bonus span.coin{background:rgba(227,170,60,.13); border-color:rgba(227,170,60,.5); color:var(--gold2)}
+      html[data-theme="light"] .ach-bonus span{color:#0c5a36}
+      html[data-theme="light"] .ach-bonus span.coin{color:var(--gold-deep)}
+      .ach-bonus svg{width:15px; height:15px}
+      .ach-spark{position:absolute; border-radius:50%; pointer-events:none; animation:achSpark 1.15s ease-out both}
+      @keyframes achSpark{0%{opacity:0; transform:translate(0,0) scale(.4)}18%{opacity:1}100%{opacity:0; transform:translate(var(--sx),var(--sy)) scale(1)}}
+      @media (prefers-reduced-motion: reduce){ .ach-card,.ach-medal{animation:none} .ach-spark{display:none} }
+      /* daftar achievement di Profil */
+      .ach-row{display:flex; gap:13px; align-items:center; padding:12px 13px; border:1px solid var(--line); border-radius:15px; background:linear-gradient(155deg,var(--panel2),var(--bg2)); margin-bottom:9px; box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
+      .ach-row:last-child{margin-bottom:0}
+      .ach-row .ach-ic{width:48px; height:48px; flex:none; border-radius:14px; display:grid; place-items:center; background:var(--bg2); border:1px solid var(--line2); box-shadow:0 5px 12px rgba(0,0,0,.16)}
+      .ach-row .ach-ic .pbar-badge{font-size:13.5px; padding:4px 9px; border-radius:8px}
+      .ach-row .ach-ic .pbar-badge svg{width:13px; height:13px}
+      .ach-row .ach-mid{flex:1; min-width:0}
+      .ach-row .ach-nm{font-weight:800; font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+      .ach-row .ach-dt{font-size:12.5px; color:var(--muted); line-height:1.55; margin-top:2px}
+      .ach-row .ach-dt b{color:var(--green2)}
+      html[data-theme="light"] .ach-row .ach-dt b{color:#0c5a36}
+      .ach-row.locked{opacity:.66}
+      .ach-row.locked .ach-ic{color:var(--faint)}
+      .ach-state{flex:none; display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:5px 10px; border-radius:99px}
+      .ach-state.got{background:rgba(39,181,116,.15); color:var(--green2); border:1px solid rgba(39,181,116,.45)}
+      .ach-state.lock{background:var(--bg2); color:var(--faint); border:1px solid var(--line2)}
+      .ach-state svg{width:12px; height:12px}
+      html[data-theme="light"] .ach-state.got{color:#0c5a36}
+      .ach-guest-head{font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin:16px 0 9px}
+      .ach-summary-line{margin-top:7px; padding:9px 11px; border-radius:11px; background:rgba(227,170,60,.13); border:1px solid rgba(227,170,60,.45); font-weight:700; line-height:1.55}
     </style>
   </head>
   <body>
@@ -1487,6 +1644,11 @@
                 <div class="prayer-row"><div class="ic"><svg width="18" height="18" style="color:var(--blue)"><use href="#ic-globe"/></svg></div><span class="nm">Catur Online (M / R / K)</span><span class="tm" id="rec-chess-online">0 / 0 / 0</span></div>
               </div>
             </div>
+            <div class="card">
+              <h3><svg width="18" height="18" style="color:var(--gold); vertical-align:-3px"><use href="#ic-star"/></svg> Achievement Title Catur</h3>
+              <p class="csub">Title didapat saat ELO pertama kali mencapai batasnya — lengkap dengan perayaan dan bonus XP + koin. Achievement tersimpan permanen di perangkat ini: tidak hilang saat log out, dan tidak dobel walau ELO turun lalu naik lagi. Yang masih terkunci menunjukkan ELO yang dibutuhkan.</p>
+              <div id="achTitleList"></div>
+            </div>
           </section>
 
           <!-- ===== PENGATURAN ===== -->
@@ -1641,6 +1803,18 @@
 
     <div id="toast" role="status"></div>
 
+    <!-- Popup perayaan achievement title catur: diisi & ditampilkan oleh JS -->
+    <div id="achOverlay" class="ach-overlay hidden" role="dialog" aria-modal="true" aria-label="Achievement terbuka">
+      <div class="ach-card" id="achCard">
+        <span class="ach-kicker"><svg><use href="#ic-star"/></svg> Achievement Terbuka!</span>
+        <div class="ach-medal" id="achMedal"></div>
+        <div class="ach-tname" id="achTName"></div>
+        <div class="ach-tsub" id="achTSub"></div>
+        <div class="ach-bonus" id="achBonus"></div>
+        <button class="btn btn-gold btn-block" id="achClose" type="button">Keren!</button>
+      </div>
+    </div>
+
     <script>
     "use strict";
     /* ================= UTIL & STATE ================= */
@@ -1687,7 +1861,7 @@
         ownerIp:"",
         notes:[],
         bests:{ snake:0, memory:null, guess:null, quiz:0, chess:0 },
-        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"", tunnelUrl:"", boardTheme:"klasik", bgTheme:"bawaan" },
+        chess:{ elo:800, w:0, l:0, d:0, ow:0, od:0, ol:0, bots:{}, titlePick:"", tunnelUrl:"", boardTheme:"klasik", bgTheme:"bawaan", titleAch:{} },
         stats:{ games:0, correct:0, pomoDone:0 },
         session:null
       };
@@ -1700,6 +1874,7 @@
         S.settings = Object.assign(defaultState().settings, p.settings||{});
         S.bests = Object.assign(defaultState().bests, p.bests||{});
         S.chess = Object.assign(defaultState().chess, p.chess||{});
+        if(!S.chess.titleAch || typeof S.chess.titleAch !== "object" || Array.isArray(S.chess.titleAch)) S.chess.titleAch = {};
         S.stats = Object.assign(defaultState().stats, p.stats||{});
         if(!Array.isArray(S.tokens)) S.tokens = [];
         if(!Array.isArray(S.notes)) S.notes = [];
@@ -1797,6 +1972,11 @@
         var ad = $("avatarDot"); if(ad) ad.classList.toggle("avatar-owner", ownerOn);
       }
       if(typeof updateOwnerTitleUI === "function") updateOwnerTitleUI();
+      /* Achievement title: sinkronisasi diam-diam (title yang sudah
+         diraih sebelum versi ini langsung tercatat tanpa popup) +
+         segarkan daftar Achievement Title di Profil. */
+      if(typeof chAchSyncSilent === "function") chAchSyncSilent();
+      if(typeof renderAchList === "function") renderAchList();
       $("best-snake").textContent = S.bests.snake;
       $("best-memory").textContent = S.bests.memory == null ? "—" : S.bests.memory + " langkah";
       $("best-guess").textContent = S.bests.guess == null ? "—" : S.bests.guess + " tebakan";
@@ -2735,6 +2915,185 @@
         : "Belum aktif — pakai tombol di bawah untuk mengaktifkan";
     }
     function chMyTitle(){ return chPickedTitle() || chTitleFor((S.chess && S.chess.elo) || 800); }
+    /* ================= ACHIEVEMENT TITLE CATUR =================
+       Saat ELO seorang pemain PERTAMA KALI menembus batas title
+       (Bc 1200, Cs 1450, Db 1700, Kp 1950, Rs 2200, Sx 2400):
+       achievement tercatat PERMANEN di S.chess.titleAch (tersimpan
+       di perangkat, tidak hilang saat log out karena data profil
+       tidak ikut terhapus, dan tidak dobel — sekali tercatat tetap
+       tercatat walau ELO turun lalu naik lagi), ada popup perayaan,
+       dan bonus XP + koin yang membesar tiap tingkat title.
+       Kunci penyimpanan: "__self__" untuk pemain profil; "tamu:<nama>"
+       untuk pemain kedua di mode 2 Pemain (dicatat per nama).
+       Title yang sudah diraih sebelum versi ini ada dicatat diam-diam
+       tanpa popup dan tanpa bonus (chAchSyncSilent). Title OWNER
+       eksklusif punya achievement sendiri (kode "Owner") yang tercatat
+       saat Owner mengaktifkannya. */
+    var CH_ACH_BONUS = [
+      { xp:50,  coins:25  },
+      { xp:100, coins:50  },
+      { xp:150, coins:100 },
+      { xp:200, coins:150 },
+      { xp:300, coins:200 },
+      { xp:500, coins:300 }
+    ];
+    var CH_ACH_OWNER_BONUS = { xp:300, coins:300 };
+    var CH_ACH_SELF = "__self__";
+    function chAchStore(){
+      if(!S.chess) S.chess = defaultState().chess;
+      if(!S.chess.titleAch || typeof S.chess.titleAch !== "object" || Array.isArray(S.chess.titleAch)) S.chess.titleAch = {};
+      return S.chess.titleAch;
+    }
+    function chAchDateStr(d){
+      function p(n){ return (n < 10 ? "0" : "") + n; }
+      return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+    }
+    var CH_ACH_MONTHS = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
+    function chAchFmtDate(iso){
+      var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || "");
+      if(!m) return iso || "";
+      return parseInt(m[3], 10) + " " + (CH_ACH_MONTHS[parseInt(m[2], 10) - 1] || "") + " " + m[1];
+    }
+    function chAchRecord(key, code, bonus){
+      var store = chAchStore();
+      if(!store[key] || typeof store[key] !== "object") store[key] = {};
+      if(store[key][code]) return false;
+      store[key][code] = { d: chAchDateStr(new Date()), xp: bonus ? bonus.xp : 0, coins: bonus ? bonus.coins : 0 };
+      return true;
+    }
+    /* Antrean popup perayaan: satu per satu, tidak menumpuk. */
+    var CH_ACH_QUEUE = [], CH_ACH_SHOWING = false;
+    function chAchCelebrate(item){ CH_ACH_QUEUE.push(item); chAchShowNext(); }
+    function chAchShowNext(){
+      if(CH_ACH_SHOWING) return;
+      var item = CH_ACH_QUEUE.shift();
+      if(!item) return;
+      var ov = $("achOverlay"); if(!ov){ CH_ACH_SHOWING = false; return; }
+      CH_ACH_SHOWING = true;
+      var t = item.title;
+      $("achMedal").innerHTML = t.owner
+        ? '<span class="pbar-badge tb-Owner"><svg><use href="#ic-crown"/></svg>OWNER</span>'
+        : '<span class="pbar-badge tb-' + t.code + '">' + t.code + "</span>";
+      $("achTName").textContent = t.owner ? "OWNER — Pemilik SlashSMP" : t.code + " · " + t.name;
+      $("achTSub").innerHTML = item.forName && item.forName !== (S.profile && S.profile.name)
+        ? "Title baru untuk <b>" + escHtml(item.forName) + "</b> — achievement ini tersimpan untuk nama itu."
+        : (t.owner
+          ? "Title eksklusif Owner berhasil diaktifkan. Achievement ini hanya bisa didapat oleh Owner website."
+          : "ELO kamu mencapai <b>" + item.elo + "</b> dan menembus title " + t.code + " untuk pertama kalinya. Achievement tersimpan permanen!");
+      $("achBonus").innerHTML = item.bonus
+        ? '<span><svg><use href="#ic-star"/></svg> +' + item.bonus.xp + ' XP</span><span class="coin"><svg><use href="#ic-coin"/></svg> +' + item.bonus.coins + " koin</span>"
+        : "";
+      var card = $("achCard");
+      var old = card.querySelectorAll(".ach-spark");
+      for(var oi = 0; oi < old.length; oi++) old[oi].remove();
+      var cols = ["#e3aa3c","#f5c86a","#3ed598","#4f9de4","#e4688a"];
+      for(var si = 0; si < 12; si++){
+        var sp = document.createElement("i");
+        sp.className = "ach-spark";
+        var ang = (Math.PI * 2 * si) / 12 + (si % 2 ? .18 : 0), dist = 92 + (si % 3) * 30;
+        sp.style.left = "50%"; sp.style.top = "96px";
+        sp.style.width = sp.style.height = (si % 3 === 0 ? 9 : 6) + "px";
+        sp.style.background = cols[si % cols.length];
+        sp.style.setProperty("--sx", Math.round(Math.cos(ang) * dist) + "px");
+        sp.style.setProperty("--sy", Math.round(Math.sin(ang) * dist * .72) + "px");
+        sp.style.animationDelay = (si * 28) + "ms";
+        card.appendChild(sp);
+      }
+      ov.classList.remove("hidden");
+      if(typeof sfxGood === "function") sfxGood();
+      $("achClose").onclick = function(){
+        ov.classList.add("hidden");
+        CH_ACH_SHOWING = false;
+        setTimeout(chAchShowNext, 280);
+      };
+    }
+    /* Cek ELO seorang pemain terhadap title yang belum tercatat.
+       celebrate=true: popup + bonus (hanya untuk pemain profil —
+       XP/koin memang milik profil). Mengembalikan daftar title baru. */
+    function chAchCheckElo(key, playerName, elo, celebrate){
+      var earned = [];
+      for(var i = 0; i < CH_TITLES.length; i++){
+        if(elo < CH_TITLES[i].min) break;
+        var bonus = (celebrate && key === CH_ACH_SELF) ? CH_ACH_BONUS[i] : null;
+        if(chAchRecord(key, CH_TITLES[i].code, bonus)){
+          earned.push(CH_TITLES[i]);
+          if(bonus) award(bonus.xp, bonus.coins, true);
+          if(celebrate) chAchCelebrate({ title: CH_TITLES[i], elo: elo, bonus: bonus, forName: playerName });
+        }
+      }
+      if(earned.length) save();
+      return earned;
+    }
+    function chAchCheckSelf(celebrate){
+      return chAchCheckElo(CH_ACH_SELF, (S.profile && S.profile.name) || "Kamu", (S.chess && S.chess.elo) || 800, celebrate);
+    }
+    function chAchCheckOwner(celebrate){
+      if(chAchRecord(CH_ACH_SELF, "Owner", celebrate ? CH_ACH_OWNER_BONUS : null)){
+        save();
+        if(celebrate){
+          award(CH_ACH_OWNER_BONUS.xp, CH_ACH_OWNER_BONUS.coins, true);
+          chAchCelebrate({ title: CH_OWNER_TITLE, elo: (S.chess && S.chess.elo) || 800, bonus: CH_ACH_OWNER_BONUS, forName: (S.profile && S.profile.name) || "Kamu" });
+        }
+        if(typeof renderAchList === "function") renderAchList();
+        return true;
+      }
+      return false;
+    }
+    /* Sinkronisasi diam-diam: title yang SUDAH diraih sebelum versi
+       ini (atau lewat jalur mana pun) langsung tercatat sebagai
+       achievement — tanpa popup beruntun dan tanpa bonus. */
+    function chAchSyncSilent(){
+      var changed = false;
+      var elo = (S.chess && S.chess.elo) || 800, store = chAchStore();
+      if(!store[CH_ACH_SELF] || typeof store[CH_ACH_SELF] !== "object") store[CH_ACH_SELF] = {};
+      for(var i = 0; i < CH_TITLES.length; i++){
+        if(elo < CH_TITLES[i].min) break;
+        if(!store[CH_ACH_SELF][CH_TITLES[i].code]){ store[CH_ACH_SELF][CH_TITLES[i].code] = { d: chAchDateStr(new Date()), xp: 0, coins: 0 }; changed = true; }
+      }
+      try{
+        if(typeof isOwner === "function" && isOwner() && S.chess.titlePick === "Owner" && !store[CH_ACH_SELF]["Owner"]){
+          store[CH_ACH_SELF]["Owner"] = { d: chAchDateStr(new Date()), xp: 0, coins: 0 }; changed = true;
+        }
+      }catch(e){}
+      if(changed) save();
+    }
+    /* Daftar "Achievement Title" di Profil: semua title — yang sudah
+       didapat (dengan tanggal + bonus) dan yang terkunci (syarat ELO). */
+    function renderAchList(){
+      var box = $("achTitleList"); if(!box) return;
+      var store = chAchStore();
+      var mine = store[CH_ACH_SELF] || {};
+      var html = "";
+      function row(ownerRow, t, rec){
+        var badge = ownerRow
+          ? '<span class="pbar-badge tb-Owner"><svg><use href="#ic-crown"/></svg>OWNER</span>'
+          : '<span class="pbar-badge tb-' + t.code + '">' + t.code + "</span>";
+        var nm = ownerRow ? "OWNER · Pemilik SlashSMP" : t.code + " · " + t.name;
+        var req = ownerRow ? "Khusus Owner — aktifkan Title OWNER di Panel Owner" : "Capai ELO " + t.min;
+        if(t && !ownerRow){
+          var hi = (t.code === "Sx") ? "+" : "–" + (CH_TITLES[CH_TITLES.indexOf(t) + 1] ? CH_TITLES[CH_TITLES.indexOf(t) + 1].min - 1 : "");
+          req = "ELO " + t.min + hi;
+        }
+        var dt = rec
+          ? "Didapat <b>" + chAchFmtDate(rec.d) + "</b>" + (rec.xp ? " · Bonus +" + rec.xp + " XP & +" + rec.coins + " koin" : "")
+          : "Terkunci — " + req;
+        var state = rec
+          ? '<span class="ach-state got"><svg><use href="#ic-check"/></svg> Didapat</span>'
+          : '<span class="ach-state lock"><svg><use href="#ic-key"/></svg> Terkunci</span>';
+        return '<div class="ach-row' + (rec ? "" : " locked") + '"><div class="ach-ic">' + badge + '</div><div class="ach-mid"><div class="ach-nm">' + nm + '</div><div class="ach-dt">' + dt + "</div></div>" + state + "</div>";
+      }
+      for(var i = 0; i < CH_TITLES.length; i++) html += row(false, CH_TITLES[i], mine[CH_TITLES[i].code]);
+      html += row(true, null, mine["Owner"]);
+      var guestKeys = [];
+      for(var k in store){ if(k.indexOf("tamu:") === 0) guestKeys.push(k); }
+      guestKeys.sort();
+      for(var g = 0; g < guestKeys.length; g++){
+        var gname = guestKeys[g].slice(5), grec = store[guestKeys[g]], grows = "";
+        for(var j = 0; j < CH_TITLES.length; j++) if(grec[CH_TITLES[j].code]) grows += row(false, CH_TITLES[j], grec[CH_TITLES[j].code]);
+        if(grows) html += '<div class="ach-guest-head">Achievement ' + escHtml(gname) + ' (2 Pemain)</div>' + grows;
+      }
+      box.innerHTML = html;
+    }
     var CH_COACHES = [
       { name:"Bimo", lo:1200, hi:1449 },
       { name:"Salsa", lo:1450, hi:1699 },
@@ -2977,6 +3336,7 @@
     function chessApplyElo(winner){
       if(CH.eloDone || CH.names.length < 4) return;
       CH.eloDone = true;
+      CH.achLine = "";
       if(CH.mode === "online" && CH.netReal){
         /* Partai server asli: rekor M/R/K tetap dicatat lokal, tapi
            angka ELO resmi dihitung SERVER — lokal tidak mengarang
@@ -2999,6 +3359,8 @@
           S.chess.elo = NET.pendingOverElo;
           var ttr = chPickedTitle() || chTitleFor(NET.pendingOverElo);
           CH.eloLine = "ELO kamu: " + oer + " → " + NET.pendingOverElo + " (" + (NET.pendingOverElo - oer >= 0 ? "+" : "") + (NET.pendingOverElo - oer) + ") · Title kamu: " + (ttr.none ? "belum ada — capai ELO 1200 untuk title pertama (Bc Bidak Cekatan)" : ttr.code + " " + ttr.name) + " — dihitung server catur";
+          var achOn = chAchCheckSelf(true);
+          if(achOn.length) CH.achLine = "Achievement terbuka: kamu meraih title <b>" + achOn[achOn.length - 1].code + " " + achOn[achOn.length - 1].name + "</b> untuk pertama kalinya!";
           NET.pendingOverElo = null;
         } else {
           CH.eloLine = "ELO resmi dihitung server catur — tersinkron otomatis begitu server mengonfirmasi hasil partai.";
@@ -3050,6 +3412,14 @@
         var nW = chEloClamp(eW + dw), nB = chEloClamp(eB - dw);
         S.chess.elo = nW; CH_GUEST_ELO = nB; save();
         CH.eloLine = "ELO " + CH.nameW + " (Putih): " + eW + " → " + nW + " (" + (dw >= 0 ? "+" : "") + dw + ") · ELO " + CH.nameB + " (Hitam): " + eB + " → " + nB;
+        /* Mode 2 Pemain: achievement title dicek untuk KEDUA pemain —
+           Putih = pemain profil, Hitam = pemain kedua (per nama). */
+        var achW = chAchCheckElo(CH_ACH_SELF, CH.nameW, nW, true);
+        var achB = chAchCheckElo("tamu:" + CH.nameB, CH.nameB, nB, true);
+        var achParts = [];
+        if(achW.length) achParts.push("<b>" + escHtml(CH.nameW) + "</b> meraih title <b>" + achW[achW.length - 1].code + " " + achW[achW.length - 1].name + "</b>");
+        if(achB.length) achParts.push("<b>" + escHtml(CH.nameB) + "</b> meraih title <b>" + achB[achB.length - 1].code + " " + achB[achB.length - 1].name + "</b>");
+        if(achParts.length) CH.achLine = "Achievement terbuka: " + achParts.join(" · ") + " untuk pertama kalinya!";
       }
     }
     function chessTagLine(c){
@@ -3069,6 +3439,7 @@
       } else {
         html += '<div style="color:var(--muted)">' + ((CH.mode === "cpu" || (CH.mode === "online" && (!CH.netReal || CH.oppFallback))) ? "ELO tidak berubah — melawan bot, ELO tidak dihitung; ELO hanya berubah di mode Online melawan pemain asli." : "ELO tidak berubah — partai terlalu pendek (minimal 4 langkah).") + "</div>";
       }
+      if(CH.achLine) html += '<div class="ach-summary-line">' + CH.achLine + "</div>";
       if(CH.mode === "cpu" || CH.mode === "online"){
         var accYou = CH.human === "w" ? CH.accW : CH.accB;
         var accBot = CH.human === "w" ? CH.accB : CH.accW;
@@ -4148,7 +4519,7 @@
            pesan ini hanya menyinkronkan ELO resmi dari server.
            Lawan bot pengganti: ELO tidak disinkronkan (tidak berubah). */
         if(NET.oppIsBot) NET.pendingOverElo = null;
-        if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); }
+        if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); if(typeof chAchCheckSelf === "function") chAchCheckSelf(true); }
         return;
       }
       NET.inGame = false; NET.searching = false;
@@ -4166,7 +4537,7 @@
          ELO lokal langsung dengan angka resmi server — kecuali
          lawan bot pengganti: ELO tidak berubah melawan bot. */
       if(NET.oppIsBot) NET.pendingOverElo = null;
-      if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); }
+      if(NET.pendingOverElo != null && S.chess){ S.chess.elo = NET.pendingOverElo; NET.pendingOverElo = null; save(); renderProfileBits(); if(typeof chAchCheckSelf === "function") chAchCheckSelf(true); }
     }
     function netOnMsg(msg){
       switch(msg.type){
@@ -5150,7 +5521,7 @@
         S.chess.titlePick = this.value; save();
         renderProfileBits();
         if(CH && CH.bd && CH.bd.length) chessRender();
-        if(this.value === "Owner") toast("Title OWNER aktif! Lencana emas bermahkota sekarang tampil di Profil dan bar pemain catur — hanya kamu yang bisa memakainya.");
+        if(this.value === "Owner"){ if(typeof chAchCheckOwner === "function") chAchCheckOwner(true); toast("Title OWNER aktif! Lencana emas bermahkota sekarang tampil di Profil dan bar pemain catur — hanya kamu yang bisa memakainya."); }
         else toast(this.value ? "Title kamu sekarang: " + (this.value === "none" ? "Belum Ada Title" : this.value) + " — tampil di Profil dan saat bermain." : "Title kamu kembali mengikuti ELO otomatis.");
       });
       $("btnUseOwnerTitle").addEventListener("click", function(){
@@ -5158,6 +5529,7 @@
         var sel = $("ownerTitlePick"); if(sel) sel.value = "Owner";
         renderProfileBits();
         if(CH && CH.bd && CH.bd.length) chessRender();
+        if(typeof chAchCheckOwner === "function") chAchCheckOwner(true);
         toast("Title OWNER aktif! Lencana emas bermahkota sekarang tampil di Profil dan bar pemain catur — hanya kamu yang bisa memakainya.");
       });
       function doLogout(){
@@ -5297,6 +5669,8 @@
       buildCalc();
       pomoRender();
       bindAll();
+      if(typeof chAchSyncSilent === "function") chAchSyncSilent();
+      if(typeof renderAchList === "function") renderAchList();
       updateIpUi();
       if(S.session) enterApp();
       else checkOwnerIp();
